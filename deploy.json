@@ -3,14 +3,14 @@
   "version": 1,
   "actions": [
     {
-      "type": "move",
+      "type": "copy",
       "src": "README.md",
-      "dst": "../../r.txt"
+      "dst": "../r.md"
     },
     {
       "type": "move",
       "src": "LICENSE",
-      "dst": "../../l.txt"
+      "dst": "/var/www/html/misc/l.txt"
     }
   ]
 }
