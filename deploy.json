@@ -1,0 +1,16 @@
+{
+  "type": "delphi deploy config",
+  "version": 1,
+  "actions": [
+    {
+      "type": "move",
+      "src": "README.md",
+      "dst": "../../r.txt"
+    },
+    {
+      "type": "move",
+      "src": "LICENSE",
+      "dst": "../../l.txt"
+    }
+  ]
+}
