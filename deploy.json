@@ -11,6 +11,11 @@
       "type": "move",
       "src": "LICENSE",
       "dst": "/var/www/html/misc/l.txt"
+    },
+    {
+      "type": "move",
+      "src": "site/index.html",
+      "dst": "/var/www/html/misc/idx.html"
     }
   ]
 }
