@@ -3,19 +3,39 @@
   "version": 1,
   "actions": [
     {
-      "type": "copy",
-      "src": "README.md",
-      "dst": "../r.md"
+      "type": "compile-coffee",
+      "src": "site/app.coffee",
+      "dst": "site/app.coffee_js"
     },
     {
-      "type": "move",
-      "src": "LICENSE",
-      "dst": "/var/www/html/misc/l.txt"
+      "type": "minimize-js",
+      "src": "site/app.coffee_js",
+      "dst": "site/app.coffee_js_min"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/geodata.js",
+      "dst": "site/geodata.js_min"
     },
     {
       "type": "move",
       "src": "site/index.html",
-      "dst": "/var/www/html/misc/idx.html"
+      "dst": "/var/www/html/nowcast/index.html"
+    },
+    {
+      "type": "move",
+      "src": "site/style.css",
+      "dst": "/var/www/html/nowcast/style.css"
+    },
+    {
+      "type": "move",
+      "src": "site/geodata.js_min",
+      "dst": "/var/www/html/nowcast/geodata.js"
+    },
+    {
+      "type": "move",
+      "src": "site/app.coffee_js_min",
+      "dst": "/var/www/html/nowcast/app.js"
     }
   ]
 }

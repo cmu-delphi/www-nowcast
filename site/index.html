@@ -1,1 +1,90 @@
-hello! (this is just a placeholder)
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>ILI Nearby</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="theme-color" content="#282828" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="pages">
+      <div class="page p1">
+        <div class="splash">
+          <div>
+            <div class="title_big shadow">
+              ILI Nearby
+            </div>
+            <div class="divider"></div>
+          </div>
+          <div class="subtitle shadow">
+            Nowcasting <span class="emph">I</span>nfluenza-<span class="emph">L</span>ike <span class="emph">I</span>llness (ILI) in the United States.
+          </div>
+        </div>
+        <div id="map_container">
+          <canvas id="canvas_map"></canvas>
+          <div id="map_controls">
+            <div id="button_view_nat" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;US National</div>
+            <div id="button_view_hhs" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;HHS Regions</div>
+            <div id="button_view_cen" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;Census Regions</div>
+            <div id="button_view_sta" class="map_control_item button_group0"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;States</div>
+            <div class="map_control_divider divider"></div>
+            <div id="button_zoom_in" class="map_control_item"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Zoom In</div>
+            <div id="button_zoom_out" class="map_control_item"><i class="fa fa-search-minus" aria-hidden="true"></i>&nbsp;Zoom Out</div>
+          </div>
+        </div>
+      </div>
+      <div class="page p2">
+        <div class="navbar">
+          <div id="back_arrow"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;ILI Nearby</div>
+          <div><a href="about.html"><i class="fa fa-info-circle" aria-hidden="true"></i></a></div>
+        </div>
+        <div class="location_content">
+          <div class="location_left">
+            <div id="location_name"></div>
+            <div id="location_heart0" class="achievement_holder">
+              <i class="fa fa-fw achievement fa-heart-o" aria-hidden="true"></i><br>
+              <span class="achievement_desc">This state has not shared surveillance data &mdash; yet :)</span>
+            </div>
+            <div id="location_heart1" class="achievement_holder">
+              <i class="fa fa-fw achievement fa-heart pink" aria-hidden="true"></i><br>
+              <span class="achievement_desc">This state shares surveillance data!</span>
+            </div>
+            <div id="location_star0" class="achievement_holder">
+              <i class="fa fa-fw achievement fa-star-o" aria-hidden="true"></i><br>
+              <span class="achievement_desc">This state does not post %ILI online &mdash; yet :)</span>
+            </div>
+            <div id="location_star1" class="achievement_holder">
+              <i class="fa fa-fw achievement fa-star gold" aria-hidden="true"></i><br>
+              <span class="achievement_desc">This state posts %ILI online!</span>
+            </div>
+            <div id="location_link" class="achievement_holder">
+              <i class="fa fa-fw achievement fa-check-circle green" aria-hidden="true"></i><br>
+              <span class="achievement_desc">Weighted %ILI is available from <a target="_blank" href="http://www.cdc.gov/flu/weekly/fluviewinteractive.htm">CDC</a>.</span>
+            </div>
+          </div>
+          <div class="location_right">
+            <div class="location_right_top">
+              <div id="location_status">
+                <div id="nowcast_label" class="status_small"></div>
+                <div id="nowcast_value" class="status_large"></div>
+              </div>
+            </div>
+            <div class="location_right_bottom">
+              <canvas id="canvas_chart"></canvas>
+            </div>
+          </div>
+          <div id="loading_icon"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="delphi_epidata.js"></script>
+    <script type="text/javascript" src="geodata.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+      $(document).ready(function() { window.app = new App(); });
+    </script>
+  </body>
+</html>

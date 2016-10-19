@@ -2,4 +2,4 @@
 Nowcasting Influenza-Like Illness (ILI) in the United States.
 
 # Notes
-Coming soon!
+Initial upload. May need a few tweaks to work properly.
