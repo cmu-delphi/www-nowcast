@@ -40,11 +40,6 @@
       "src": "site/app.coffee_js_min",
       "dst": "/var/www/html/nowcast/app.js",
       "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "../../temp.txt",
-      "dst": "/var/www/html/nowcast/temp.txt"
     }
   ]
 }
