@@ -21,6 +21,10 @@
       "type": "copy",
       "src": "site/index.html",
       "dst": "/var/www/html/nowcast/index.html",
+      "replace-keywords": [
+        "values/strings.json",
+        "values/colors.json"
+      ],
       "add-header-comment": true
     },
     {
