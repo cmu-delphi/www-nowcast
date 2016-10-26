@@ -165,6 +165,12 @@ window.App = class App
     $('#button_zoom_in').click(() => @zoomIn())
     $('#button_zoom_out').click(() => @zoomOut())
     @canvasMap = $('#canvas_map')
+    @canvasMap.mousemove((e) => 
+      loc = @hitTest(e.offsetX, e.offsetY)
+      if loc?
+        $('#canvas_map').css('cursor','pointer')
+      else
+        $('#canvas_map').css('cursor','auto'))
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
     @pointerInput = new PointerInput(@canvasMap, @)
