@@ -23,7 +23,6 @@ get_ecef2ortho = (lat, lon, zoom, w, h) ->
   return (x, y, z) -> [w2 + x * a + y * b, h2 + x * d + y * e + z * f]
 
 #Pre-process geodata
-
 # Move Hawaii and Alaska closer to Mainland, also shrink Alaska
 indexes = []
 for poly in geodata.locations['HI'].paths
@@ -50,8 +49,6 @@ for i in indexes
   [lat, lon] = geodata.points[i]
   [newlat, newlon] = [(centerY+lat)/2, (centerX+lon)/2]
   geodata.points[i] = [newlat, newlon]
-
-
 
 for i in [0...geodata.points.length]
   [lat, lon] = geodata.points[i]
@@ -313,7 +310,7 @@ window.App = class App
     }
     @ecef2ortho = get_ecef2ortho(@dlat, @dlon, @zoom, w, h)
     for loc in @locations
-      #ctx.fillStyle = '#' + ('00000' + Math.floor(Math.random() * 0x1000000).toString(16)).slice(-6)
+      [cX, cY] = @locCenterOnMap(loc)
       for poly in geodata.locations[loc].paths
         ctx.beginPath()
         ln = 0
@@ -324,6 +321,9 @@ window.App = class App
         ctx.fillStyle = @colors?[loc] ? '#ccc'
         ctx.fill()
         ctx.stroke()
+      ctx.font = 24 * Math.min(1, w / 3000) + 'px sans-serif'
+      ctx.fillStyle = 'Cyan'
+      ctx.fillText(loc, cX, cY)
     return 0
 
   renderChart: () ->
@@ -417,6 +417,15 @@ window.App = class App
         if hit
           return loc
     return null
+
+  locCenterOnMap: (loc) ->
+    [centerX, centerY, k] = [0, 0, 0]
+    for poly in geodata.locations[loc].paths
+      for idx in [1..poly.length]
+        [x, y] = @ecef2ortho(geodata.points[poly[idx % poly.length]]...)
+        [centerX, centerY] = [centerX + x, centerY + y]
+        k++
+    return [centerX/k, centerY/k]
 
   fetchNowcast: (loc) ->
     @chartData = null
