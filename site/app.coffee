@@ -22,6 +22,37 @@ get_ecef2ortho = (lat, lon, zoom, w, h) ->
   [a, b, d, e, f] = [-sy * wh, cy * wh, cy * sx * wh, sx * sy * wh, -cx * wh]
   return (x, y, z) -> [w2 + x * a + y * b, h2 + x * d + y * e + z * f]
 
+#Pre-process geodata
+
+# Move Hawaii and Alaska closer to Mainland, also shrink Alaska
+indexes = []
+for poly in geodata.locations['HI'].paths
+  for i in poly
+    if i not in indexes
+      indexes.push(i)
+for i in indexes
+  [lat, lon] = geodata.points[i]
+  geodata.points[i] = [lat+20, lon+20]
+
+indexes = []
+for poly in geodata.locations['AK'].paths
+  for i in poly
+    if i not in indexes
+      indexes.push(i)
+[minX, minY, maxX, maxY] = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MIN_VALUE, Number.MIN_VALUE]
+for i in indexes
+  [lat, lon] = geodata.points[i]
+  [newlat, newlon] = [lat-10, lon-62]
+  geodata.points[i] = [newlat, newlon]
+  [minX, minY, maxX, maxY] = [Math.min(minX,newlon), Math.min(minY,newlat), Math.max(maxX,newlon), Math.max(maxY,newlat)]
+[centerX, centerY] = [(minX+maxX)/2, (minY+maxY)/2]
+for i in indexes
+  [lat, lon] = geodata.points[i]
+  [newlat, newlon] = [(centerY+lat)/2, (centerX+lon)/2]
+  geodata.points[i] = [newlat, newlon]
+
+
+
 for i in [0...geodata.points.length]
   [lat, lon] = geodata.points[i]
   geodata.points[i] = ll2ecef(lat, lon)

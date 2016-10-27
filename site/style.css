@@ -92,6 +92,7 @@ a:active {
   display: block;
   box-shadow: 0px 0px 1em #000;
 }
+
 #map_controls {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
