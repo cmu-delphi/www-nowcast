@@ -31,7 +31,7 @@ for poly in geodata.locations['HI'].paths
       indexes.push(i)
 for i in indexes
   [lat, lon] = geodata.points[i]
-  geodata.points[i] = [lat+20, lon+20]
+  geodata.points[i] = [lat+5, lon+50]
 
 indexes = []
 for poly in geodata.locations['AK'].paths
@@ -41,7 +41,7 @@ for poly in geodata.locations['AK'].paths
 [minX, minY, maxX, maxY] = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MIN_VALUE, Number.MIN_VALUE]
 for i in indexes
   [lat, lon] = geodata.points[i]
-  [newlat, newlon] = [lat-10, lon-62]
+  [newlat, newlon] = [lat-35, lon-45]
   geodata.points[i] = [newlat, newlon]
   [minX, minY, maxX, maxY] = [Math.min(minX,newlon), Math.min(minY,newlat), Math.max(maxX,newlon), Math.max(maxY,newlat)]
 [centerX, centerY] = [(minX+maxX)/2, (minY+maxY)/2]
@@ -195,10 +195,16 @@ window.App = class App
     @canvasMap = $('#canvas_map')
     @canvasMap.mousemove((e) => 
       loc = @hitTest(e.offsetX, e.offsetY)
-      if loc?
+      if loc? and loc != 'AK' and loc != 'HI'
         $('#canvas_map').css('cursor','pointer')
+        @renderMap()
+        ctx = @canvasMap[0].getContext('2d')
+        ctx.font = 12 + 'px sans-serif'
+        ctx.fillStyle = '#eee'
+        ctx.fillText(loc, e.offsetX, e.offsetY)
       else
-        $('#canvas_map').css('cursor','auto'))
+        $('#canvas_map').css('cursor','auto')
+        @renderMap())
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
     @pointerInput = new PointerInput(@canvasMap, @)
@@ -310,7 +316,6 @@ window.App = class App
     }
     @ecef2ortho = get_ecef2ortho(@dlat, @dlon, @zoom, w, h)
     for loc in @locations
-      [cX, cY] = @locCenterOnMap(loc)
       for poly in geodata.locations[loc].paths
         ctx.beginPath()
         ln = 0
@@ -321,9 +326,13 @@ window.App = class App
         ctx.fillStyle = @colors?[loc] ? '#ccc'
         ctx.fill()
         ctx.stroke()
-      ctx.font = 24 * Math.min(1, w / 3000) + 'px sans-serif'
-      ctx.fillStyle = 'Cyan'
-      ctx.fillText(loc, cX, cY)
+    # Draw AK and HI seperately
+    [cX, cY] = @locCenterOnMap('AK')
+    ctx.font = 12 + 'px sans-serif'
+    ctx.fillStyle = '#eee'
+    ctx.fillText('AK', cX, cY)
+    [cX, cY] = @locCenterOnMap('HI')
+    ctx.fillText('HI', cX, cY)
     return 0
 
   renderChart: () ->
