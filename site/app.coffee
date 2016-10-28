@@ -1,5 +1,6 @@
+# Transforming geodata from physical coordinates to earth centered earth fixed(ECEF)
+# then to orthographic in 2D
 deg2rad = Math.PI / 180
-
 ll2ecef = (lat, lon, h=0) ->
   [lat, lon] = [lat * deg2rad, lon  * deg2rad]
   [clat, clon] = [Math.cos(lat), Math.cos(lon)]
@@ -22,7 +23,6 @@ get_ecef2ortho = (lat, lon, zoom, w, h) ->
   [a, b, d, e, f] = [-sy * wh, cy * wh, cy * sx * wh, sx * sy * wh, -cx * wh]
   return (x, y, z) -> [w2 + x * a + y * b, h2 + x * d + y * e + z * f]
 
-#Pre-process geodata
 # Move Hawaii and Alaska closer to Mainland, also shrink Alaska
 indexes = []
 for poly in geodata.locations['HI'].paths
@@ -41,14 +41,22 @@ for poly in geodata.locations['AK'].paths
 [minX, minY, maxX, maxY] = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MIN_VALUE, Number.MIN_VALUE]
 for i in indexes
   [lat, lon] = geodata.points[i]
-  [newlat, newlon] = [lat-35, lon-45]
-  geodata.points[i] = [newlat, newlon]
-  [minX, minY, maxX, maxY] = [Math.min(minX,newlon), Math.min(minY,newlat), Math.max(maxX,newlon), Math.max(maxY,newlat)]
+  [minX, minY, maxX, maxY] = [Math.min(minX,lon), Math.min(minY,lat), Math.max(maxX,lon), Math.max(maxY,lat)]
 [centerX, centerY] = [(minX+maxX)/2, (minY+maxY)/2]
 for i in indexes
   [lat, lon] = geodata.points[i]
-  [newlat, newlon] = [(centerY+lat)/2, (centerX+lon)/2]
-  geodata.points[i] = [newlat, newlon]
+  dlon = Math.abs(lon-centerX)*12/17
+  dlat = Math.abs(lat-centerY)*10/17
+  if lat > centerY
+    lat = lat-dlat
+  else
+    lat = lat+dlat
+  if lon > centerX
+    lon = lon-dlon
+  else
+    lon = lon+dlon
+  geodata.points[i] = [lat-35, lon-75]
+
 
 for i in [0...geodata.points.length]
   [lat, lon] = geodata.points[i]
@@ -61,6 +69,7 @@ for i in [0...geodata.points.length]
   [x1, x2] = [Math.min(x1, lon), Math.max(x2, lon)]
 [LON_MIN, LON_MAX, LAT_MIN, LAT_MAX] = [x1, x2, y1, y2]
 
+# Constants
 NATIONAL = [
   'nat'
 ]
@@ -330,7 +339,7 @@ window.App = class App
     [cX, cY] = @locCenterOnMap('AK')
     ctx.font = 12 + 'px sans-serif'
     ctx.fillStyle = '#eee'
-    ctx.fillText('AK', cX, cY)
+    ctx.fillText('AK', cX-20, cY)
     [cX, cY] = @locCenterOnMap('HI')
     ctx.fillText('HI', cX, cY)
     return 0
