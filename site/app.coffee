@@ -201,6 +201,7 @@ window.App = class App
     $('#button_view_sta').click(clicker('sta', STATES))
     $('#button_zoom_in').click(() => @zoomIn())
     $('#button_zoom_out').click(() => @zoomOut())
+    @dataTimeline = $("#dataTimeline")
     @canvasMap = $('#canvas_map')
     @canvasMap.mousemove((e) => 
       loc = @hitTest(e.offsetX, e.offsetY)
@@ -226,10 +227,12 @@ window.App = class App
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
 
+
   loadEpidata: () ->
     callback = (epidata) =>
       epiweek1 = epidata[epidata.length - 4].epiweek
       epiweek2 = epidata[epidata.length - 1].epiweek
+      @dataTimeline.html("Data of week " + epiweek1 + " to week " + epiweek2);
       callback = (epidata) =>
         @colors = {}
         for row in epidata
