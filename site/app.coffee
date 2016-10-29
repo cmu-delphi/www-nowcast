@@ -41,12 +41,15 @@ for poly in geodata.locations['AK'].paths
 [minX, minY, maxX, maxY] = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MIN_VALUE, Number.MIN_VALUE]
 for i in indexes
   [lat, lon] = geodata.points[i]
-  [minX, minY, maxX, maxY] = [Math.min(minX,lon), Math.min(minY,lat), Math.max(maxX,lon), Math.max(maxY,lat)]
+  if lon < 0
+    [minX, minY, maxX, maxY] = [Math.min(minX,lon), Math.min(minY,lat), Math.max(maxX,lon), Math.max(maxY,lat)]
 [centerX, centerY] = [(minX+maxX)/2, (minY+maxY)/2]
 for i in indexes
   [lat, lon] = geodata.points[i]
+  if lon > 0
+    lon = lon - 360
   dlon = Math.abs(lon-centerX)*12/17
-  dlat = Math.abs(lat-centerY)*10/17
+  dlat = Math.abs(lat-centerY)*9/17
   if lat > centerY
     lat = lat-dlat
   else
@@ -55,7 +58,9 @@ for i in indexes
     lon = lon-dlon
   else
     lon = lon+dlon
-  geodata.points[i] = [lat-35, lon-75]
+  if lon < -180
+    lon = lon+360
+  geodata.points[i] = [lat-35, lon-10]
 
 
 for i in [0...geodata.points.length]
@@ -273,6 +278,7 @@ window.App = class App
     @fetchNowcast(loc)
 
   setLocations: (@locations) ->
+    @renderMapList()
     @renderMap()
 
   resizeCanvas: () ->
@@ -316,7 +322,19 @@ window.App = class App
     @zoom = Math.max(@zoom / factor, 1.25)
     @renderMap()
 
-  renderMap: () ->
+  renderMapList: () ->
+    $('#map_list ul').empty()
+    saveThis = @
+    for loc in @locations
+      $('#map_list ul').append(
+        $('<li>').attr('class','map_list_element').attr('id', 'map_list_element_'+loc).append(
+          $('<a>').attr('href','#').append(NAMES[loc])));
+    for loc in @locations
+      $('#map_list_element_'+loc).hover(
+        (ev) -> saveThis.renderMap(this.id.substring(17))
+        (ev) -> saveThis.renderMap())
+
+  renderMap: (highlight=null) ->
     [w, h] = [@canvasMap.width(), @canvasMap.height()]
     ctx = @canvasMap[0].getContext('2d')
     ctx.clearRect(0, 0, w, h)
@@ -339,12 +357,31 @@ window.App = class App
         ctx.fill()
         ctx.stroke()
     # Draw AK and HI seperately
-    [cX, cY] = @locCenterOnMap('AK')
-    ctx.font = 12 + 'px sans-serif'
-    ctx.fillStyle = '#eee'
-    ctx.fillText('AK', cX-20, cY)
-    [cX, cY] = @locCenterOnMap('HI')
-    ctx.fillText('HI', cX, cY)
+    if highlight != 'AK'
+      [cX, cY] = @locCenterOnMap('AK')
+      ctx.font = 12 + 'px sans-serif'
+      ctx.fillStyle = '#eee'
+      ctx.fillText('AK', cX, cY)
+    if highlight != 'HI'
+      [cX, cY] = @locCenterOnMap('HI')
+      ctx.font = 12 + 'px sans-serif'
+      ctx.fillStyle = '#eee'
+      ctx.fillText('HI', cX, cY)
+    if highlight?
+      ctx.font = 12 + 'px sans-serif'
+      ctx.strokeStyle = '#eee'
+      ctx.lineWidth = 1.5
+      for poly in geodata.locations[highlight].paths
+        ctx.beginPath()
+        ln = 0
+        for idx in poly
+          line[ln](@ecef2ortho(geodata.points[idx]...)...)
+          ln |= 1
+        ctx.closePath()
+        ctx.stroke()
+      [cX, cY] = @locCenterOnMap(highlight)
+      ctx.fillText(highlight, cX, cY)
+
     return 0
 
   renderChart: () ->
@@ -446,7 +483,10 @@ window.App = class App
         [x, y] = @ecef2ortho(geodata.points[poly[idx % poly.length]]...)
         [centerX, centerY] = [centerX + x, centerY + y]
         k++
-    return [centerX/k, centerY/k]
+    [centerX, centerY] = [centerX/k, centerY/k]
+    if loc == 'AK'
+      centerY = centerY - 10
+    return [centerX, centerY]
 
   fetchNowcast: (loc) ->
     @chartData = null

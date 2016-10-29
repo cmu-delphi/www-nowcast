@@ -92,6 +92,59 @@ a:active {
   display: block;
   box-shadow: 0px 0px 1em #000;
 }
+#map_list {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.5);
+}
+#map_list_lists {
+  list-style-type: none;
+  height: 500px;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+.map_list_element {
+  border-bottom: 1px solid #ccc;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+.map_list_element:last-child {
+  border: none;
+}
+ 
+.map_list_element a {
+  text-align: center;
+  text-decoration: none;
+  color: #eee;
+  display: block;
+  width: 200px;
+ 
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+ 
+.map_list_element a:hover {
+  font-size: 20px;
+  color: #000;
+  background: #f6f6f6;
+}
+
+#map_list_header {
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 3px;
+}
 
 #map_controls {
   background-color: rgba(0, 0, 0, 0.5);
@@ -119,6 +172,20 @@ a:active {
   color: #ddd;
   padding: 1em 2em 0em 2em;
 }
+
+p.text_footer {
+   color: #a0a0a0;
+   text-align: center;
+   font-size: 0.75em;
+   padding-top: 8px;
+   padding-bottom: 8px;
+   transition: color 1s ease 0.0s;
+}
+p.text_footer:hover {
+   color: #000000;
+   transition: color 1s ease 0.0s;
+}
+
 .divider {
   width: 100%;
   height: 1px;
