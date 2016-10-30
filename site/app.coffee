@@ -98,7 +98,8 @@ ILI_AVAILABLE = [
   # select state, count(1) from state_ili group by state order by state
   'AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'IA', 'ID', 'IL', 'IN', 'KS', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'RI', 'SC', 'SD', 'TN', 'TX', 'VT', 'WI', 'WV', 'WY'
 ]
-NAMES = {"FL": "Florida", "cen4": "Census Region 4", "hhs9": "HHS Region 9", "MT": "Montana", "WV": "West Virginia", "RI": "Rhode Island", "AR": "Arkansas", "VA": "Virginia", "cen7": "Census Region 7", "IN": "Indiana", "NC": "North Carolina", "IA": "Iowa", "MN": "Minnesota", "cen2": "Census Region 2", "DE": "Delaware", "PA": "Pennsylvania", "hhs7": "HHS Region 7", "nat": "US National", "hhs10": "HHS Region 10", "LA": "Louisiana", "MD": "Maryland", "AK": "Alaska", "CO": "Colorado", "WI": "Wisconsin", "ID": "Idaho", "OK": "Oklahoma", "hhs3": "HHS Region 3", "hhs2": "HHS Region 2", "hhs1": "HHS Region 1", "cen1": "Census Region 1", "KY": "Kentucky", "ME": "Maine", "CA": "California", "cen5": "Census Region 5", "WY": "Wyoming", "ND": "North Dakota", "NY": "New York", "MA": "Massachusetts", "UT": "Utah", "DC": "District of Columbia", "MS": "Mississippi", "hhs6": "HHS Region 6", "GA": "Georgia", "AL": "Alabama", "HI": "Hawaii", "hhs4": "HHS Region 4", "AZ": "Arizona", "CT": "Connecticut", "KS": "Kansas", "NH": "New Hampshire", "cen8": "Census Region 8", "TX": "Texas", "NV": "Nevada", "TN": "Tennessee", "NJ": "New Jersey", "MI": "Michigan", "hhs8": "HHS Region 8", "NM": "New Mexico", "IL": "Illinois", "cen3": "Census Region 3", "VT": "Vermont", "WA": "Washington", "SD": "South Dakota", "NE": "Nebraska", "hhs5": "HHS Region 5", "SC": "South Carolina", "cen6": "Census Region 6", "OR": "Oregon", "cen9": "Census Region 9", "MO": "Missouri", "OH": "Ohio"}
+NAMES = {"FL": "Florida", "cen4": "West North Central", "hhs9": "HHS Region 9", "MT": "Montana", "WV": "West Virginia", "RI": "Rhode Island", "AR": "Arkansas", "VA": "Virginia", "cen7": "West South Central", "IN": "Indiana", "NC": "North Carolina", "IA": "Iowa", "MN": "Minnesota", "cen2": "Middle Atlantic", "DE": "Delaware", "PA": "Pennsylvania", "hhs7": "HHS Region 7", "nat": "US National", "hhs10": "HHS Region 10", "LA": "Louisiana", "MD": "Maryland", "AK": "Alaska", "CO": "Colorado", "WI": "Wisconsin", "ID": "Idaho", "OK": "Oklahoma", "hhs3": "HHS Region 3", "hhs2": "HHS Region 2", "hhs1": "HHS Region 1", "cen1": "New England", "KY": "Kentucky", "ME": "Maine", "CA": "California", "cen5": "South Atlantic", "WY": "Wyoming", "ND": "North Dakota", "NY": "New York", "MA": "Massachusetts", "UT": "Utah", "DC": "District of Columbia", "MS": "Mississippi", "hhs6": "HHS Region 6", "GA": "Georgia", "AL": "Alabama", "HI": "Hawaii", "hhs4": "HHS Region 4", "AZ": "Arizona", "CT": "Connecticut", "KS": "Kansas", "NH": "New Hampshire", "cen8": "Mountain", "TX": "Texas", "NV": "Nevada", "TN": "Tennessee", "NJ": "New Jersey", "MI": "Michigan", "hhs8": "HHS Region 8", "NM": "New Mexico", "IL": "Illinois", "cen3": "East North Central", "VT": "Vermont", "WA": "Washington", "SD": "South Dakota", "NE": "Nebraska", "hhs5": "HHS Region 5", "SC": "South Carolina", "cen6": "East South Central", "OR": "Oregon", "cen9": "Pacific", "MO": "Missouri", "OH": "Ohio"}
+REGION2STATE = {"hhs1": ['ME', 'MA', 'NH', 'VT', 'RI', 'CT'], "hhs2": ['NY', 'NJ'], "hhs3": ['PA', 'DE', 'DC', 'MD', 'VA', 'WV'], "hhs4": ['NC', 'SC', 'GA', 'FL', 'KY', 'TN', 'MS', 'AL'], "hhs5": ['MI', 'IL', 'IN', 'OH', 'WI', 'MN'], "hhs6": ['LA', 'AR', 'OK', 'TX', 'NM'], "hhs7": ['IA', 'MO', 'NE', 'KS'], "hhs8": ['ND', 'SD', 'CO', 'WY', 'MT', 'UT'], "hhs9": ['NV', 'CA', 'HI', 'AZ'], "hhs10": ['WA', 'OR', 'AK', 'ID'], "cen1": ['ME', 'MA', 'NH', 'VT', 'RI', 'CT'], "cen2": ['PA', 'NY', 'NJ'], "cen3": ['WI', 'MI', 'IN', 'IL', 'OH'], "cen4": ['ND', 'SD', 'NE', 'KS', 'MN', 'IA', 'MO'], "cen5": ['DE','MD','DC','WV','VA','NC','SC','GA','FL'], "cen6": ['KY','TN', 'MS', 'AL'], "cen7": ['OK', 'AR', 'LA', 'TX'], "cen8": ['MT', 'ID', 'WY', 'CO', 'UT', 'NV', 'AZ', 'NM'], "cen9": ['WA', 'OR', 'CA', 'AK', 'HI']}
 
 
 getFakeRow = (location, i) ->
@@ -346,16 +347,62 @@ window.App = class App
     }
     @ecef2ortho = get_ecef2ortho(@dlat, @dlon, @zoom, w, h)
     for loc in @locations
-      for poly in geodata.locations[loc].paths
-        ctx.beginPath()
-        ln = 0
-        for idx in poly
-          line[ln](@ecef2ortho(geodata.points[idx]...)...)
-          ln |= 1
-        ctx.closePath()
-        ctx.fillStyle = @colors?[loc] ? '#ccc'
-        ctx.fill()
-        ctx.stroke()
+      if loc != highlight
+        for poly in geodata.locations[loc].paths
+          ctx.beginPath()
+          ln = 0
+          for idx in poly
+            line[ln](@ecef2ortho(geodata.points[idx]...)...)
+            ln |= 1
+          ctx.closePath()
+          ctx.fillStyle = @colors?[loc] ? '#ccc'
+          ctx.fill()
+          ctx.stroke()
+    # Highlight the hovered region(decompose states as well)
+    if highlight?
+      ctx.font = 12 + 'px sans-serif'
+      ctx.strokeStyle = '#eee'
+      if highlight of REGION2STATE
+        ctx.lineWidth = 0.5
+        for loc in REGION2STATE[highlight]
+          for poly in geodata.locations[loc].paths
+            ctx.beginPath()
+            ln = 0
+            for idx in poly
+              line[ln](@ecef2ortho(geodata.points[idx]...)...)
+              ln |= 1
+            ctx.closePath()
+            ctx.fillStyle = @colors?[loc] ? '#ccc'
+            ctx.fill()
+            ctx.stroke()
+        ctx.lineWidth = 1.5
+        for poly in geodata.locations[highlight].paths
+          ctx.beginPath()
+          ln = 0
+          for idx in poly
+            line[ln](@ecef2ortho(geodata.points[idx]...)...)
+            ln |= 1
+          ctx.closePath()
+          ctx.stroke()
+        for loc in REGION2STATE[highlight]
+          ctx.fillStyle = '#eee'
+          [cX, cY] = @locCenterOnMap(loc)
+          ctx.fillText(loc, cX, cY)
+      else
+        ctx.lineWidth = 1.5
+        for poly in geodata.locations[highlight].paths
+          ctx.beginPath()
+          ln = 0
+          for idx in poly
+            line[ln](@ecef2ortho(geodata.points[idx]...)...)
+            ln |= 1
+          ctx.closePath()
+          ctx.fillStyle = @colors?[loc] ? '#ccc'
+          ctx.fill()
+          ctx.stroke()
+        ctx.fillStyle = '#eee'
+        [cX, cY] = @locCenterOnMap(highlight)
+        ctx.fillText(highlight, cX, cY)
     # Draw AK and HI seperately
     if highlight != 'AK'
       [cX, cY] = @locCenterOnMap('AK')
@@ -367,21 +414,6 @@ window.App = class App
       ctx.font = 12 + 'px sans-serif'
       ctx.fillStyle = '#eee'
       ctx.fillText('HI', cX, cY)
-    if highlight?
-      ctx.font = 12 + 'px sans-serif'
-      ctx.strokeStyle = '#eee'
-      ctx.lineWidth = 1.5
-      for poly in geodata.locations[highlight].paths
-        ctx.beginPath()
-        ln = 0
-        for idx in poly
-          line[ln](@ecef2ortho(geodata.points[idx]...)...)
-          ln |= 1
-        ctx.closePath()
-        ctx.stroke()
-      [cX, cY] = @locCenterOnMap(highlight)
-      ctx.fillText(highlight, cX, cY)
-
     return 0
 
   renderChart: () ->
