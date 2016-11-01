@@ -362,6 +362,11 @@ p.text_footer:hover {
   }
 }
 
+@media screen and (max-width: 600px) {
+  #map_list {
+    visibility: hidden;
+  }
+}
 @media screen and (max-aspect-ratio: 1/1) and (orientation: portrait) {
   .location_content {
     flex-direction: column;
