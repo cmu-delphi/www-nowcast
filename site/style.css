@@ -397,6 +397,37 @@ p.text_footer:hover {
   }
 }
 
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
+  .location_content {
+    flex-direction: column;
+  }
+  .location_left {
+    width: 100%;
+    height: 30%;
+    flex-direction: row;
+  }
+  .location_right {
+    width: 100%;
+    height: 70%;
+  }
+  .location_left_top {
+    height: 30vh;
+  }
+  .location_right_top {
+    height: 30%;
+  }
+
+  .location_right_bottom {
+    height: 70%;
+    padding-bottom: 10vh;
+  }
+
+  #loading_icon {
+    width: 80%;
+    height: 40%;
+  }
+}
+
 @media (orientation: landscape) {
   .location_content {
     flex-direction: row;
