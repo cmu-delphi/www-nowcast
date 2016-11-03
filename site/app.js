@@ -448,6 +448,7 @@ window.App = App = (function() {
         var d1, d2;
         d1 = Math.pow(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2), 0.5);
         d2 = Math.pow(Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2), 0.5);
+        alert(d1 + "|" + d2);
         if (d1 > d2) {
           return _this.zoomOut();
         } else {
