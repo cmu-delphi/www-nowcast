@@ -443,12 +443,7 @@ window.App = App = (function() {
     })(this);
     pinch = (function(_this) {
       return function(e) {
-        alert(e.scale + "haha" + e.originalEvent.scale);
-        if (e.originalEvent.scale < 1.0) {
-          return zoomOut(1 + (1 - e.originalEvent.scale));
-        } else {
-          return zoomIn(e.originalEvent.scale);
-        }
+        return alert("Haha");
       };
     })(this);
     $('#button_view_nat').click(clicker('nat', NATIONAL));
@@ -484,11 +479,7 @@ window.App = App = (function() {
         }
       };
     })(this));
-    this.canvasMap.on('gestureend', ((function(_this) {
-      return function(e) {
-        return pinch(e);
-      };
-    })(this)), false);
+    this.canvasMap.on('touchend', pinch, false);
     this.canvasChart = $('#canvas_chart');
     $(window).resize((function(_this) {
       return function() {
