@@ -224,10 +224,10 @@ window.App = class App
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
     pinch = (e) =>
-      if e.scale < 1.0
-        zoomOut(1+(1-e.scale))
+      if e.originalEvent.scale < 1.0
+        zoomOut(1+(1-e.originalEvent.scale))
       else
-        zoomIn(e.scale)
+        zoomIn(e.originalEvent.scale)
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
