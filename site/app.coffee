@@ -228,12 +228,10 @@ window.App = class App
     pinchZoom = () =>
       d1 = ((x0-x1)**2+(y0-y1)**2)**0.5
       d2 = ((x2-x3)**2+(y2-y3)**2)**0.5
-      alert(x0+"|"+x1+"|"+x2+"|"+x3+"|"+y0+"|"+y1+"|"+y2+"|"+y3)
-      alert(d1+"|"+d2)
       if d1 > d2
-        @zoomIn()
-      else
         @zoomOut()
+      else
+        @zoomIn()
     pinchend = (e) =>
       if isPinching
         if e.originalEvent.changedTouches.length == 2
@@ -242,7 +240,6 @@ window.App = class App
           y2 = e.originalEvent.changedTouches[0].screenY
           y3 = e.originalEvent.changedTouches[1].screenY
           isPinching = false
-          alert("2:"+x2+"|"+x3)
           pinchZoom()
         if e.originalEvent.changedTouches.length == 1
           if x2 == -1
@@ -252,7 +249,6 @@ window.App = class App
             x3 = e.originalEvent.changedTouches[0].screenX
             y3 = e.originalEvent.changedTouches[0].screenY
             isPinching = false
-            alert("1:"+x2+"|"+x3)
             pinchZoom()
     pinchstart = (e) =>
       if e.originalEvent.targetTouches.length == 2

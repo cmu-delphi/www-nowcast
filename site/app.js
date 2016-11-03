@@ -448,12 +448,10 @@ window.App = App = (function() {
         var d1, d2;
         d1 = Math.pow(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2), 0.5);
         d2 = Math.pow(Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2), 0.5);
-        alert(x0 + "|" + x1 + "|" + x2 + "|" + x3 + "|" + y0 + "|" + y1 + "|" + y2 + "|" + y3);
-        alert(d1 + "|" + d2);
         if (d1 > d2) {
-          return _this.zoomIn();
-        } else {
           return _this.zoomOut();
+        } else {
+          return _this.zoomIn();
         }
       };
     })(this);
@@ -466,7 +464,6 @@ window.App = App = (function() {
             y2 = e.originalEvent.changedTouches[0].screenY;
             y3 = e.originalEvent.changedTouches[1].screenY;
             isPinching = false;
-            alert("2:" + x2 + "|" + x3);
             pinchZoom();
           }
           if (e.originalEvent.changedTouches.length === 1) {
@@ -477,7 +474,6 @@ window.App = App = (function() {
               x3 = e.originalEvent.changedTouches[0].screenX;
               y3 = e.originalEvent.changedTouches[0].screenY;
               isPinching = false;
-              alert("1:" + x2 + "|" + x3);
               return pinchZoom();
             }
           }
