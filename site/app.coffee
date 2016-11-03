@@ -225,27 +225,39 @@ window.App = class App
         @setLocations(locations)
     [x0,x1,x2,x3,y0,y1,y2,y3] = [-1,-1,-1,-1,-1,-1,-1,-1]
     isPinching = false
+    pinchZoom = () =>
+      d1 = Math.sqrt((x0-x1)^2+(y0-y1)^2)
+      d2 = Math.sqrt((x2-x3)^2+(y2-y3)^2)
+      if d1 > d2
+        zoomIn()
+      else
+        zoomOut()
     pinchend = (e) =>
       if isPinching
         if e.originalEvent.changedTouches.length == 2
-          alert("2e")
-          x2 = e.originalEvent.changedTouches[0].pageX;
-          x3 = e.originalEvent.changedTouches[1].pageX;
-          x2 = e.originalEvent.changedTouches[0].pageY;
-          y3 = e.originalEvent.changedTouches[1].pageY;
+          x2 = e.originalEvent.changedTouches[0].pageX
+          x3 = e.originalEvent.changedTouches[1].pageX
+          y2 = e.originalEvent.changedTouches[0].pageY
+          y3 = e.originalEvent.changedTouches[1].pageY
           isPinching = false
-          @zoomIn()
+          pinchZoom()
         else if e.originalEvent.changedTouches.length == 1
-          alert("1")
+          if x2 == -1
+            x2 = e.originalEvent.changedTouches[0].pageX
+            y2 = e.originalEvent.changedTouches[0].pageY
+          else
+            x3 = e.originalEvent.changedTouches[0].pageX
+            y3 = e.originalEvent.changedTouches[0].pageY;
+            isPinching = false
+            pinchZoom()
     pinchstart = (e) =>
       if e.originalEvent.targetTouches.length == 2
-        alert("2s")
         isPinching = true
         [x0,x1,x2,x3,y0,y1,y2,y3] = [-1,-1,-1,-1,-1,-1,-1,-1]
-        x0 = e.originalEvent.targetTouches[0].pageX;
-        x1 = e.originalEvent.targetTouches[1].pageX;
-        y0 = e.originalEvent.targetTouches[0].pageY;
-        y1 = e.originalEvent.targetTouches[1].pageY; 
+        x0 = e.originalEvent.targetTouches[0].pageX
+        x1 = e.originalEvent.targetTouches[1].pageX
+        y0 = e.originalEvent.targetTouches[0].pageY
+        y1 = e.originalEvent.targetTouches[1].pageY 
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
