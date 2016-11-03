@@ -443,6 +443,7 @@ window.App = App = (function() {
     })(this);
     pinch = (function(_this) {
       return function(e) {
+        alert.log(e.scale + "haha" + e.originalEvent.scale);
         if (e.originalEvent.scale < 1.0) {
           return zoomOut(1 + (1 - e.originalEvent.scale));
         } else {

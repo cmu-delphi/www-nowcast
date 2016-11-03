@@ -224,6 +224,7 @@ window.App = class App
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
     pinch = (e) =>
+      alert.log(e.scale + "haha" + e.originalEvent.scale)
       if e.originalEvent.scale < 1.0
         zoomOut(1+(1-e.originalEvent.scale))
       else
