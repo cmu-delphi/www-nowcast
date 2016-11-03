@@ -249,7 +249,6 @@ window.App = class App
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
-    alert("lol")
     @canvasMap.on('gestureend',((e)=>pinch(e)), false)
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())

@@ -484,7 +484,6 @@ window.App = App = (function() {
         }
       };
     })(this));
-    alert("lol");
     this.canvasMap.on('gestureend', ((function(_this) {
       return function(e) {
         return pinch(e);
