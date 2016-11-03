@@ -262,7 +262,7 @@ getEpidataHander = function(callback) {
     } else {
       msg = "The Epidata API says '" + message + "'. (error #" + result + ")";
       console.log(msg);
-      return alert.log(msg);
+      return alert(msg);
     }
   };
 };
@@ -443,7 +443,7 @@ window.App = App = (function() {
     })(this);
     pinch = (function(_this) {
       return function(e) {
-        alert.log(e.scale + "haha" + e.originalEvent.scale);
+        alert(e.scale + "haha" + e.originalEvent.scale);
         if (e.originalEvent.scale < 1.0) {
           return zoomOut(1 + (1 - e.originalEvent.scale));
         } else {
@@ -484,7 +484,7 @@ window.App = App = (function() {
         }
       };
     })(this));
-    alert.log("lol");
+    alert("lol");
     this.canvasMap.on('gestureend', ((function(_this) {
       return function(e) {
         return pinch(e);

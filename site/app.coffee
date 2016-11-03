@@ -128,7 +128,7 @@ getEpidataHander = (callback) ->
     else
       msg = "The Epidata API says '#{message}'. (error ##{result})"
       console.log(msg)
-      alert.log(msg)
+      alert(msg)
 
 Epidata_fluview_single = (handler, location, epiweeks) ->
   if Epidata?.fluview?
@@ -224,7 +224,7 @@ window.App = class App
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
     pinch = (e) =>
-      alert.log(e.scale + "haha" + e.originalEvent.scale)
+      alert(e.scale + "haha" + e.originalEvent.scale)
       if e.originalEvent.scale < 1.0
         zoomOut(1+(1-e.originalEvent.scale))
       else
@@ -249,7 +249,7 @@ window.App = class App
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
-    alert.log("lol")
+    alert("lol")
     @canvasMap.on('gestureend',((e)=>pinch(e)), false)
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
