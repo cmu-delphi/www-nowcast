@@ -223,13 +223,13 @@ window.App = class App
         $("#button_view_#{name} i").removeClass('fa-circle-o')
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
-    [x0,x1,x2,x3,y0,y1,y2,y3] = [-1,-1,-1,-1,-1,-1,-1,-1]
+    [xs0,xs1,xe2,xe3,ys0,ys1,ye2,ye3] = [-1,-1,-1,-1,-1,-1,-1,-1]
     isPinching = false
     pinchZoom = () =>
-      d1 = ((x0-x1)**2+(y0-y1)**2)**0.5
-      d2 = ((x2-x3)**2+(y2-y3)**2)**0.5
-      alert(x0+"|"+x1)
-      alert(x2+"|"+x3)
+      d1 = ((xs0-xs1)**2+(ys0-ys1)**2)**0.5
+      d2 = ((xe2-xe3)**2+(ye2-ye3)**2)**0.5
+      alert(xs0+"|"+xs1)
+      alert(xe2+"|"+xe3)
       alert(d1+"|"+d2)
       if d1 > d2
         @zoomOut()
@@ -238,33 +238,33 @@ window.App = class App
     pinchend = (e) =>
       if isPinching
         if e.originalEvent.changedTouches.length == 2
-          x2 = e.originalEvent.changedTouches[0].pageX
-          x3 = e.originalEvent.changedTouches[1].pageX
-          y2 = e.originalEvent.changedTouches[0].pageY
-          y3 = e.originalEvent.changedTouches[1].pageY
-          isPinching = false
           alert("2")
+          xe2 = e.originalEvent.changedTouches[0].pageX
+          xe3 = e.originalEvent.changedTouches[1].pageX
+          ye2 = e.originalEvent.changedTouches[0].pageY
+          ye3 = e.originalEvent.changedTouches[1].pageY
+          isPinching = false
           pinchZoom()
         if e.originalEvent.changedTouches.length == 1
-          alert("4"+"|"+x2+"|"+x3)
-          if x2 < 0
+          alert("4"+"|"+xe2+"|"+xe3)
+          if xe2 < 0
             alert("3")
             #x2 = e.originalEvent.changedTouches[0].pageX
-            y2 = e.originalEvent.changedTouches[0].pageY
+            ye2 = e.originalEvent.changedTouches[0].pageY
           else
-            x3 = e.originalEvent.changedTouches[0].pageX
-            y3 = e.originalEvent.changedTouches[0].pageY
+            xe3 = e.originalEvent.changedTouches[0].pageX
+            ye3 = e.originalEvent.changedTouches[0].pageY
             isPinching = false
             alert("1")
             pinchZoom()
     pinchstart = (e) =>
       if e.originalEvent.targetTouches.length == 2
         isPinching = true
-        [x0,x1,x2,x3,y0,y1,y2,y3] = [-1,-1,-1,-1,-1,-1,-1,-1]
-        x0 = e.originalEvent.targetTouches[0].pageX
-        x1 = e.originalEvent.targetTouches[1].pageX
-        y0 = e.originalEvent.targetTouches[0].pageY
-        y1 = e.originalEvent.targetTouches[1].pageY 
+        [xs0,xs1,xe2,xe3,ys0,ys1,ye2,ye3] = [-1,-1,-1,-1,-1,-1,-1,-1]
+        xs0 = e.originalEvent.targetTouches[0].pageX
+        xs1 = e.originalEvent.targetTouches[1].pageX
+        ys0 = e.originalEvent.targetTouches[0].pageY
+        ys1 = e.originalEvent.targetTouches[1].pageY 
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))

@@ -429,7 +429,7 @@ window.App = App = (function() {
   PAGE_CHART = 1;
 
   function App() {
-    var clicker, isPinching, pinchZoom, pinchend, pinchstart, ref14, x0, x3, y0, y3;
+    var clicker, isPinching, pinchZoom, pinchend, pinchstart, ref14, xe2, xe3, xs0, xs1, ye2, ye3, ys0, ys1;
     clicker = (function(_this) {
       return function(name, locations) {
         return function() {
@@ -441,15 +441,15 @@ window.App = App = (function() {
         };
       };
     })(this);
-    ref14 = [-1, -1, -1, -1, -1, -1, -1, -1], x0 = ref14[0], x1 = ref14[1], x2 = ref14[2], x3 = ref14[3], y0 = ref14[4], y1 = ref14[5], y2 = ref14[6], y3 = ref14[7];
+    ref14 = [-1, -1, -1, -1, -1, -1, -1, -1], xs0 = ref14[0], xs1 = ref14[1], xe2 = ref14[2], xe3 = ref14[3], ys0 = ref14[4], ys1 = ref14[5], ye2 = ref14[6], ye3 = ref14[7];
     isPinching = false;
     pinchZoom = (function(_this) {
       return function() {
         var d1, d2;
-        d1 = Math.pow(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2), 0.5);
-        d2 = Math.pow(Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2), 0.5);
-        alert(x0 + "|" + x1);
-        alert(x2 + "|" + x3);
+        d1 = Math.pow(Math.pow(xs0 - xs1, 2) + Math.pow(ys0 - ys1, 2), 0.5);
+        d2 = Math.pow(Math.pow(xe2 - xe3, 2) + Math.pow(ye2 - ye3, 2), 0.5);
+        alert(xs0 + "|" + xs1);
+        alert(xe2 + "|" + xe3);
         alert(d1 + "|" + d2);
         if (d1 > d2) {
           return _this.zoomOut();
@@ -462,22 +462,22 @@ window.App = App = (function() {
       return function(e) {
         if (isPinching) {
           if (e.originalEvent.changedTouches.length === 2) {
-            x2 = e.originalEvent.changedTouches[0].pageX;
-            x3 = e.originalEvent.changedTouches[1].pageX;
-            y2 = e.originalEvent.changedTouches[0].pageY;
-            y3 = e.originalEvent.changedTouches[1].pageY;
-            isPinching = false;
             alert("2");
+            xe2 = e.originalEvent.changedTouches[0].pageX;
+            xe3 = e.originalEvent.changedTouches[1].pageX;
+            ye2 = e.originalEvent.changedTouches[0].pageY;
+            ye3 = e.originalEvent.changedTouches[1].pageY;
+            isPinching = false;
             pinchZoom();
           }
           if (e.originalEvent.changedTouches.length === 1) {
-            alert("4" + "|" + x2 + "|" + x3);
-            if (x2 < 0) {
+            alert("4" + "|" + xe2 + "|" + xe3);
+            if (xe2 < 0) {
               alert("3");
-              return y2 = e.originalEvent.changedTouches[0].pageY;
+              return ye2 = e.originalEvent.changedTouches[0].pageY;
             } else {
-              x3 = e.originalEvent.changedTouches[0].pageX;
-              y3 = e.originalEvent.changedTouches[0].pageY;
+              xe3 = e.originalEvent.changedTouches[0].pageX;
+              ye3 = e.originalEvent.changedTouches[0].pageY;
               isPinching = false;
               alert("1");
               return pinchZoom();
@@ -491,11 +491,11 @@ window.App = App = (function() {
         var ref15;
         if (e.originalEvent.targetTouches.length === 2) {
           isPinching = true;
-          ref15 = [-1, -1, -1, -1, -1, -1, -1, -1], x0 = ref15[0], x1 = ref15[1], x2 = ref15[2], x3 = ref15[3], y0 = ref15[4], y1 = ref15[5], y2 = ref15[6], y3 = ref15[7];
-          x0 = e.originalEvent.targetTouches[0].pageX;
-          x1 = e.originalEvent.targetTouches[1].pageX;
-          y0 = e.originalEvent.targetTouches[0].pageY;
-          return y1 = e.originalEvent.targetTouches[1].pageY;
+          ref15 = [-1, -1, -1, -1, -1, -1, -1, -1], xs0 = ref15[0], xs1 = ref15[1], xe2 = ref15[2], xe3 = ref15[3], ys0 = ref15[4], ys1 = ref15[5], ye2 = ref15[6], ye3 = ref15[7];
+          xs0 = e.originalEvent.targetTouches[0].pageX;
+          xs1 = e.originalEvent.targetTouches[1].pageX;
+          ys0 = e.originalEvent.targetTouches[0].pageY;
+          return ys1 = e.originalEvent.targetTouches[1].pageY;
         }
       };
     })(this);
