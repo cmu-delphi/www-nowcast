@@ -471,10 +471,9 @@ window.App = App = (function() {
             pinchZoom();
           }
           if (e.originalEvent.changedTouches.length === 1) {
-            alert("4");
+            alert("4" + "|" + x2 + "|" + x3);
             if (x2 < 0) {
               alert("3");
-              x2 = e.originalEvent.changedTouches[0].pageX;
               return y2 = e.originalEvent.changedTouches[0].pageY;
             } else {
               x3 = e.originalEvent.changedTouches[0].pageX;
