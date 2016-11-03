@@ -107,6 +107,7 @@ getFakeRow = (location, i) ->
   'epiweek': 201201 + 100 * Math.floor(i / 52) + i % 52
   'value': 1 + Math.random() * 3
   'std': 0.5 + Math.random() * 1
+  'wili': 1 + Math.random() * 3
 
 getEpidataHander = (callback) ->
   return (result, message, epidata) ->
@@ -116,6 +117,15 @@ getEpidataHander = (callback) ->
       msg = "The Epidata API says '#{message}'. (error ##{result})"
       console.log(msg)
       alert.log(msg)
+
+Epidata_fluview_single = (handler, location, epiweeks) ->
+  if Epidata?.fluview?
+    Epidata.fluview(handler, location, epiweeks)
+  else
+    fakeData = (getFakeRow(location, i) for i in [0...280])
+    callback = () -> handler(1, 'debug', fakeData)
+    delay = 250 + Math.round(Math.random() * 500)
+    window.setTimeout(callback, delay)
 
 Epidata_nowcast_single = (handler, location) ->
   if Epidata?.nowcast?
@@ -460,10 +470,6 @@ window.App = class App
       ctx.translate(-wt / 2, +ht / 2)
       ctx.fillText(txt, 0, 0)
       ctx.restore()
-    # ILI over time
-    iVals = (i for i in [0...numWeeks])
-    iliVals = (@chartData[i].value for i in [0...numWeeks])
-    trace(iVals.map(i2x), iliVals.map(ili2y))
     # axes
     trace([0, numWeeks - 1].map(i2x), [0, 0].map(ili2y))
     trace([0, 0].map(i2x), [0, maxILI].map(ili2y))
@@ -489,6 +495,14 @@ window.App = class App
         yr = ('00' + yr).slice(-2)
         wk = ('00' + wk).slice(-2)
         write("'#{yr}w#{wk}", x, h - 2 * padding.bottom / 3, -0.125)
+    # ILI over time
+    iVals = (i for i in [0...numWeeks])
+    if @truthData?
+      iliVals = (@truthData[i].wili for i in [0...(numWeeks-38)])
+      trace(iVals.map(i2x), iliVals.map(ili2y))
+    ctx.strokeStyle = '#FF0000'
+    iliVals = (@chartData[i].value for i in [0...numWeeks])
+    trace(iVals.map(i2x), iliVals.map(ili2y))
     # title
     ctx.font = 24 * Math.min(1, w / 500) + 'px sans-serif'
     name = NAMES[@chartData[0].location]
@@ -522,11 +536,17 @@ window.App = class App
 
   fetchNowcast: (loc) ->
     @chartData = null
+    @truthData = null
     callback = (epidata) => @onNowcastReceived(epidata)
     Epidata_nowcast_single(getEpidataHander(callback), loc)
 
   onNowcastReceived: (epidata) ->
     current = epidata[epidata.length - 1]
+    start = epidata[0]
+    loc = current.location
+    if loc in REGIONS
+      callback = (ilidata) => @onFluviewReceived(ilidata)
+      Epidata_fluview_single(getEpidataHander(callback), loc, start.epiweek+ "-" + current.epiweek)
     ili = '' + (Math.round(current.value * 100) / 100)
     if '.' in ili
       ili += '00'
@@ -534,7 +554,6 @@ window.App = class App
       ili = ili.slice(0, idx + 3)
     else
       ili += '.00'
-    loc = current.location
     epiweek = current.epiweek
     @chartData = epidata
     $('#nowcast_label').text("ILI nowcast for #{loc} as of #{epiweek}:")
@@ -542,4 +561,8 @@ window.App = class App
     $('#chart_label').text("Historical ILI nowcasts for #{loc}:")
     $('.location_right').css('display', 'block')
     $('#loading_icon').css('display', 'none')
+    @resizeCanvas()
+
+  onFluviewReceived: (ilidata) ->
+    @truthData = ilidata
     @resizeCanvas()
