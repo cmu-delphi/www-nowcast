@@ -448,9 +448,6 @@ window.App = App = (function() {
         var d1, d2;
         d1 = Math.pow(Math.pow(xs0 - xs1, 2) + Math.pow(ys0 - ys1, 2), 0.5);
         d2 = Math.pow(Math.pow(xe2 - xe3, 2) + Math.pow(ye2 - ye3, 2), 0.5);
-        alert(xs0 + "|" + xs1);
-        alert(xe2 + "|" + xe3);
-        alert(d1 + "|" + d2);
         if (d1 > d2) {
           return _this.zoomOut();
         } else {
@@ -462,7 +459,6 @@ window.App = App = (function() {
       return function(e) {
         if (isPinching) {
           if (e.originalEvent.changedTouches.length === 2) {
-            alert("2");
             xe2 = e.originalEvent.changedTouches[0].pageX;
             xe3 = e.originalEvent.changedTouches[1].pageX;
             ye2 = e.originalEvent.changedTouches[0].pageY;
@@ -471,16 +467,13 @@ window.App = App = (function() {
             pinchZoom();
           }
           if (e.originalEvent.changedTouches.length === 1) {
-            alert("4" + "|" + xe2 + "|" + xe3);
             if (xe2 < 0) {
-              alert("3");
               xe2 = e.originalEvent.changedTouches[0].pageX;
               return ye2 = e.originalEvent.changedTouches[0].pageY;
             } else {
               xe3 = e.originalEvent.changedTouches[0].pageX;
               ye3 = e.originalEvent.changedTouches[0].pageY;
               isPinching = false;
-              alert("1");
               return pinchZoom();
             }
           }
