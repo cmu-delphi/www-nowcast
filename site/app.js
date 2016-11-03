@@ -464,7 +464,7 @@ window.App = App = (function() {
             y2 = e.originalEvent.changedTouches[0].pageY;
             y3 = e.originalEvent.changedTouches[1].pageY;
             isPinching = false;
-            return zoomIn();
+            return _this.zoomIn();
           } else if (e.originalEvent.changedTouches.length === 1) {
             if (x2 === -1) {
               x2 = e.originalEvent.changedTouches[0].pageX;
@@ -473,7 +473,7 @@ window.App = App = (function() {
               x3 = e.originalEvent.changedTouches[0].pageX;
               y3 = e.originalEvent.changedTouches[0].pageY;
               isPinching = false;
-              return zoomOut();
+              return _this.zoomOut();
             }
           }
         }

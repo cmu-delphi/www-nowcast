@@ -240,16 +240,16 @@ window.App = class App
           y2 = e.originalEvent.changedTouches[0].pageY
           y3 = e.originalEvent.changedTouches[1].pageY
           isPinching = false
-          zoomIn()
+          @zoomIn()
         else if e.originalEvent.changedTouches.length == 1
           if x2 == -1
             x2 = e.originalEvent.changedTouches[0].pageX
             y2 = e.originalEvent.changedTouches[0].pageY
           else
             x3 = e.originalEvent.changedTouches[0].pageX
-            y3 = e.originalEvent.changedTouches[0].pageY;
+            y3 = e.originalEvent.changedTouches[0].pageY
             isPinching = false
-            zoomOut()
+            @zoomOut()
     pinchstart = (e) =>
       if e.originalEvent.targetTouches.length == 2
         isPinching = true
