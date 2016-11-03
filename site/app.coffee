@@ -246,7 +246,8 @@ window.App = class App
           alert("2")
           pinchZoom()
         if e.originalEvent.changedTouches.length == 1
-          if x2 == -1
+          alert("4")
+          if x2 < 0
             alert("3")
             x2 = e.originalEvent.changedTouches[0].pageX
             y2 = e.originalEvent.changedTouches[0].pageY
