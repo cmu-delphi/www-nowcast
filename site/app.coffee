@@ -479,13 +479,13 @@ window.App = class App
       trace([padding.left - 6, padding.left], [y, y])
       if bounds.height / maxILI >= 32 or ili % 2 == 0
         write(ili, 3 * padding.left / 4, y, 0)
-    # x-ticks
+    # x-ticks (only for weeks 20 and 40)
     for i in (i for i in [0...numWeeks - 10]).concat([numWeeks - 1])
-      if i % 20 == 0 or i == numWeeks - 1
+      wk = (@chartData[i].epiweek % 100)
+      if wk == 20 or wk == 40
         x = i2x(i)
         trace([x, x], [h - padding.bottom, h - (padding.bottom - 6)])
         yr = (Math.round(@chartData[i].epiweek / 100) % 100)
-        wk = (@chartData[i].epiweek % 100)
         yr = ('00' + yr).slice(-2)
         wk = ('00' + wk).slice(-2)
         write("'#{yr}w#{wk}", x, h - 2 * padding.bottom / 3, -0.125)
