@@ -496,6 +496,7 @@ window.App = class App
         wk = ('00' + wk).slice(-2)
         write("'#{yr}w#{wk}", x, h - 2 * padding.bottom / 3, -0.125)
     # ILI over time
+    ctx.lineWidth = ctx.lineWidth/2
     iVals = (i for i in [0...numWeeks])
     if @truthData?
       iliVals = (@truthData[i].wili for i in [0...(numWeeks-38)])
@@ -503,7 +504,21 @@ window.App = class App
     ctx.strokeStyle = '#FF0000'
     iliVals = (@chartData[i].value for i in [0...numWeeks])
     trace(iVals.map(i2x), iliVals.map(ili2y))
-    # title
+    # title and legend
+    ctx.font = 12 * Math.min(1, w / 500) + 'px sans-serif'
+    ctx.lineWidth = ctx.lineWidth/2
+    write("Nowcast", w - 3*padding.right, padding.top, 0)
+    ctx.beginPath();
+    ctx.moveTo(w - 6*padding.right,padding.top);
+    ctx.lineTo(w - 5*padding.right,padding.top);
+    ctx.stroke();
+    if @truthData?
+      ctx.strokeStyle = '#000'
+      write("Ground Truth", w - 3*padding.right, (3/2)*padding.top, 0)
+      ctx.beginPath();
+      ctx.moveTo(w - 6*padding.right,(3/2)*padding.top);
+      ctx.lineTo(w - 5*padding.right,(3/2)*padding.top);
+      ctx.stroke();
     ctx.font = 24 * Math.min(1, w / 500) + 'px sans-serif'
     name = NAMES[@chartData[0].location]
     write("Historial Nowcasts for #{name}", w / 2, padding.top / 2, 0)
