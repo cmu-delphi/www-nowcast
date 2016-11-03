@@ -223,6 +223,11 @@ window.App = class App
         $("#button_view_#{name} i").removeClass('fa-circle-o')
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
+    pinch = (e) =>
+      if e.scale < 1.0
+        zoomOut(1+(1-e.scale))
+      else
+        zoomIn(e.scale)
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
@@ -243,6 +248,7 @@ window.App = class App
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
+    @canvasMap.on('gestureend', pinch)
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
     @pointerInput = new PointerInput(@canvasMap, @)
