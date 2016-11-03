@@ -474,6 +474,7 @@ window.App = App = (function() {
             alert("4" + "|" + xe2 + "|" + xe3);
             if (xe2 < 0) {
               alert("3");
+              xe2 = e.originalEvent.changedTouches[0].pageX;
               return ye2 = e.originalEvent.changedTouches[0].pageY;
             } else {
               xe3 = e.originalEvent.changedTouches[0].pageX;

@@ -249,7 +249,7 @@ window.App = class App
           alert("4"+"|"+xe2+"|"+xe3)
           if xe2 < 0
             alert("3")
-            #x2 = e.originalEvent.changedTouches[0].pageX
+            xe2 = e.originalEvent.changedTouches[0].pageX
             ye2 = e.originalEvent.changedTouches[0].pageY
           else
             xe3 = e.originalEvent.changedTouches[0].pageX
