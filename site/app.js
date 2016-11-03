@@ -484,7 +484,12 @@ window.App = App = (function() {
         }
       };
     })(this));
-    this.canvasMap.on('gestureend', pinch, false);
+    alert.log("lol");
+    this.canvasMap.on('gestureend', ((function(_this) {
+      return function(e) {
+        return pinch(e);
+      };
+    })(this)), false);
     this.canvasChart = $('#canvas_chart');
     $(window).resize((function(_this) {
       return function() {

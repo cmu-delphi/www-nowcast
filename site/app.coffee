@@ -249,7 +249,8 @@ window.App = class App
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
-    @canvasMap.on('gestureend', pinch, false)
+    alert.log("lol")
+    @canvasMap.on('gestureend',((e)=>pinch(e)), false)
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
     @pointerInput = new PointerInput(@canvasMap, @)
