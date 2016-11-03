@@ -448,7 +448,7 @@ window.App = App = (function() {
         var d1, d2;
         d1 = Math.sqrt((x0 - x1) ^ 2 + (y0 - y1) ^ 2);
         d2 = Math.sqrt((x2 - x3) ^ 2 + (y2 - y3) ^ 2);
-        alert(x2 + "|" + x3);
+        alert(x0 + "|" + x1 + "|" + x2 + "|" + x3 + "|" + y0 + "|" + y1 + "|" + y2 + "|" + y3);
         alert(d1 + "|" + d2);
         if (d1 > d2) {
           return _this.zoomIn();
