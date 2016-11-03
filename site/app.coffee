@@ -228,6 +228,7 @@ window.App = class App
     pinchZoom = () =>
       d1 = Math.sqrt((x0-x1)^2+(y0-y1)^2)
       d2 = Math.sqrt((x2-x3)^2+(y2-y3)^2)
+      alert(d1+"|"+d2)
       if d1 > d2
         @zoomIn()
       else
