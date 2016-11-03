@@ -75,6 +75,12 @@ for i in [0...geodata.points.length]
 [LON_MIN, LON_MAX, LAT_MIN, LAT_MAX] = [x1, x2, y1, y2]
 
 # Constants
+WEEKDAYS = [
+  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+]
+MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+]
 NATIONAL = [
   'nat'
 ]
@@ -101,6 +107,12 @@ ILI_AVAILABLE = [
 NAMES = {"FL": "Florida", "cen4": "West North Central", "hhs9": "HHS Region 9", "MT": "Montana", "WV": "West Virginia", "RI": "Rhode Island", "AR": "Arkansas", "VA": "Virginia", "cen7": "West South Central", "IN": "Indiana", "NC": "North Carolina", "IA": "Iowa", "MN": "Minnesota", "cen2": "Middle Atlantic", "DE": "Delaware", "PA": "Pennsylvania", "hhs7": "HHS Region 7", "nat": "US National", "hhs10": "HHS Region 10", "LA": "Louisiana", "MD": "Maryland", "AK": "Alaska", "CO": "Colorado", "WI": "Wisconsin", "ID": "Idaho", "OK": "Oklahoma", "hhs3": "HHS Region 3", "hhs2": "HHS Region 2", "hhs1": "HHS Region 1", "cen1": "New England", "KY": "Kentucky", "ME": "Maine", "CA": "California", "cen5": "South Atlantic", "WY": "Wyoming", "ND": "North Dakota", "NY": "New York", "MA": "Massachusetts", "UT": "Utah", "DC": "District of Columbia", "MS": "Mississippi", "hhs6": "HHS Region 6", "GA": "Georgia", "AL": "Alabama", "HI": "Hawaii", "hhs4": "HHS Region 4", "AZ": "Arizona", "CT": "Connecticut", "KS": "Kansas", "NH": "New Hampshire", "cen8": "Mountain", "TX": "Texas", "NV": "Nevada", "TN": "Tennessee", "NJ": "New Jersey", "MI": "Michigan", "hhs8": "HHS Region 8", "NM": "New Mexico", "IL": "Illinois", "cen3": "East North Central", "VT": "Vermont", "WA": "Washington", "SD": "South Dakota", "NE": "Nebraska", "hhs5": "HHS Region 5", "SC": "South Carolina", "cen6": "East South Central", "OR": "Oregon", "cen9": "Pacific", "MO": "Missouri", "OH": "Ohio"}
 REGION2STATE = {"hhs1": ['ME', 'MA', 'NH', 'VT', 'RI', 'CT'], "hhs2": ['NY', 'NJ'], "hhs3": ['PA', 'DE', 'DC', 'MD', 'VA', 'WV'], "hhs4": ['NC', 'SC', 'GA', 'FL', 'KY', 'TN', 'MS', 'AL'], "hhs5": ['MI', 'IL', 'IN', 'OH', 'WI', 'MN'], "hhs6": ['LA', 'AR', 'OK', 'TX', 'NM'], "hhs7": ['IA', 'MO', 'NE', 'KS'], "hhs8": ['ND', 'SD', 'CO', 'WY', 'MT', 'UT'], "hhs9": ['NV', 'CA', 'HI', 'AZ'], "hhs10": ['WA', 'OR', 'AK', 'ID'], "cen1": ['ME', 'MA', 'NH', 'VT', 'RI', 'CT'], "cen2": ['PA', 'NY', 'NJ'], "cen3": ['WI', 'MI', 'IN', 'IL', 'OH'], "cen4": ['ND', 'SD', 'NE', 'KS', 'MN', 'IA', 'MO'], "cen5": ['DE','MD','DC','WV','VA','NC','SC','GA','FL'], "cen6": ['KY','TN', 'MS', 'AL'], "cen7": ['OK', 'AR', 'LA', 'TX'], "cen8": ['MT', 'ID', 'WY', 'CO', 'UT', 'NV', 'AZ', 'NM'], "cen9": ['WA', 'OR', 'CA', 'AK', 'HI']}
 
+Date.prototype.getWeek = () ->
+  stdDate = new Date(2016, 0, 3)
+  rst = (Math.ceil((((this - stdDate) / 86400000) + stdDate.getDay() + 1) / 7)%52)
+  if rst == 0
+    return 52
+  return rst
 
 getFakeRow = (location, i) ->
   'location': location
@@ -248,7 +260,11 @@ window.App = class App
     callback = (epidata) =>
       epiweek1 = epidata[epidata.length - 4].epiweek
       epiweek2 = epidata[epidata.length - 1].epiweek
-      @dataTimeline.html("Data of week " + epiweek1 + " to week " + epiweek2);
+      currentdate = new Date();
+      ind = 'PM'
+      if currentdate.getHours() < 12
+        ind = 'AM'
+      @dataTimeline.html("As of "+WEEKDAYS[currentdate.getDay()]+", "+MONTHS[currentdate.getMonth()]+" "+currentdate.getDate()+", "+currentdate.getFullYear()+", "+currentdate.getHours()+":"+currentdate.getMinutes()+ind+" EDT (epi-week "+currentdate.getWeek()+")");
       callback = (epidata) =>
         @colors = {}
         for row in epidata
@@ -559,7 +575,7 @@ window.App = class App
     current = epidata[epidata.length - 1]
     start = epidata[0]
     loc = current.location
-    if loc in REGIONS
+    if loc in REGIONS or loc in NATIONAL
       callback = (ilidata) => @onFluviewReceived(ilidata)
       Epidata_fluview_single(getEpidataHander(callback), loc, start.epiweek+ "-" + current.epiweek)
     ili = '' + (Math.round(current.value * 100) / 100)

@@ -168,6 +168,7 @@ a:active {
 }
 .subtitle {
   text-align: center;
+  font-size: 2vh;
   font-style: italic;
   color: #ddd;
   padding: 1em 2em 0em 2em;
