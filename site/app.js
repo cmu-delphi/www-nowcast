@@ -443,7 +443,9 @@ window.App = App = (function() {
     })(this);
     pinch = (function(_this) {
       return function(e) {
-        return alert("Haha");
+        if (e.changedTouches.length === 2) {
+          return alert("Haha");
+        }
       };
     })(this);
     $('#button_view_nat').click(clicker('nat', NATIONAL));
@@ -479,7 +481,7 @@ window.App = App = (function() {
         }
       };
     })(this));
-    this.canvasMap.on('touchend', pinch, false);
+    this.canvasMap.on('touchend', pinch);
     this.canvasChart = $('#canvas_chart');
     $(window).resize((function(_this) {
       return function() {

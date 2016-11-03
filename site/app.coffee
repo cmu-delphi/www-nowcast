@@ -224,7 +224,8 @@ window.App = class App
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
     pinch = (e) =>
-      alert("Haha")
+      if e.changedTouches.length == 2
+        alert("Haha")
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
@@ -245,7 +246,7 @@ window.App = class App
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
-    @canvasMap.on('touchend',pinch, false)
+    @canvasMap.on('touchend',pinch)
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
     @pointerInput = new PointerInput(@canvasMap, @)
