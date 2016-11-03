@@ -233,8 +233,6 @@ window.App = class App
     pinchstart = (e) =>
       if e.originalEvent.targetTouches.length == 2
         alert("2")
-      if e.originalEvent.targetTouches.length == 1
-        alert("1")
       if e.originalEvent.targetTouches.length == 3
         alert("3")
     $('#button_view_nat').click(clicker('nat', NATIONAL))

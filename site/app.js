@@ -459,9 +459,6 @@ window.App = App = (function() {
         if (e.originalEvent.targetTouches.length === 2) {
           alert("2");
         }
-        if (e.originalEvent.targetTouches.length === 1) {
-          alert("1");
-        }
         if (e.originalEvent.targetTouches.length === 3) {
           return alert("3");
         }
