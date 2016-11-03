@@ -29,12 +29,6 @@
     },
     {
       "type": "copy",
-      "src": "site/style.css",
-      "dst": "/var/www/html/nowcast/style.css",
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
       "src": "site/geodata.js_min",
       "dst": "/var/www/html/nowcast/geodata.js",
       "add-header-comment": true
@@ -43,6 +37,84 @@
       "type": "copy",
       "src": "site/app.coffee_js_min",
       "dst": "/var/www/html/nowcast/app.js",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/style.css",
+      "dst": "/var/www/html/nowcast/style.css",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/heart0.svg",
+      "dst": "/var/www/html/nowcast/heart0.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/heart1.svg",
+      "dst": "/var/www/html/nowcast/heart1.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/star0.svg",
+      "dst": "/var/www/html/nowcast/star0.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/star1.svg",
+      "dst": "/var/www/html/nowcast/star1.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/google0.svg",
+      "dst": "/var/www/html/nowcast/google0.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/google1.svg",
+      "dst": "/var/www/html/nowcast/google1.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/twitter0.svg",
+      "dst": "/var/www/html/nowcast/twitter0.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/twitter1.svg",
+      "dst": "/var/www/html/nowcast/twitter1.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/wiki0.svg",
+      "dst": "/var/www/html/nowcast/wiki0.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/wiki1.svg",
+      "dst": "/var/www/html/nowcast/wiki1.svg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/cdc0.jpg",
+      "dst": "/var/www/html/nowcast/cdc0.jpg",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
+      "src": "site/cdc1.jpg",
+      "dst": "/var/www/html/nowcast/cdc1.jpg",
       "add-header-comment": true
     }
   ]

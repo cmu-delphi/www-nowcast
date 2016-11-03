@@ -1,4 +1,16 @@
 [
   ["{STRING_TITLE_TEXT}", "ILI Nearby"],
-  ["{STRING_TITLE_HTML}", "ILI&nbsp;Nearby"]
+  ["{STRING_TITLE_HTML}", "ILI&nbsp;Nearby"],
+  ["{HEART_DES_N}", "This state hasn’t yet shared their ILI data with us :("],
+  ["{HEART_DES_Y}", "This state shares their ILI data with us directly. We love you!"],
+  ["{STAR_DES_N}", "This state's DoH hasn't yet posted their ILI data online."],
+  ["{STAR_DES_Y}", "This state's DoH has posted their ILI data online."],
+  ["GOOGLE_DES_N", "Google’s data is not available for this specific area."],
+  ["GOOGLE_DES_Y", "Google shares search query data with us for this area. Thank you Google!"],
+  ["TWITTER_DES_N", "Twitter's data is not available for this specific area."],
+  ["TWITTER_DES_Y", "Twitter shares search query data with us for this area. Thank you Twitter!"],
+  ["WIKI_DES_N", "Wikipedia's data is not available for this specific area."],
+  ["WIKI_DES_Y", "Wikipedia shares search query data with us for this area. Thank you Wikipedia!"],
+  ["CDC_DES_N", "CDC data not available."],
+  ["CDC_DES_Y", "CDC data available."]
 ]

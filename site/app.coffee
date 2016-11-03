@@ -299,6 +299,10 @@ window.App = class App
         $('#location_heart1').show()
       else
         $('#location_heart0').show()
+      $('#location_google0').show()
+      $('#location_twitter0').show()
+      $('#location_wiki0').show()
+      $('#location_cdc1').show()
     $('.location_right').css('display', 'none')
     $('#loading_icon').css('display', 'flex')
     $('.pages').animate({left: '-100%'}, 125)
