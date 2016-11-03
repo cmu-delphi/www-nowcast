@@ -429,7 +429,7 @@ window.App = App = (function() {
   PAGE_CHART = 1;
 
   function App() {
-    var clicker, pinchend, pinchstart;
+    var clicker, isPinching, pinchend, pinchstart, ref14, x0, x3, y0, y3;
     clicker = (function(_this) {
       return function(name, locations) {
         return function() {
@@ -441,26 +441,36 @@ window.App = App = (function() {
         };
       };
     })(this);
+    ref14 = [-1, -1, -1, -1, -1, -1, -1, -1], x0 = ref14[0], x1 = ref14[1], x2 = ref14[2], x3 = ref14[3], y0 = ref14[4], y1 = ref14[5], y2 = ref14[6], y3 = ref14[7];
+    isPinching = false;
     pinchend = (function(_this) {
       return function(e) {
-        if (e.originalEvent.changedTouches.length === 2) {
-          alert("2");
-        }
-        if (e.originalEvent.changedTouches.length === 1) {
-          alert("1");
-        }
-        if (e.originalEvent.changedTouches.length === 3) {
-          return alert("3");
+        if (isPinching) {
+          if (e.originalEvent.changedTouches.length === 2) {
+            alert("2e");
+            x2 = e.originalEvent.changedTouches[0].pageX;
+            x3 = e.originalEvent.changedTouches[1].pageX;
+            x2 = e.originalEvent.changedTouches[0].pageY;
+            y3 = e.originalEvent.changedTouches[1].pageY;
+            isPinching = false;
+            return _this.zoomIn();
+          } else if (e.originalEvent.changedTouches.length === 1) {
+            return alert("1");
+          }
         }
       };
     })(this);
     pinchstart = (function(_this) {
       return function(e) {
+        var ref15;
         if (e.originalEvent.targetTouches.length === 2) {
-          alert("2");
-        }
-        if (e.originalEvent.targetTouches.length === 3) {
-          return alert("3");
+          alert("2s");
+          isPinching = true;
+          ref15 = [-1, -1, -1, -1, -1, -1, -1, -1], x0 = ref15[0], x1 = ref15[1], x2 = ref15[2], x3 = ref15[3], y0 = ref15[4], y1 = ref15[5], y2 = ref15[6], y3 = ref15[7];
+          x0 = e.originalEvent.targetTouches[0].pageX;
+          x1 = e.originalEvent.targetTouches[1].pageX;
+          y0 = e.originalEvent.targetTouches[0].pageY;
+          return y1 = e.originalEvent.targetTouches[1].pageY;
         }
       };
     })(this);

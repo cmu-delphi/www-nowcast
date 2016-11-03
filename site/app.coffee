@@ -223,18 +223,29 @@ window.App = class App
         $("#button_view_#{name} i").removeClass('fa-circle-o')
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
+    [x0,x1,x2,x3,y0,y1,y2,y3] = [-1,-1,-1,-1,-1,-1,-1,-1]
+    isPinching = false
     pinchend = (e) =>
-      if e.originalEvent.changedTouches.length == 2
-        alert("2")
-      if e.originalEvent.changedTouches.length == 1
-        alert("1")
-      if e.originalEvent.changedTouches.length == 3
-        alert("3")
+      if isPinching
+        if e.originalEvent.changedTouches.length == 2
+          alert("2e")
+          x2 = e.originalEvent.changedTouches[0].pageX;
+          x3 = e.originalEvent.changedTouches[1].pageX;
+          x2 = e.originalEvent.changedTouches[0].pageY;
+          y3 = e.originalEvent.changedTouches[1].pageY;
+          isPinching = false
+          @zoomIn()
+        else if e.originalEvent.changedTouches.length == 1
+          alert("1")
     pinchstart = (e) =>
       if e.originalEvent.targetTouches.length == 2
-        alert("2")
-      if e.originalEvent.targetTouches.length == 3
-        alert("3")
+        alert("2s")
+        isPinching = true
+        [x0,x1,x2,x3,y0,y1,y2,y3] = [-1,-1,-1,-1,-1,-1,-1,-1]
+        x0 = e.originalEvent.targetTouches[0].pageX;
+        x1 = e.originalEvent.targetTouches[1].pageX;
+        y0 = e.originalEvent.targetTouches[0].pageY;
+        y1 = e.originalEvent.targetTouches[1].pageY; 
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
