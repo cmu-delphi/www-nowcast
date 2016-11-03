@@ -472,6 +472,7 @@ window.App = App = (function() {
           }
           if (e.originalEvent.changedTouches.length === 1) {
             if (x2 === -1) {
+              alert("3");
               x2 = e.originalEvent.changedTouches[0].pageX;
               return y2 = e.originalEvent.changedTouches[0].pageY;
             } else {
