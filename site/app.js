@@ -446,8 +446,8 @@ window.App = App = (function() {
     pinchZoom = (function(_this) {
       return function() {
         var d1, d2;
-        d1 = (x0 - x1) ^ 2 + (y0 - y1) ^ 2;
-        d2 = (x2 - x3) ^ 2 + (y2 - y3) ^ 2;
+        d1 = Math.pow(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2), 0.5);
+        d2 = Math.pow(Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2), 0.5);
         alert(x0 + "|" + x1 + "|" + x2 + "|" + x3 + "|" + y0 + "|" + y1 + "|" + y2 + "|" + y3);
         alert(d1 + "|" + d2);
         if (d1 > d2) {
