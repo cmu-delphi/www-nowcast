@@ -429,7 +429,7 @@ window.App = App = (function() {
   PAGE_CHART = 1;
 
   function App() {
-    var clicker, pinch;
+    var clicker, pinchend, pinchstart;
     clicker = (function(_this) {
       return function(name, locations) {
         return function() {
@@ -441,10 +441,29 @@ window.App = App = (function() {
         };
       };
     })(this);
-    pinch = (function(_this) {
+    pinchend = (function(_this) {
       return function(e) {
-        if (e.changedTouches.length === 2) {
-          return alert("Haha");
+        if (e.originalEvent.changedTouches.length === 2) {
+          alert("2");
+        }
+        if (e.originalEvent.changedTouches.length === 1) {
+          alert("1");
+        }
+        if (e.originalEvent.changedTouches.length === 3) {
+          return alert("3");
+        }
+      };
+    })(this);
+    pinchstart = (function(_this) {
+      return function(e) {
+        if (e.originalEvent.targetTouches.length === 2) {
+          alert("2");
+        }
+        if (e.originalEvent.targetTouches.length === 1) {
+          alert("1");
+        }
+        if (e.originalEvent.targetTouches.length === 3) {
+          return alert("3");
         }
       };
     })(this);
@@ -481,7 +500,8 @@ window.App = App = (function() {
         }
       };
     })(this));
-    this.canvasMap.on('touchend', pinch);
+    this.canvasMap.on('touchstart', pinchstart);
+    this.canvasMap.on('touchend', pinchend);
     this.canvasChart = $('#canvas_chart');
     $(window).resize((function(_this) {
       return function() {

@@ -223,9 +223,20 @@ window.App = class App
         $("#button_view_#{name} i").removeClass('fa-circle-o')
         $("#button_view_#{name} i").addClass('fa-dot-circle-o')
         @setLocations(locations)
-    pinch = (e) =>
-      if e.changedTouches.length == 2
-        alert("Haha")
+    pinchend = (e) =>
+      if e.originalEvent.changedTouches.length == 2
+        alert("2")
+      if e.originalEvent.changedTouches.length == 1
+        alert("1")
+      if e.originalEvent.changedTouches.length == 3
+        alert("3")
+    pinchstart = (e) =>
+      if e.originalEvent.targetTouches.length == 2
+        alert("2")
+      if e.originalEvent.targetTouches.length == 1
+        alert("1")
+      if e.originalEvent.targetTouches.length == 3
+        alert("3")
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
@@ -246,7 +257,8 @@ window.App = class App
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
-    @canvasMap.on('touchend',pinch)
+    @canvasMap.on('touchstart',pinchstart)
+    @canvasMap.on('touchend',pinchend)
     @canvasChart = $('#canvas_chart')
     $(window).resize(() => @resizeCanvas())
     @pointerInput = new PointerInput(@canvasMap, @)
