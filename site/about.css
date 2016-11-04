@@ -47,15 +47,9 @@ a:active {
   color: #fff;
   overflow: hidden;
 }
-.p1 {
+.p3 {
   position: absolute;
   top: 0%;
-  left: 0%;
-}
-.p2 {
-  position: absolute;
-  top: 0%;
-  left: 100%;
 }
 .shadow {
   text-shadow: 0px 0px 0.1em #000;
