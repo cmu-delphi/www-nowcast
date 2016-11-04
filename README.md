@@ -3,3 +3,5 @@
 
 # About
 Nowcasting Influenza-Like Illness (ILI) in the United States.
+
+The site is live at http://delphi.midas.cs.cmu.edu/nowcast/
