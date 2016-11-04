@@ -47,74 +47,74 @@
     },
     {
       "type": "copy",
-      "src": "site/heart0.svg",
-      "dst": "/var/www/html/nowcast/heart0.svg",
+      "src": "site/images/heart0.svg",
+      "dst": "/var/www/html/nowcast/images/heart0.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/heart1.svg",
-      "dst": "/var/www/html/nowcast/heart1.svg",
+      "src": "site/images/heart1.svg",
+      "dst": "/var/www/html/nowcast/images/heart1.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/star0.svg",
-      "dst": "/var/www/html/nowcast/star0.svg",
+      "src": "site/images/star0.svg",
+      "dst": "/var/www/html/nowcast/images/star0.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/star1.svg",
-      "dst": "/var/www/html/nowcast/star1.svg",
+      "src": "site/images/star1.svg",
+      "dst": "/var/www/html/nowcast/images/star1.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/google0.svg",
-      "dst": "/var/www/html/nowcast/google0.svg",
+      "src": "site/images/google0.svg",
+      "dst": "/var/www/html/nowcast/images/google0.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/google1.svg",
-      "dst": "/var/www/html/nowcast/google1.svg",
+      "src": "site/images/google1.svg",
+      "dst": "/var/www/html/nowcast/images/google1.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/twitter0.svg",
-      "dst": "/var/www/html/nowcast/twitter0.svg",
+      "src": "site/images/twitter0.svg",
+      "dst": "/var/www/html/nowcast/images/twitter0.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/twitter1.svg",
-      "dst": "/var/www/html/nowcast/twitter1.svg",
+      "src": "site/images/twitter1.svg",
+      "dst": "/var/www/html/nowcast/images/twitter1.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/wiki0.svg",
-      "dst": "/var/www/html/nowcast/wiki0.svg",
+      "src": "site/images/wiki0.svg",
+      "dst": "/var/www/html/nowcast/images/wiki0.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/wiki1.svg",
-      "dst": "/var/www/html/nowcast/wiki1.svg",
+      "src": "site/images/wiki1.svg",
+      "dst": "/var/www/html/nowcast/images/wiki1.svg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/cdc0.jpg",
-      "dst": "/var/www/html/nowcast/cdc0.jpg",
+      "src": "site/images/cdc0.jpg",
+      "dst": "/var/www/html/nowcast/images/cdc0.jpg",
       "add-header-comment": true
     },
     {
       "type": "copy",
-      "src": "site/cdc1.jpg",
-      "dst": "/var/www/html/nowcast/cdc1.jpg",
+      "src": "site/images/cdc1.jpg",
+      "dst": "/var/www/html/nowcast/images/cdc1.jpg",
       "add-header-comment": true
     }
   ]
