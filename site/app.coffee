@@ -397,11 +397,23 @@ window.App = class App
     for loc in @locations
       $('#map_list ul').append(
         $('<li>').attr('class','map_list_element').attr('id', 'map_list_element_'+loc).append(
-          $('<a>').attr('href','#').append(NAMES[loc])));
+          $('<a>').attr('id', 'map_list_element_text_'+loc).append(NAMES[loc])));
     for loc in @locations
+      $('#map_list_element_'+loc).click(()->saveThis.showLocationDetails(loc))
       $('#map_list_element_'+loc).hover(
-        (ev) -> saveThis.renderMap(this.id.substring(17))
-        (ev) -> saveThis.renderMap())
+        ((ev) -> 
+          loc = this.id.substring(17)
+          if loc in REGIONS
+            text = ""
+            for name in REGION2STATE[loc]
+              text = text + name + ","
+            $('#map_list_element_text_'+loc).html(text.substring(0,text.length-1)).css("font-size","12px")
+          saveThis.renderMap(loc))
+        ((ev) -> 
+          loc = this.id.substring(17)
+          if loc in REGIONS
+            $('#map_list_element_text_'+loc).html(NAMES[loc]).css("font-size","16px")
+          saveThis.renderMap()))
 
   renderMap: (highlight=null) ->
     [w, h] = [@canvasMap.width(), @canvasMap.height()]

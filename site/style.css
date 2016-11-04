@@ -134,6 +134,7 @@ a:active {
  
 .map_list_element a:hover {
   font-size: 20px;
+  cursor: pointer;
   color: #000;
   background: #f6f6f6;
 }
