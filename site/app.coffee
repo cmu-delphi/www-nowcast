@@ -210,6 +210,7 @@ class PointerInput
     @listener.onScroll(e.originalEvent.deltaY)
 
 
+
 window.App = class App
 
   PAGE_MAP = 0
@@ -292,8 +293,7 @@ window.App = class App
     @loadEpidata()
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
-
-
+    
   loadEpidata: () ->
     callback = (epidata) =>
       epiweek1 = epidata[epidata.length - 4].epiweek
@@ -569,11 +569,31 @@ window.App = class App
     ctx.lineWidth = ctx.lineWidth/2
     iVals = (i for i in [0...numWeeks])
     if @truthData?
-      iliVals = (@truthData[i].wili for i in [0...(numWeeks-38)])
+      iliVals = (@truthData[i].wili for i in [0...(numWeeks-10)])
       trace(iVals.map(i2x), iliVals.map(ili2y))
     ctx.strokeStyle = '#FF0000'
     iliVals = (@chartData[i].value for i in [0...numWeeks])
     trace(iVals.map(i2x), iliVals.map(ili2y))
+    #baseline
+    loc = @chartData[0].location
+    if loc in HHS_REGIONS or loc == 'nat'
+      ctx.strokeStyle = '#008080'
+      ctx.setLineDash([5, 3])
+      for i in [0...numWeeks]
+        wk = (@chartData[i].epiweek % 100)
+        if wk == 40
+          yr = (Math.round(@chartData[i].epiweek / 100))
+          ilibase = baselinedata[loc][yr]
+          if ilibase?
+            ctx.beginPath()
+            ctx.moveTo(i2x(i), ili2y(ilibase))
+            if i + 32 < numWeeks
+              ctx.lineTo(i2x(i+32), ili2y(ilibase))
+            else
+              ctx.lineTo(i2x(numWeeks-1), ili2y(ilibase))
+            ctx.stroke()
+    ctx.setLineDash([1, 0])
+    ctx.strokeStyle = '#FF0000'
     # title and legend
     ctx.font = 12 * Math.min(1, w / 500) + 'px sans-serif'
     ctx.lineWidth = ctx.lineWidth/2
@@ -585,10 +605,18 @@ window.App = class App
     if @truthData?
       ctx.strokeStyle = '#000'
       write("Ground Truth", w - 3*padding.right, (3/2)*padding.top, 0)
-      ctx.beginPath();
-      ctx.moveTo(w - 6*padding.right,(3/2)*padding.top);
-      ctx.lineTo(w - 5*padding.right,(3/2)*padding.top);
-      ctx.stroke();
+      ctx.beginPath()
+      ctx.moveTo(w - 6*padding.right,(3/2)*padding.top)
+      ctx.lineTo(w - 5*padding.right,(3/2)*padding.top)
+      ctx.stroke()
+    if loc in HHS_REGIONS or loc == 'nat'
+      ctx.strokeStyle = '#008080'
+      ctx.setLineDash([5, 3])
+      write("CDC Baseline", w - 3*padding.right, (2)*padding.top, 0)
+      ctx.beginPath()
+      ctx.moveTo(w - 6*padding.right,(2)*padding.top)
+      ctx.lineTo(w - 5*padding.right,(2)*padding.top)
+      ctx.stroke()
     ctx.font = 24 * Math.min(1, w / 500) + 'px sans-serif'
     name = NAMES[@chartData[0].location]
     write("Historial Nowcasts for #{name}", w / 2, padding.top / 2, 0)
