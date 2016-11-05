@@ -170,7 +170,7 @@ a:active {
 }
 .subtitle {
   text-align: center;
-  font-size: 2vh;
+  font-size: 3vh;
   font-style: italic;
   color: #ddd;
   padding: 1em 2em 0em 2em;
@@ -306,6 +306,7 @@ p.text_footer:hover {
   flex-direction: column;
 }
 #location_name {
+  padding-bottom: 2vh;
   text-align: center;
   font-size: 10vh;
 }
@@ -396,7 +397,7 @@ p.text_footer:hover {
   .location_left {
     width: 100%;
     height: 30%;
-    flex-direction: row;
+    flex-direction: column;
   }
   .location_right {
     width: 100%;
