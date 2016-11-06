@@ -75,74 +75,62 @@
     {
       "type": "copy",
       "src": "site/images/heart0.svg",
-      "dst": "/var/www/html/nowcast/images/heart0.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/heart0.svg"
     },
     {
       "type": "copy",
       "src": "site/images/heart1.svg",
-      "dst": "/var/www/html/nowcast/images/heart1.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/heart1.svg"
     },
     {
       "type": "copy",
       "src": "site/images/star0.svg",
-      "dst": "/var/www/html/nowcast/images/star0.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/star0.svg"
     },
     {
       "type": "copy",
       "src": "site/images/star1.svg",
-      "dst": "/var/www/html/nowcast/images/star1.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/star1.svg"
     },
     {
       "type": "copy",
       "src": "site/images/google0.svg",
-      "dst": "/var/www/html/nowcast/images/google0.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/google0.svg"
     },
     {
       "type": "copy",
       "src": "site/images/google1.svg",
-      "dst": "/var/www/html/nowcast/images/google1.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/google1.svg"
     },
     {
       "type": "copy",
       "src": "site/images/twitter0.svg",
-      "dst": "/var/www/html/nowcast/images/twitter0.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/twitter0.svg"
     },
     {
       "type": "copy",
       "src": "site/images/twitter1.svg",
-      "dst": "/var/www/html/nowcast/images/twitter1.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/twitter1.svg"
     },
     {
       "type": "copy",
       "src": "site/images/wiki0.svg",
-      "dst": "/var/www/html/nowcast/images/wiki0.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/wiki0.svg"
     },
     {
       "type": "copy",
       "src": "site/images/wiki1.svg",
-      "dst": "/var/www/html/nowcast/images/wiki1.svg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/wiki1.svg"
     },
     {
       "type": "copy",
       "src": "site/images/cdc0.jpg",
-      "dst": "/var/www/html/nowcast/images/cdc0.jpg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/cdc0.jpg"
     },
     {
       "type": "copy",
       "src": "site/images/cdc1.jpg",
-      "dst": "/var/www/html/nowcast/images/cdc1.jpg",
-      "add-header-comment": true
+      "dst": "/var/www/html/nowcast/images/cdc1.jpg"
     }
   ]
 }
