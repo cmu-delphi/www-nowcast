@@ -74,6 +74,10 @@ a:active {
   flex-direction: column;
   overflow: hidden;
 }
+.title_infolink {
+  display: flex;
+  flex-direction: row;
+}
 
 #map_container {
   width: 100%;
