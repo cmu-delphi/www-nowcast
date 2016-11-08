@@ -78,6 +78,9 @@ a:active {
   display: flex;
   flex-direction: row;
 }
+#top_info_icon {
+  padding-top: 3vh;
+}
 
 #map_container {
   width: 100%;

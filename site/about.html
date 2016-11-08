@@ -27,15 +27,36 @@ Epidemiologists, clinicians, and public health policy makers together face a ser
 This site is our effort to produce that timeliness. With the explosive growth of the internet and of the number of individuals with internet access, We can now use digital surveillance data to produce REAL-TIME nowcasts of influenza activity in the US. This site shows both our current and historical nowcasts.
          </p>
          <p class="text_header"><i class="fa fa-cogs"></i> Method</p>
+         <p class="text_content">
+Nowcasting is to predict the current distribution and prevalence of influenza with the absence of the true value. In the past decade, with the rise of digital surveillance, using explosive growth of data related to influenza to nowcast became available. However, past efforts on nowcasting generally have had more narrow focus in that they (1) used only a single digital surveillance stream, (2) produced estimates only for US as a whole or (3) were retrospective.
+        </p>
+         <p class="text_content">
+Our nowcasting method uses 5 digital surveillance streams together with 3 forecasting streams to generate predictions at all scopes. We took a Sensor Fusion approach and used a special case of the Kalman filter. Specifically, we rewrote the Kalman filter with our a process model and this allows us to assimilate noise, intermittent, heterogeneous, and correlated surveillance streams. A more detailed discussion of the method can be found <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf">here</a>.
          </p>
          <p class="text_header"><i class="fa fa-folder-open"></i> Documents</p>
+         <p class="text_content">
+            <ul>
+<!-- 2015 [Farrow  ] --><li><p class="text_bib"><a target="_blank" href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf">Modeling the Past, Present, and Future of Influenza.</a><br>David C. Farrow - PhD Thesis<br><i>Carnegie Mellon University</i> (2016).</p></li>
+            </ul>
          </p>
          <p class="text_header"><i class="fa fa-list"></i> Signals</p>
+         <p class="text_content">
+            <ul>
+                <li>
+                    <p class="sub_text_header"><a  href="https://research.googleblog.com/2015/08/the-next-chapter-for-flu-trends.html"><img style="width: 15px; height: 15px;" src="images/google1.svg"></a>  Google Flu Trends (GFT)</p>
+                    <p class="text_content">
+GFT was a very popular indicator of flu activity based on search queries. The model was originally released in 2008 (with retrospective predictions going back to 2003) and was subsequently updated in 2009, 2013, and 2014. After attracting a great deal of attention from both academia and popular media, Google discontinued GFT just before the start of the 2015–2016 flu season. However, this signal is somewhat unique among the digital surveillance sources in that it attempts to directly infer current wILI. The dataset contains in-sample, or at least retrospective, predictions from 2003w40 through around 2008w53. Out of sample predictions made in real-time are available from around 2009w01 until 2015w32—the week GFT was discontinued. Predictions are available for many countries, including the United States. Within the US, predictions are available for all states, including the District of Columbia (DC), and around one hundred large cities. Although this dataset is no longer being updated, it is still publicly and freely available from Google.
+                    </p>
+                </li>
+            </ul>
          </p>
          <p class="text_header"><i class="fa fa-file-photo-o"></i> Visualization</p>
-         </p>
          <p class="text_header"><i class="fa fa-users"></i> Contact</p>
-         </p>
+         <div class="box_profiles">
+            <div style="display: inline-block; width: 200px;"><p>Roni Rosenfeld<br><a href="http://www.cs.cmu.edu/~roni" target="_blank">Homepage</a></p></div>
+            <div style="display: inline-block; width: 200px;"><p>David Farrow<br><a href="mailto:">email</a></p></div>
+            <div style="display: inline-block; width: 200px;"><p>Edward Wang<br><a href="mailto:">email</a></p></div>
+         </div>
          </div>
       </div>
     </div>

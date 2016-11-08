@@ -191,6 +191,10 @@ p.text_footer:hover {
    transition: color 1s ease 0.0s;
 }
 
+div.box_profiles {
+  
+}
+
 .divider {
   width: 100%;
   height: 1px;
@@ -317,10 +321,6 @@ p.text_footer:hover {
   padding-bottom: 1em;
   padding-right: 1em;
 }
-.achievement_holder img {
-  width: 20px;
-  height: 20px;
-}
 #location_cdc1 img {
   width: 30px;
   height: 20px;
@@ -402,6 +402,13 @@ p.text_header {
    border-bottom: 1px dotted #c0c0c0;
    margin-bottom: 5px;
 }
+p.sub_text_header {
+   font-size: 1.0em;
+   font-weight: bold;
+   border-bottom: 1px dotted #c0c0c0;
+   margin-bottom: 5px;
+}
+
 p.text_content {
    font-size: 1.0em;
    margin-bottom: 15px;
