@@ -52,7 +52,7 @@ a:active {
 }
 .page {
   width: 100%;
-  height: 100%;
+  
   background-color: #444;
   background-image: radial-gradient(#555 0%, #222 100%);
   color: #fff;
