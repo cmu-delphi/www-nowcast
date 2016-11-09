@@ -431,13 +431,13 @@ p.text_footer:hover {
 
 @media screen and (max-aspect-ratio: 1/1) and (orientation: portrait) {
   .title_big {
-    font-size: 12vw;
+    font-size: 14vw;
   }
   .subtitle {
-    font-size: 3vw;
+    font-size: 4vw;
   }
   .subtitle_second {
-    font-size: 2vw;
+    font-size: 3vw;
   }
   .location_content {
     flex-direction: column;

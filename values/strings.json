@@ -1,6 +1,7 @@
 [
   ["{STRING_TITLE_TEXT}", "ILI Nearby"],
   ["{STRING_TITLE_HTML}", "ILI&nbsp;Nearby"],
+  ["{STRING_SUBTITLE_TEXT}", "Influenza-Like Illness: near you, right NOW"],
   ["{HEART_DES_N}", "This state hasn’t yet shared their ILI data with us :("],
   ["{HEART_DES_Y}", "This state shares their ILI data with us directly. We love you!"],
   ["{STAR_DES_N}", "This state's DoH hasn't yet posted their ILI data online."],
