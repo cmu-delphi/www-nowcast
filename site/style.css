@@ -172,7 +172,7 @@ a:active {
   margin: 0.5em;
 }
 .title_big {
-  font-size: 13vh;
+  font-size: 12vh;
   text-align: center;
 }
 .subtitle {
@@ -181,6 +181,13 @@ a:active {
   font-style: italic;
   color: #ddd;
   padding: 1em 2em 0em 2em;
+}
+
+.subtitle_second {
+  text-align: center;
+  font-size: 2vh;
+  color: #ddd;
+  padding: 0.5em 2em 0em 2em;
 }
 
 p.text_footer {
@@ -423,6 +430,15 @@ p.text_footer:hover {
 }
 
 @media screen and (max-aspect-ratio: 1/1) and (orientation: portrait) {
+  .title_big {
+    font-size: 12vw;
+  }
+  .subtitle {
+    font-size: 3vw;
+  }
+  .subtitle_second {
+    font-size: 2vw;
+  }
   .location_content {
     flex-direction: column;
   }
