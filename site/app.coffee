@@ -670,7 +670,9 @@ window.App = class App
     epiweek = Math.round(current.epiweek/100) + "w" + (current.epiweek%100)
     @chartData = epidata
     $('#nowcast_label').text("ILI nowcast for #{loc} as of #{epiweek}:")
+    $('#nowcast_label_left').text("ILI nowcast for #{loc} as of #{epiweek}:")
     $('#nowcast_value').text("#{ili}%")
+    $('#nowcast_value_left').text("#{ili}%")
     $('#chart_label').text("Historical ILI nowcasts for #{loc}:")
     $('.location_right').css('display', 'block')
     $('#loading_icon').css('display', 'none')

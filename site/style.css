@@ -312,6 +312,11 @@ p.text_footer:hover {
   align-items: center;
   flex-direction: column;
 }
+.location_left_bottom {
+  visibility: hidden;
+  height: 0px;
+  width: 0px;
+}
 #location_name {
   padding-bottom: 2vh;
   text-align: center;
@@ -392,11 +397,31 @@ p.text_footer:hover {
   }
 }
 
+@media screen and (min-aspect-ratio: 1/1) and (max-height: 450px) {
+  .location_right_top {
+    visibility: hidden;
+    height: 0px;
+  }
+  .location_right_bottom {
+    height: 80%;
+    padding-top: 10%;
+  }
+  .location_left_bottom {
+    width: 100%;
+    height: 40%;
+    padding-top: 10vh;
+    visibility: visible;
+    text-align: center;
+  }
+}
+
+
 @media screen and (max-width: 600px) {
   #map_list {
     visibility: hidden;
   }
 }
+
 @media screen and (max-aspect-ratio: 1/1) and (orientation: portrait) {
   .location_content {
     flex-direction: column;
@@ -421,7 +446,7 @@ p.text_footer:hover {
     height: 60%;
   }
 
-  #loading_icon {
+  #3 {
     width: 100%;
     height: 50%;
   }
@@ -435,7 +460,7 @@ p.text_footer:hover {
   .location_left {
     width: 100%;
     height: 30%;
-    flex-direction: row;
+    flex-direction: column;
   }
   .location_right {
     width: 100%;

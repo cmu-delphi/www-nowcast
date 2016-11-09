@@ -124,13 +124,13 @@
     },
     {
       "type": "copy",
-      "src": "site/images/cdc0.jpg",
-      "dst": "/var/www/html/nowcast/images/cdc0.jpg"
+      "src": "site/images/cdc0.svg",
+      "dst": "/var/www/html/nowcast/images/cdc0.svg"
     },
     {
       "type": "copy",
-      "src": "site/images/cdc1.jpg",
-      "dst": "/var/www/html/nowcast/images/cdc1.jpg"
+      "src": "site/images/cdc1.svg",
+      "dst": "/var/www/html/nowcast/images/cdc1.svg"
     }
   ]
 }
