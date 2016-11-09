@@ -558,7 +558,7 @@ window.App = class App
     # x-ticks (only for weeks 20 and 40)
     for i in (i for i in [0...numWeeks - 10]).concat([numWeeks - 1])
       wk = (@chartData[i].epiweek % 100)
-      if wk == 20 or wk == 40
+      if wk == 20 or wk == 40 or i == (numWeeks - 1)
         x = i2x(i)
         trace([x, x], [h - padding.bottom, h - (padding.bottom - 6)])
         yr = (Math.round(@chartData[i].epiweek / 100) % 100)
@@ -619,7 +619,7 @@ window.App = class App
       ctx.stroke()
     ctx.font = 24 * Math.min(1, w / 500) + 'px sans-serif'
     name = NAMES[@chartData[0].location]
-    write("Historial Nowcasts for #{name}", w / 2, padding.top / 2, 0)
+    write("Historical Nowcasts(out-of-sample) for #{name}", w / 2, padding.top / 2, 0)
 
   hitTest: (u, v) ->
     for loc in @locations
@@ -667,7 +667,7 @@ window.App = class App
       ili = ili.slice(0, idx + 3)
     else
       ili += '.00'
-    epiweek = current.epiweek
+    epiweek = Math.round(current.epiweek/100) + "w" + (current.epiweek%100)
     @chartData = epidata
     $('#nowcast_label').text("ILI nowcast for #{loc} as of #{epiweek}:")
     $('#nowcast_value').text("#{ili}%")
