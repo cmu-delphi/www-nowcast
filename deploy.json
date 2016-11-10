@@ -137,6 +137,36 @@
       "type": "copy",
       "src": "site/images/cdc1.svg",
       "dst": "/var/www/html/nowcast/images/cdc1.svg"
+    },
+    {
+      "type": "copy",
+      "src": "site/images/epicast0.svg",
+      "dst": "/var/www/html/nowcast/images/epicast0.svg"
+    },
+    {
+      "type": "copy",
+      "src": "site/images/epicast1.svg",
+      "dst": "/var/www/html/nowcast/images/epicast1.svg"
+    },
+    {
+      "type": "copy",
+      "src": "site/images/sar30.svg",
+      "dst": "/var/www/html/nowcast/images/sar30.svg"
+    },
+    {
+      "type": "copy",
+      "src": "site/images/sar31.svg",
+      "dst": "/var/www/html/nowcast/images/sar31.svg"
+    },
+    {
+      "type": "copy",
+      "src": "site/images/arch0.svg",
+      "dst": "/var/www/html/nowcast/images/arch0.svg"
+    },
+    {
+      "type": "copy",
+      "src": "site/images/arch1.svg",
+      "dst": "/var/www/html/nowcast/images/arch1.svg"
     }
   ]
 }

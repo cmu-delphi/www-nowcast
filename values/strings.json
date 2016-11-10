@@ -14,5 +14,11 @@
   ["{WIKI_DES_N}", "Wikipedia's data is not available for this specific area."],
   ["{WIKI_DES_Y}", "Wikipedia shares search query data with us for this area. Thank you Wikipedia!"],
   ["{CDC_DES_N}", "CDC data not available."],
-  ["{CDC_DES_Y}", "CDC data available."]
+  ["{CDC_DES_Y}", "CDC data available."],
+  ["{EPICAST_DES_N}", "Epicast forecasts NOT included."],
+  ["{EPICAST_DES_Y}", "Epicast forecasts included."],
+  ["{ARCH_DES_N}", "ARCH model forecasts NOT included."],
+  ["{ARCH_DES_Y}", "ARCH model forecasts included."],
+  ["{SAR3_DES_N}", "SAR3 model forecasts NOT included."],
+  ["{SAR3_DES_Y}", "SAR3 model forecasts included."]
 ]

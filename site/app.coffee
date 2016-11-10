@@ -327,18 +327,22 @@ window.App = class App
     $('#location_name').html(NAMES[loc])
     $('.achievement_holder').hide()
     $('.achievement_holder_top').hide()
-    if loc.toUpperCase() in ILI_AVAILABLE
-      $('#location_star1').show()
-    else
-      $('#location_star0').show()
-    if loc.toUpperCase() in ILI_SHARED
-      $('#location_heart1').show()
-    else
-      $('#location_heart0').show()
+    if loc.toUpperCase() in STATES
+      if loc.toUpperCase() in ILI_AVAILABLE
+        $('#location_star1').show()
+      else
+        $('#location_star0').show()
+      if loc.toUpperCase() in ILI_SHARED
+        $('#location_heart1').show()
+      else
+        $('#location_heart0').show()
     $('#location_google1').show()
     $('#location_twitter1').show()
     $('#location_wiki1').show()
     $('#location_cdc1').show()
+    $('#location_epicast1').show()
+    $('#location_arch1').show()
+    $('#location_sar31').show()
     $('.location_right').css('display', 'none')
     $('#loading_icon').css('display', 'flex')
     $('.pages').animate({left: '-100%'}, 125)
