@@ -74,6 +74,12 @@
     },
     {
       "type": "copy",
+      "src": ".htaccess",
+      "dst": "/var/www/html/nowcast/.htaccess",
+      "add-header-comment": true
+    },
+    {
+      "type": "copy",
       "src": "site/images/heart0.svg",
       "dst": "/var/www/html/nowcast/images/heart0.svg"
     },
