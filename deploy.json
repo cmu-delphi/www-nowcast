@@ -2,171 +2,54 @@
   "type": "delphi deploy config",
   "version": 1,
   "actions": [
+
+    "// access control",
     {
-      "type": "compile-coffee",
-      "src": "site/app.coffee",
-      "dst": "site/app.coffee_js"
-    },
-    {
-      "type": "minimize-js",
-      "src": "site/app.coffee_js",
-      "dst": "site/app.coffee_js_min"
-    },
-    {
-      "type": "minimize-js",
-      "src": "site/geodata.js",
-      "dst": "site/geodata.js_min"
-    },
-    {
-      "type": "minimize-js",
-      "src": "site/baselinedata.js",
-      "dst": "site/baselinedata.js_min"
-    },
-    {
-      "type": "copy",
-      "src": "site/index.html",
-      "dst": "/var/www/html/nowcast/index.html",
-      "replace-keywords": [
-        "values/strings.json",
-        "values/colors.json"
-      ],
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "site/about.html",
-      "dst": "/var/www/html/nowcast/about.html",
-      "replace-keywords": [
-        "values/strings.json",
-        "values/colors.json"
-      ],
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "site/geodata.js_min",
-      "dst": "/var/www/html/nowcast/geodata.js",
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "site/baselinedata.js_min",
-      "dst": "/var/www/html/nowcast/baselinedata.js",
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "site/app.coffee_js_min",
-      "dst": "/var/www/html/nowcast/app.js",
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "site/style.css",
-      "dst": "/var/www/html/nowcast/style.css",
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
-      "src": "site/about.css",
-      "dst": "/var/www/html/nowcast/about.css",
-      "add-header-comment": true
-    },
-    {
-      "type": "copy",
+      "type": "move",
       "src": "site/.htaccess",
       "dst": "/var/www/html/nowcast/.htaccess",
       "add-header-comment": true
     },
+
+    "// compilation",
     {
-      "type": "copy",
-      "src": "site/images/heart0.svg",
-      "dst": "/var/www/html/nowcast/images/heart0.svg"
+      "type": "compile-coffee",
+      "src": "site/app.coffee"
+    },
+
+    "// minimization",
+    {
+      "type": "minimize-js",
+      "src": "site/app.js"
     },
     {
-      "type": "copy",
-      "src": "site/images/heart1.svg",
-      "dst": "/var/www/html/nowcast/images/heart1.svg"
+      "type": "minimize-js",
+      "src": "site/geodata.js"
     },
     {
-      "type": "copy",
-      "src": "site/images/star0.svg",
-      "dst": "/var/www/html/nowcast/images/star0.svg"
+      "type": "minimize-js",
+      "src": "site/baselinedata.js"
     },
+
+    "// web sources",
     {
-      "type": "copy",
-      "src": "site/images/star1.svg",
-      "dst": "/var/www/html/nowcast/images/star1.svg"
+      "type": "move",
+      "src": "site/",
+      "dst": "/var/www/html/nowcast/",
+      "match": "^.*\\.(html|css|js)$",
+      "replace-keywords": [
+        "values/strings.json",
+        "values/colors.json"
+      ],
+      "add-header-comment": true
     },
+
+    "// images",
     {
-      "type": "copy",
-      "src": "site/images/google0.svg",
-      "dst": "/var/www/html/nowcast/images/google0.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/google1.svg",
-      "dst": "/var/www/html/nowcast/images/google1.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/twitter0.svg",
-      "dst": "/var/www/html/nowcast/images/twitter0.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/twitter1.svg",
-      "dst": "/var/www/html/nowcast/images/twitter1.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/wiki0.svg",
-      "dst": "/var/www/html/nowcast/images/wiki0.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/wiki1.svg",
-      "dst": "/var/www/html/nowcast/images/wiki1.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/cdc0.svg",
-      "dst": "/var/www/html/nowcast/images/cdc0.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/cdc1.svg",
-      "dst": "/var/www/html/nowcast/images/cdc1.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/epicast0.svg",
-      "dst": "/var/www/html/nowcast/images/epicast0.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/epicast1.svg",
-      "dst": "/var/www/html/nowcast/images/epicast1.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/sar30.svg",
-      "dst": "/var/www/html/nowcast/images/sar30.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/sar31.svg",
-      "dst": "/var/www/html/nowcast/images/sar31.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/arch0.svg",
-      "dst": "/var/www/html/nowcast/images/arch0.svg"
-    },
-    {
-      "type": "copy",
-      "src": "site/images/arch1.svg",
-      "dst": "/var/www/html/nowcast/images/arch1.svg"
+      "type": "move",
+      "src": "site/images/",
+      "dst": "/var/www/html/nowcast/images/",
+      "match": "^.+\\.(svg|jpg|png|gif)$"
     }
   ]
 }
