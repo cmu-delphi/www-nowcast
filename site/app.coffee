@@ -620,8 +620,7 @@ window.App = class App
       ctx.lineTo(w - 5*padding.right,(2)*padding.top)
       ctx.stroke()
     ctx.font = 24 * Math.min(1, w / 500) + 'px sans-serif'
-    name = NAMES[@chartData[0].location]
-    write("Historical Nowcasts(out-of-sample) for #{name}", w / 2, padding.top / 2, 0)
+    write("Historical Nowcasts(out-of-sample)", w / 2, padding.top / 2, 0)
 
   hitTest: (u, v) ->
     for loc in @locations

@@ -854,7 +854,7 @@ window.App = App = (function() {
   };
 
   App.prototype.renderChart = function() {
-    var bounds, ctx, h, i1, i2x, iVals, ili, ili2y, iliVals, ilibase, j1, len7, len8, line, loc, maxILI, name, numWeeks, padding, prefix, ref14, ref15, ref16, ref17, ref18, row, s, t, trace, w, wk, write, x, y, yr;
+    var bounds, ctx, h, i1, i2x, iVals, ili, ili2y, iliVals, ilibase, j1, len7, len8, line, loc, maxILI, numWeeks, padding, prefix, ref14, ref15, ref16, ref17, ref18, row, s, t, trace, w, wk, write, x, y, yr;
     if (this.chartData == null) {
       return;
     }
@@ -1030,8 +1030,7 @@ window.App = App = (function() {
       ctx.stroke();
     }
     ctx.font = 24 * Math.min(1, w / 500) + 'px sans-serif';
-    name = NAMES[this.chartData[0].location];
-    return write("Historical Nowcasts(out-of-sample) for " + name, w / 2, padding.top / 2, 0);
+    return write("Historical Nowcasts(out-of-sample)", w / 2, padding.top / 2, 0);
   };
 
   App.prototype.hitTest = function(u, v) {
