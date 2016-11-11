@@ -330,6 +330,7 @@ window.App = class App
     $('.ili_note').hide()
     if loc.toUpperCase() in STATES
       $('#state_note').show()
+      $('#state_note_left').show()
       $('#location_google1').show()
       $('#location_twitter1').show()
       $('#location_wiki0').show()
@@ -347,6 +348,7 @@ window.App = class App
         $('#location_heart0').show()
     if loc in HHS_REGIONS
       $('#hhs_note').show()
+      $('#hhs_note_left').show()
       $('#location_google0').show()
       $('#location_twitter1').show()
       $('#location_wiki0').show()
