@@ -643,7 +643,7 @@ window.App = class App
     ctx.lineTo(2*centerX-i2x(numWeeks-3), downY)
     ctx.stroke()
     ctx.beginPath()
-    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI, false)
+    ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI, false)
     ctx.fillStyle = 'green'
     ctx.fill()
     ctx.strokeStyle = '#FF0000'
