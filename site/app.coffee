@@ -327,7 +327,9 @@ window.App = class App
     $('#location_name').html(NAMES[loc])
     $('.achievement_holder').hide()
     $('.achievement_holder_top').hide()
+    $('.ili_note').hide()
     if loc.toUpperCase() in STATES
+      $('#state_note').show()
       if loc.toUpperCase() in ILI_AVAILABLE
         $('#location_star1').show()
       else
@@ -336,6 +338,8 @@ window.App = class App
         $('#location_heart1').show()
       else
         $('#location_heart0').show()
+    if loc in HHS_REGIONS
+      $('#hhs_note').show()
     $('#location_google1').show()
     $('#location_twitter1').show()
     $('#location_wiki1').show()

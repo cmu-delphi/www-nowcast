@@ -340,6 +340,11 @@ p.text_footer:hover {
 }
 #location_status {
 }
+.ili_note {
+  font-style: italic;
+  font-size: 1em;
+  text-align: center;
+}
 .status_small {
   font-style: normal;
   font-size: 1em;
