@@ -1,7 +1,7 @@
 [
   ["{STRING_TITLE_TEXT}", "ILI Nearby"],
   ["{STRING_TITLE_HTML}", "ILI&nbsp;Nearby"],
-  ["{STRING_SUBTITLE_TEXT}", "Influenza-like illness.   Near you.   Right now."],
+  ["{STRING_SUBTITLE_HTML}", "Influenza-like illness. &nbsp;&nbsp;Near you. &nbsp;&nbsp;Right now."],
   ["{STATES_NOTE}", "NOTE: %ILI is not meaningfully comparable between states, due to differences in reporter types."],
   ["{NATIONAL_REGIONS_NOTES}", "Note: final wILI values are not known to CDC until July, due to lagging reports ('backfill')."],
   ["{SOURCES}", "Sources combined to produce this nowcast: "],
