@@ -702,13 +702,13 @@ window.App = class App
       std = std.slice(0, idx + 3)
     else
       std += '.00'
-    ili += '&#177;' + std
+    ili = '(' + ili + '&#177;' + std + ')'
     epiweek = Math.round(current.epiweek/100) + "w" + (current.epiweek%100)
     @chartData = epidata
     $('#nowcast_label').text("ILI nowcast for #{loc} as of #{epiweek}:")
     $('#nowcast_label_left').text("ILI nowcast for #{loc} as of #{epiweek}:")
     $('#nowcast_value').html("#{ili}%")
-    $('#nowcast_value_left').text("#{ili}%")
+    $('#nowcast_value_left').html("#{ili}%")
     $('#chart_label').text("Historical ILI nowcasts for #{loc}:")
     $('.location_right').css('display', 'block')
     $('#loading_icon').css('display', 'none')
