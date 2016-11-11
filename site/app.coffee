@@ -624,7 +624,30 @@ window.App = class App
               ctx.lineTo(i2x(numWeeks-1), ili2y(ilibase))
             ctx.stroke()
     ctx.setLineDash([1, 0])
+    ctx.strokeStyle = 'green'
+    # credible interval
+    current = @chartData[numWeeks-1]
+    centerX = i2x(numWeeks-1)
+    centerY = ili2y(current.value)
+    [upY, downY] = [ili2y(current.value+current.std), ili2y(current.value-current.std)]
+    ctx.beginPath()
+    ctx.moveTo(centerX, upY)
+    ctx.lineTo(centerX, downY)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.moveTo(i2x(numWeeks-3), upY)
+    ctx.lineTo(2*centerX-i2x(numWeeks-3), upY)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.moveTo(i2x(numWeeks-3), downY)
+    ctx.lineTo(2*centerX-i2x(numWeeks-3), downY)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI, false)
+    ctx.fillStyle = 'green'
+    ctx.fill()
     ctx.strokeStyle = '#FF0000'
+    ctx.fillStyle = '#000'
     # title and legend
     ctx.font = 12 * Math.min(1, w / 500) + 'px sans-serif'
     ctx.lineWidth = ctx.lineWidth/2
