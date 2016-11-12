@@ -351,8 +351,11 @@ p.text_footer:hover {
   text-align: center;
 }
 .status_large {
-  font-size: 8vh;
+  font-size: 6vh;
   text-align: center;
+}
+.sources {
+  font-size: 2.5vh;
 }
 .achievement_holder {
   text-align: center;
