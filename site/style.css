@@ -323,9 +323,7 @@ p.text_footer:hover {
   flex-direction: column;
 }
 .location_left_bottom {
-  visibility: hidden;
-  height: 0px;
-  width: 0px;
+  display: none;
 }
 .location_name_info {
   display: flex;
@@ -342,12 +340,12 @@ p.text_footer:hover {
 }
 .ili_note {
   font-style: italic;
-  font-size: 1em;
+  font-size: 2.5vh;
   text-align: center;
 }
 .status_small {
   font-style: normal;
-  font-size: 1em;
+  font-size: 2.5vh;
   text-align: center;
 }
 .status_large {
@@ -430,8 +428,7 @@ p.text_footer:hover {
 
 @media screen and (min-aspect-ratio: 1/1) and (max-height: 450px) {
   .location_right_top {
-    visibility: hidden;
-    height: 0px;
+    display: none;
   }
   .location_right_bottom {
     height: 90%;

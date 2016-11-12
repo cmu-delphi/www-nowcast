@@ -276,7 +276,23 @@ window.App = class App
         ctx = @canvasMap[0].getContext('2d')
         ctx.font = 12 + 'px sans-serif'
         ctx.fillStyle = '#eee'
-        ctx.fillText(loc, e.offsetX, e.offsetY)
+        current = @mapData[loc]
+        ili = '' + (Math.round(current.value * 100) / 100)
+        if '.' in ili
+          ili += '00'
+          idx = ili.indexOf('.')
+          ili = ili.slice(0, idx + 3)
+        else
+          ili += '.00'
+        std = '' + (Math.round(current.std * 100) / 100)
+        if '.' in std
+          std += '00'
+          idx = std.indexOf('.')
+          std = std.slice(0, idx + 3)
+        else
+          std += '.00'
+        ili = '(' + ili + '±' + std + ')%'
+        ctx.fillText(loc+" "+ili+"", e.offsetX, e.offsetY)
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
@@ -305,12 +321,14 @@ window.App = class App
       @dataTimeline.html("As of "+WEEKDAYS[currentdate.getDay()]+", "+MONTHS[currentdate.getMonth()]+" "+currentdate.getDate()+", "+currentdate.getFullYear()+", "+currentdate.getHours()+":"+currentdate.getMinutes()+ind+" EDT (epi-week "+currentdate.getWeek()+")");
       callback = (epidata) =>
         @colors = {}
+        @mapData = {}
         for row in epidata
           if row.epiweek == epiweek2
             ili = row.value
             v = Math.max(0, Math.min(5, ili)) / 5
             c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
             @colors[row.location] = '#' + c + '4040'
+            @mapData[row.location] = row
         @renderMap()
       handler = getEpidataHander(callback)
       Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
