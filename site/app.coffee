@@ -455,16 +455,27 @@ window.App = class App
       $('#map_list_element_'+loc).hover(
         ((ev) -> 
           loc = this.id.substring(17)
-          if loc in REGIONS
-            text = ""
-            for name in REGION2STATE[loc]
-              text = text + name + ","
-            $('#map_list_element_text_'+loc).html(text.substring(0,text.length-1)).css("font-size","12px")
+          current = saveThis.mapData[loc]
+          ili = '' + (Math.round(current.value * 100) / 100)
+          if '.' in ili
+            ili += '00'
+            idx = ili.indexOf('.')
+            ili = ili.slice(0, idx + 3)
+          else
+            ili += '.00'
+          std = '' + (Math.round(current.std * 100) / 100)
+          if '.' in std
+            std += '00'
+            idx = std.indexOf('.')
+            std = std.slice(0, idx + 3)
+          else
+            std += '.00'
+          ili = '(' + ili + '±' + std + ')%'
+          $('#map_list_element_text_'+loc).text(ili)
           saveThis.renderMap(loc))
         ((ev) -> 
           loc = this.id.substring(17)
-          if loc in REGIONS
-            $('#map_list_element_text_'+loc).html(NAMES[loc]).css("font-size","16px")
+          $('#map_list_element_text_'+loc).text(NAMES[loc])
           saveThis.renderMap()))
 
   renderMap: (highlight=null) ->
