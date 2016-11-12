@@ -318,7 +318,10 @@ window.App = class App
       ind = 'PM'
       if currentdate.getHours() < 12
         ind = 'AM'
-      @dataTimeline.html("As of "+WEEKDAYS[currentdate.getDay()]+", "+MONTHS[currentdate.getMonth()]+" "+currentdate.getDate()+", "+currentdate.getFullYear()+", "+currentdate.getHours()+":"+currentdate.getMinutes()+ind+" EDT (epi-week "+currentdate.getWeek()+")");
+      mins = currentdate.getMinutes()
+      if mins < 10
+        mins = "0" + mins
+      @dataTimeline.html("As of "+WEEKDAYS[currentdate.getDay()]+", "+MONTHS[currentdate.getMonth()]+" "+currentdate.getDate()+", "+currentdate.getFullYear()+", "+currentdate.getHours()+":"+mins+ind+" EDT (epi-week "+currentdate.getWeek()+")");
       callback = (epidata) =>
         @colors = {}
         @mapData = {}
