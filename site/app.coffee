@@ -114,6 +114,18 @@ Date.prototype.getWeek = () ->
     return 52
   return rst
 
+date2String = (date) ->
+  return MONTHS[date.getMonth()]+"."+date.getDate()+", "+date.getFullYear()
+
+epiweek2date = (epiweek) ->
+  stdDate = new Date(2016, 0, 3)
+  wk = epiweek%100
+  yr = (Math.round(epiweek / 100))
+  increment = ((yr - 2016) * 52 + wk - 1) * 7
+  stdDate.setDate(stdDate.getDate() + increment);
+  return stdDate
+
+
 getFakeRow = (location, i) ->
   'location': location
   'epiweek': 201201 + 100 * Math.floor(i / 52) + i % 52
@@ -321,7 +333,11 @@ window.App = class App
       mins = currentdate.getMinutes()
       if mins < 10
         mins = "0" + mins
-      @dataTimeline.html("As of "+WEEKDAYS[currentdate.getDay()]+", "+MONTHS[currentdate.getMonth()]+" "+currentdate.getDate()+", "+currentdate.getFullYear()+", "+currentdate.getHours()+":"+mins+ind+" EDT (epi-week "+currentdate.getWeek()+")");
+      date = epiweek2date(epiweek2)
+      datestr = "(" + date2String(date)
+      date.setDate(date.getDate() + 6)
+      datestr = datestr + "-" + date2String(date) + ")"
+      @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       callback = (epidata) =>
         @colors = {}
         @mapData = {}
