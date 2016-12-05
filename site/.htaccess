@@ -2,4 +2,4 @@ AuthType Basic
 AuthName "Restricted Site"
 AuthBasicProvider file
 AuthUserFile /var/www/passwords
-Require valid-user
+#Require valid-user
