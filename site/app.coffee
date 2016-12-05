@@ -427,9 +427,9 @@ window.App = class App
     @renderChart()
 
   resetView: () ->
-    @dlat = 51.7
+    @dlat = 35
     @dlon = -108.8
-    @zoom = 2
+    @zoom = 3
     @renderMap()
 
   onClick: (x, y) ->
@@ -573,6 +573,20 @@ window.App = class App
       ctx.font = 12 + 'px sans-serif'
       ctx.fillStyle = '#eee'
       ctx.fillText('HI', cX, cY)
+    if @locations == STATES
+      ctx.font = 12 * Math.max(0.7, w / 1000) + 'px sans-serif'
+      ctx.fillStyle = '#eee'
+      wx = w/3
+      if w < 600
+        wx = w/5
+      ctx.fillText('NOTE: %ILI is not meaningfully comparable between states, due to differences in reporter types.', wx, h-24)
+    if @locations == HHS_REGIONS
+      ctx.font = 12 * Math.max(0.7, w / 1000) + 'px sans-serif'
+      ctx.fillStyle = '#eee'
+      wx = w/3
+      if w < 600
+        wx = w/5
+      ctx.fillText("NOTE: final wILI values are not known to CDC until July, due to lagging reports ('backfill').", wx, h-24)
     return 0
 
   renderChart: () ->
