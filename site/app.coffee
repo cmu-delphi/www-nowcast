@@ -592,6 +592,7 @@ window.App = class App
     ctx.fillRect(0, 0, w, h)
     ctx.fillStyle = '#000'
     ctx.strokeStyle = '#000'
+    ctx.setLineDash([1, 0])
     ctx.lineWidth = 0.005 * (w + h) / 2
     line = {
       0: (x, y) -> ctx.moveTo(x, y),
