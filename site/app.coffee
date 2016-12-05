@@ -429,7 +429,7 @@ window.App = class App
   resetView: () ->
     @dlat = 35
     @dlon = -108.8
-    @zoom = 3
+    @zoom = 2.5
     @renderMap()
 
   onClick: (x, y) ->
