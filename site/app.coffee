@@ -115,7 +115,7 @@ Date.prototype.getWeek = () ->
   return rst
 
 date2String = (date) ->
-  return MONTHS[date.getMonth()]+"."+date.getDate()+", "+date.getFullYear()
+  return MONTHS[date.getMonth()]+" "+date.getDate()+", "+date.getFullYear()
 
 epiweek2date = (epiweek) ->
   stdDate = new Date(2016, 0, 3)
