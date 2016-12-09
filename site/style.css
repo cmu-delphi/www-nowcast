@@ -111,7 +111,7 @@ a:active {
 }
 #map_list_lists {
   list-style-type: none;
-  height: 500px;
+  height: 400px;
   margin: 0;
   padding: 0;
   overflow-y: scroll;
