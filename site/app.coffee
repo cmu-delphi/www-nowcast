@@ -285,27 +285,26 @@ window.App = class App
       if loc?
         $('#canvas_map').css('cursor','pointer')
         @renderMap()
-        if loc != 'AK' and loc != 'HI'
-          ctx = @canvasMap[0].getContext('2d')
-          ctx.font = 12 + 'px sans-serif'
-          ctx.fillStyle = '#eee'
-          current = @mapData[loc]
-          ili = '' + (Math.round(current.value * 100) / 100)
-          if '.' in ili
-            ili += '00'
-            idx = ili.indexOf('.')
-            ili = ili.slice(0, idx + 3)
-          else
-            ili += '.00'
-          std = '' + (Math.round(current.std * 100) / 100)
-          if '.' in std
-            std += '00'
-            idx = std.indexOf('.')
-            std = std.slice(0, idx + 3)
-          else
-            std += '.00'
-          ili = '(' + ili + '±' + std + ')%'
-          ctx.fillText(loc+" "+ili+"", e.offsetX, e.offsetY)
+        ctx = @canvasMap[0].getContext('2d')
+        ctx.font = 12 + 'px sans-serif'
+        ctx.fillStyle = '#eee'
+        current = @mapData[loc]
+        ili = '' + (Math.round(current.value * 100) / 100)
+        if '.' in ili
+          ili += '00'
+          idx = ili.indexOf('.')
+          ili = ili.slice(0, idx + 3)
+        else
+          ili += '.00'
+        std = '' + (Math.round(current.std * 100) / 100)
+        if '.' in std
+          std += '00'
+          idx = std.indexOf('.')
+          std = std.slice(0, idx + 3)
+        else
+          std += '.00'
+        ili = '(' + ili + '±' + std + ')%'
+        ctx.fillText(loc+" "+ili+"", e.offsetX, e.offsetY)
       else
         $('#canvas_map').css('cursor','auto')
         @renderMap())
