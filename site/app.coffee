@@ -145,7 +145,11 @@ calculateNonInfluenzaData = (epidata) ->
     mappedData[loc] = {}
   for row in epidata
     wk = row.epiweek%100
-    mappedData[row.location][wk] = row.value
+    yr = (Math.round(row.epiweek / 100))
+    if yr == 2015 and wk >= 40
+      mappedData[row.location][wk] = row.value
+    if yr == 2016 and wk <= 39
+      mappedData[row.location][wk] = row.value
   for region in HHS_REGIONS
     weeks = nonInfluenzaWeekData[region]
     for state in REGION2STATE[region]
@@ -444,22 +448,19 @@ window.App = class App
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       callback = (epidata) =>
         NonInfluenzaData = calculateNonInfluenzaData(epidata)
-        callback = (epidata) =>
-          @colors = {}
-          @mapData = {}
-          colorData = calculateColor(NonInfluenzaData, epidata, epiweek2)
-          for row in epidata
-            if row.epiweek == epiweek2
-              ili = row.value
-              v = colorData[row.location]
-              c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
-              @colors[row.location] = '#' + c + '4040'
-              @mapData[row.location] = row
-          @renderMap()
-        handler = getEpidataHander(callback)
-        Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
+        @colors = {}
+        @mapData = {}
+        colorData = calculateColor(NonInfluenzaData, epidata, epiweek2)
+        for row in epidata
+          if row.epiweek == epiweek2
+            ili = row.value
+            v = colorData[row.location]
+            c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
+            @colors[row.location] = '#' + c + '4040'
+            @mapData[row.location] = row
+        @renderMap()
       handler = getEpidataHander(callback)
-      Epidata_nowcast_multi(handler, LOCATIONS, 201540, 201620)
+      Epidata_nowcast_multi(handler, LOCATIONS, 201540, 201710)
     handler = getEpidataHander(callback)
     Epidata_nowcast_single(handler, 'nat')
 
