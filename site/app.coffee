@@ -459,7 +459,7 @@ window.App = class App
         handler = getEpidataHander(callback)
         Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
       handler = getEpidataHander(callback)
-      Epidata_nowcast_multi(handler, LOCATIONS, NON_INFLUENZA_WEEK_SEASON*100+40, (NON_INFLUENZA_WEEK_SEASON+1)*100+20)
+      Epidata_nowcast_multi(handler, LOCATIONS, 201540, 201620)
     handler = getEpidataHander(callback)
     Epidata_nowcast_single(handler, 'nat')
 
