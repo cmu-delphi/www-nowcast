@@ -212,7 +212,7 @@ activity_level = (ili, mean, stdev) ->
   return 10
 
 level2Color = (level) ->
-  return level/4
+  return Math.max(0, Math.min(10, level)) / 10
 
 Date.prototype.getWeek = () ->
   stdDate = new Date(2016, 0, 3)
