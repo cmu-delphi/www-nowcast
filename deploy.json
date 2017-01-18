@@ -30,6 +30,10 @@
       "type": "minimize-js",
       "src": "site/baselinedata.js"
     },
+    {
+      "type": "minimize-js",
+      "src": "site/nonInfluenzaWeekData.js"
+    },
 
     "// web sources",
     {

@@ -107,6 +107,113 @@ ILI_AVAILABLE = [
 NAMES = {"FL": "Florida", "cen4": "West North Central", "hhs9": "HHS Region 9", "MT": "Montana", "WV": "West Virginia", "RI": "Rhode Island", "AR": "Arkansas", "VA": "Virginia", "cen7": "West South Central", "IN": "Indiana", "NC": "North Carolina", "IA": "Iowa", "MN": "Minnesota", "cen2": "Middle Atlantic", "DE": "Delaware", "PA": "Pennsylvania", "hhs7": "HHS Region 7", "nat": "US National", "hhs10": "HHS Region 10", "LA": "Louisiana", "MD": "Maryland", "AK": "Alaska", "CO": "Colorado", "WI": "Wisconsin", "ID": "Idaho", "OK": "Oklahoma", "hhs3": "HHS Region 3", "hhs2": "HHS Region 2", "hhs1": "HHS Region 1", "cen1": "New England", "KY": "Kentucky", "ME": "Maine", "CA": "California", "cen5": "South Atlantic", "WY": "Wyoming", "ND": "North Dakota", "NY": "New York", "MA": "Massachusetts", "UT": "Utah", "DC": "District of Columbia", "MS": "Mississippi", "hhs6": "HHS Region 6", "GA": "Georgia", "AL": "Alabama", "HI": "Hawaii", "hhs4": "HHS Region 4", "AZ": "Arizona", "CT": "Connecticut", "KS": "Kansas", "NH": "New Hampshire", "cen8": "Mountain", "TX": "Texas", "NV": "Nevada", "TN": "Tennessee", "NJ": "New Jersey", "MI": "Michigan", "hhs8": "HHS Region 8", "NM": "New Mexico", "IL": "Illinois", "cen3": "East North Central", "VT": "Vermont", "WA": "Washington", "SD": "South Dakota", "NE": "Nebraska", "hhs5": "HHS Region 5", "SC": "South Carolina", "cen6": "East South Central", "OR": "Oregon", "cen9": "Pacific", "MO": "Missouri", "OH": "Ohio"}
 REGION2STATE = {"hhs1": ['ME', 'MA', 'NH', 'VT', 'RI', 'CT'], "hhs2": ['NY', 'NJ'], "hhs3": ['PA', 'DE', 'DC', 'MD', 'VA', 'WV'], "hhs4": ['NC', 'SC', 'GA', 'FL', 'KY', 'TN', 'MS', 'AL'], "hhs5": ['MI', 'IL', 'IN', 'OH', 'WI', 'MN'], "hhs6": ['LA', 'AR', 'OK', 'TX', 'NM'], "hhs7": ['IA', 'MO', 'NE', 'KS'], "hhs8": ['ND', 'SD', 'CO', 'WY', 'MT', 'UT'], "hhs9": ['NV', 'CA', 'HI', 'AZ'], "hhs10": ['WA', 'OR', 'AK', 'ID'], "cen1": ['ME', 'MA', 'NH', 'VT', 'RI', 'CT'], "cen2": ['PA', 'NY', 'NJ'], "cen3": ['WI', 'MI', 'IN', 'IL', 'OH'], "cen4": ['ND', 'SD', 'NE', 'KS', 'MN', 'IA', 'MO'], "cen5": ['DE','MD','DC','WV','VA','NC','SC','GA','FL'], "cen6": ['KY','TN', 'MS', 'AL'], "cen7": ['OK', 'AR', 'LA', 'TX'], "cen8": ['MT', 'ID', 'WY', 'CO', 'UT', 'NV', 'AZ', 'NM'], "cen9": ['WA', 'OR', 'CA', 'AK', 'HI']}
 
+POPULATION = {
+  'AK':   731449, 'AL':  4822023, 'AR':  2949131, 'AZ':  6553255,
+  'CA': 38041430, 'CO':  5187582, 'CT':  3590347, 'DC':   632323,
+  'DE':   917092, 'FL': 19317568, 'GA':  9919945, 'HI':  1392313,
+  'IA':  3074186, 'ID':  1595728, 'IL': 12875255, 'IN':  6537334,
+  'KS':  2885905, 'KY':  4380415, 'LA':  4601893, 'MA':  6646144,
+  'MD':  5884563, 'ME':  1329192, 'MI':  9883360, 'MN':  5379139,
+  'MO':  6021988, 'MS':  2984926, 'MT':  1005141, 'NC':  9752073,
+  'ND':   699628, 'NE':  1855525, 'NH':  1320718, 'NJ':  8864590,
+  'NM':  2085538, 'NV':  2758931, 'NY': 19570261, 'OH': 11544225,
+  'OK':  3814820, 'OR':  3899353, 'PA': 12763536, 'RI':  1050292,
+  'SC':  4723723, 'SD':   833354, 'TN':  6456243, 'TX': 26059203,
+  'UT':  2855287, 'VA':  8185867, 'VT':   626011, 'WA':  6897012,
+  'WI':  5726398, 'WV':  1855413, 'WY':   576412,
+}
+
+# Non-Influennza Week Calculation
+NON_INFLUENZA_WEEK_SEASON = 2015
+
+calculateMean = (values) ->
+  sum = 0
+  for v in values
+    sum += v
+  return sum/values.length
+
+calculateStdev = (values, mean) ->
+  sum = 0
+  for v in values
+    sum += (v - mean)**2
+  return (sum/(values.length-1))**0.5
+
+calculateNonInfluenzaData = (epidata) ->
+  NonInfluenzaData = {}
+  mappedData = {}
+  for loc in LOCATIONS
+    mappedData[loc] = {}
+  for row in epidata
+    wk = row.epiweek%100
+    mappedData[row.location][wk] = row.value
+  for region in HHS_REGIONS
+    weeks = nonInfluenzaWeekData[region]
+    for state in REGION2STATE[region]
+      values = []
+      for week in weeks
+        values.push(mappedData[state][week])
+      mean = calculateMean(values)
+      stdev = calculateStdev(values, mean)
+      NonInfluenzaData[state] = [mean, stdev]
+  return NonInfluenzaData
+  
+calculateColor = (NonInfluenzaData, epidata, ep) ->
+  mappedData = {}
+  levelData = {}
+  colorData = {}
+  for row in epidata
+    if row.epiweek = ep
+      mappedData[row.location] = row.value
+  for state in STATES
+    [mean, stdev] = NonInfluenzaData[state]
+    ili = mappedData[state]
+    level = activity_level(ili, mean, stdev)
+    colorData[state] = level2Color(level)
+    levelData[state] = level
+  for region in REGIONS
+    pop_total = 0
+    for state in REGION2STATE[region]
+      pop_total += POPULATION[state]
+    level = 0
+    for state in REGION2STATE[region]
+      level += (POPULATION[state]/pop_total) * levelData[state]
+    colorData[region] = level2Color(level)
+    levelData[region] = level
+  pop_total = 0
+  for state in STATES
+    pop_total += POPULATION[state]
+  level = 0
+  for state in STATES
+    level += (POPULATION[state]/pop_total) * levelData[state]
+  colorData['nat'] = level2Color(level)
+  levelData['nat'] = level
+  return colorData
+
+activity_level = (ili, mean, stdev) ->
+  l = (ili-mean)/stdev
+  if l < 1.1
+    return 1
+  if l < 2.5
+    return 2
+  if l < 4.0
+    return 3
+  if l < 4.9
+    return 4
+  if l < 6.0
+    return 5
+  if l < 7.6
+    return 6
+  if l < 8.0
+    return 7
+  if l < 9.5
+    return 8
+  if l < 12
+    return 9
+  return 10
+
+level2Color = (level) ->
+  return level/4
+
 Date.prototype.getWeek = () ->
   stdDate = new Date(2016, 0, 3)
   rst = (Math.ceil((((this - stdDate) / 86400000) + stdDate.getDay() + 1) / 7)%52)
@@ -165,12 +272,9 @@ Epidata_nowcast_multi = (handler, locations, epiweek1, epiweek2) ->
     Epidata.nowcast(handler, locations, Epidata.range(epiweek1, epiweek2))
   else
     fakeData = []
-    for i in [0...3]
-      for loc in locations
-        row = getFakeRow(loc, i)
-        if i == 0
-          row.epiweek = epiweek2
-        fakeData.push(row)
+    for location in locations
+      for i in [0...280]
+        fakeData.push(getFakeRow(location, i))
     callback = () -> handler(1, 'debug', fakeData)
     delay = 250 + Math.round(Math.random() * 500)
     window.setTimeout(callback, delay)
@@ -339,18 +443,23 @@ window.App = class App
       datestr = datestr + "-" + date2String(date) + ")"
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       callback = (epidata) =>
-        @colors = {}
-        @mapData = {}
-        for row in epidata
-          if row.epiweek == epiweek2
-            ili = row.value
-            v = Math.max(0, Math.min(5, ili)) / 5
-            c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
-            @colors[row.location] = '#' + c + '4040'
-            @mapData[row.location] = row
-        @renderMap()
+        NonInfluenzaData = calculateNonInfluenzaData(epidata)
+        callback = (epidata) =>
+          @colors = {}
+          @mapData = {}
+          colorData = calculateColor(NonInfluenzaData, epidata, epiweek2)
+          for row in epidata
+            if row.epiweek == epiweek2
+              ili = row.value
+              v = colorData[row.location]
+              c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
+              @colors[row.location] = '#' + c + '4040'
+              @mapData[row.location] = row
+          @renderMap()
+        handler = getEpidataHander(callback)
+        Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
       handler = getEpidataHander(callback)
-      Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
+      Epidata_nowcast_multi(handler, LOCATIONS, NON_INFLUENZA_WEEK_SEASON*100+40, (NON_INFLUENZA_WEEK_SEASON+1)*100+20)
     handler = getEpidataHander(callback)
     Epidata_nowcast_single(handler, 'nat')
 
@@ -799,3 +908,16 @@ window.App = class App
   onFluviewReceived: (ilidata) ->
     @truthData = ilidata
     @resizeCanvas()
+
+
+
+
+
+
+
+
+
+
+
+
+
