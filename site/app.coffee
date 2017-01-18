@@ -148,7 +148,6 @@ calculateNonInfluenzaData = (epidata) ->
     yr = (Math.round(row.epiweek / 100))
     if yr == 2015 and wk >= 40
       mappedData[row.location][wk] = row.value
-    if yr == 2016 and wk <= 39
       mappedData[row.location][wk] = row.value
   for region in HHS_REGIONS
     weeks = nonInfluenzaWeekData[region]
@@ -460,7 +459,7 @@ window.App = class App
             @mapData[row.location] = row
         @renderMap()
       handler = getEpidataHander(callback)
-      Epidata_nowcast_multi(handler, LOCATIONS, 201540, 201710)
+      Epidata_nowcast_multi(handler, LOCATIONS, 201540, 201639)
     handler = getEpidataHander(callback)
     Epidata_nowcast_single(handler, 'nat')
 
