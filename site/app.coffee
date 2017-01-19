@@ -191,23 +191,23 @@ calculateColor = (NonInfluenzaData, epidata, ep) ->
 
 activity_level = (ili, mean, stdev) ->
   l = (ili-mean)/stdev
-  if l < 1.1
+  if l < 0
     return 1
-  if l < 2.5
+  if l < 1
     return 2
-  if l < 4.0
+  if l < 2
     return 3
-  if l < 4.9
+  if l < 3
     return 4
-  if l < 6.0
+  if l < 4
     return 5
-  if l < 7.6
+  if l < 5
     return 6
-  if l < 8.0
+  if l < 6
     return 7
-  if l < 9.5
+  if l < 7
     return 8
-  if l < 12
+  if l < 8
     return 9
   return 10
 
@@ -442,7 +442,6 @@ window.App = class App
       datestr = datestr + "-" + date2String(date) + ")"
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       callback1 = (epidata) =>
-        alert(epidata.length)
         NonInfluenzaData = calculateNonInfluenzaData(epidata)
         callback2 = (epidata) =>
           @colors = {}
