@@ -326,7 +326,6 @@ class PointerInput
     @listener.onScroll(e.originalEvent.deltaY)
 
 
-
 window.App = class App
 
   PAGE_MAP = 0
@@ -443,6 +442,7 @@ window.App = class App
       datestr = datestr + "-" + date2String(date) + ")"
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       callback1 = (epidata) =>
+        alert(epidata[0].location)
         NonInfluenzaData = calculateNonInfluenzaData(epidata)
         callback2 = (epidata) =>
           @colors = {}
