@@ -442,7 +442,7 @@ window.App = class App
       datestr = datestr + "-" + date2String(date) + ")"
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       callback1 = (epidata) =>
-        alert(epidata[0].location)
+        alert(epidata.length)
         NonInfluenzaData = calculateNonInfluenzaData(epidata)
         callback2 = (epidata) =>
           @colors = {}
