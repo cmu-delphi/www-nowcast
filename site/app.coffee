@@ -191,23 +191,23 @@ calculateColor = (NonInfluenzaData, epidata, ep) ->
 
 activity_level = (ili, mean, stdev) ->
   l = (ili-mean)/stdev
-  if l < 0
+  if l < 1.1
     return 1
-  if l < 1
+  if l < 2.5
     return 2
-  if l < 2
+  if l < 4.0
     return 3
-  if l < 3
+  if l < 4.9
     return 4
-  if l < 4
+  if l < 6.0
     return 5
-  if l < 5
+  if l < 7.6
     return 6
-  if l < 6
+  if l < 8.0
     return 7
-  if l < 7
+  if l < 9.5
     return 8
-  if l < 8
+  if l < 12
     return 9
   return 10
 
