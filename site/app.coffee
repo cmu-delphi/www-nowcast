@@ -211,8 +211,27 @@ activity_level = (ili, mean, stdev) ->
     return 9
   return 10
 
-level2Color = (level) ->
-  return Math.max(0, Math.min(10, level)) / 10
+level2Color = (l) ->
+  if l == 1
+    return '#ff99ff'
+  if l == 2
+    return '#ff66ff'
+  if l == 3
+    return '#ff66cc'
+  if l == 4
+    return '#ff00ff'
+  if l == 5
+    return '#cc00cc'
+  if l == 6
+    return '#cc0099'
+  if l == 7
+    return '#cc3399'
+  if l == 8
+    return '#993399'
+  if l == 9
+    return '#800080'
+  if l == 10
+    return '#660066'
 
 Date.prototype.getWeek = () ->
   stdDate = new Date(2016, 0, 3)
@@ -451,8 +470,7 @@ window.App = class App
             if row.epiweek == epiweek2
               ili = row.value
               v = colorData[row.location]
-              c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
-              @colors[row.location] = '#' + c + '4040'
+              @colors[row.location] = v
               @mapData[row.location] = row
           @renderMap()
         handler = getEpidataHander(callback2)
