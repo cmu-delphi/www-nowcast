@@ -687,8 +687,8 @@ window.App = class App
       wx = w/3
       if w < 600
         wx = w/5
-      ctx.fillText('NOTE 1: %ILI is not meaningfully comparable between states, due to differences in reporter types.', wx, h-18-24 * Math.max(0.7, w / 1000))
-      #ctx.fillText('due to differences in reporter types. Color intensity is similar to,', wx, h-24-12 * Math.max(0.7, w / 1000))
+      ctx.fillText('NOTE 1: %ILI is not meaningfully comparable between states,', wx, h-24-24 * Math.max(0.7, w / 1000))
+      ctx.fillText('                due to differences in reporter types.', wx, h-24-12 * Math.max(0.7, w / 1000))
       ctx.fillText('NOTE 2: Color intensity is roughly proportional to CDC’s Flu Activity Level.', wx, h-24)
     return 0
 
