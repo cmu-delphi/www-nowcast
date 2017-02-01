@@ -157,7 +157,15 @@ a:active {
   padding: 0;
   padding-bottom: 3px;
 }
-
+#accurate_not {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 1em;
+  right: 11em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.5);
+}
 #map_controls {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
