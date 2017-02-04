@@ -435,11 +435,9 @@ window.App = class App
     $(document).keydown((e) =>
       if e.keyCode == 37
         [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
-        alert(@currentEpweek)
         @loadEpidata(@currentEpweek)
       if e.keyCode == 39
         [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
-        alert(@currentEpweek)
         @loadEpidata(@currentEpweek)
       )
     window.onpopstate = (e) => @backToHome()
