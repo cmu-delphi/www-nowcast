@@ -568,7 +568,7 @@ window.App = class App
     $('.location_right').css('display', 'none')
     $('#loading_icon').css('display', 'flex')
     $('.pages').animate({left: '-100%'}, 125)
-    @fetchNowcast(loc)
+    @fetchNowcast(loc, @currentEpweek)
 
   setLocations: (@locations) ->
     @renderMapList()
@@ -914,14 +914,17 @@ window.App = class App
       centerY = centerY - 10
     return [centerX, centerY]
 
-  fetchNowcast: (loc) ->
+  fetchNowcast: (loc, currentEpiweek) ->
     @chartData = null
     @truthData = null
-    callback = (epidata) => @onNowcastReceived(epidata)
+    callback = (epidata) => @onNowcastReceived(epidata, currentEpiweek)
     Epidata_nowcast_single(getEpidataHander(callback), loc)
 
-  onNowcastReceived: (epidata) ->
-    current = epidata[epidata.length - 1]
+  onNowcastReceived: (epidata, currentEpiweek) ->
+    for row in epidata
+      if row.epiweek == currentEpiweek
+        current = row
+
     start = epidata[0]
     loc = current.location
     if loc in REGIONS or loc in NATIONAL
