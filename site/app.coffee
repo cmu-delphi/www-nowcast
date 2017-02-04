@@ -138,7 +138,7 @@ calculateStdev = (values, mean) ->
     sum += (v - mean)**2
   return (sum/(values.length-1))**0.5
 
-calculateNonInfluenzaData = (epidata) ->
+calculateNonInfluenzaData = (epidata, season) ->
   NonInfluenzaData = {}
   mappedData = {}
   for loc in LOCATIONS
@@ -147,7 +147,7 @@ calculateNonInfluenzaData = (epidata) ->
     wk = row.epiweek%100
     mappedData[row.location][wk] = row.value
   for region in HHS_REGIONS
-    weeks = nonInfluenzaWeekData[region]
+    weeks = nonInfluenzaWeekData[season][region]
     for state in REGION2STATE[region]
       values = []
       for week in weeks
@@ -428,6 +428,7 @@ window.App = class App
     @pointerInput = new PointerInput(@canvasMap, @)
     @canvasMap.focus()
     @currentPage = PAGE_MAP
+    @nonInfluenzaWeekSeason = NON_INFLUENZA_WEEK_SEASON
     @setLocations(STATES)
     @resetView()
     @resizeCanvas()
@@ -435,9 +436,15 @@ window.App = class App
     $(document).keydown((e) =>
       if e.keyCode == 37
         [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
+        wk = @currentEpweek % 100
+        if wk == 39
+          @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason-1
         @loadEpidata(@currentEpweek)
       if e.keyCode == 39
         [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
+        wk = @currentEpweek % 100
+        if wk == 40
+          @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
         @loadEpidata(@currentEpweek)
       )
     window.onpopstate = (e) => @backToHome()
@@ -454,7 +461,7 @@ window.App = class App
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
       @currentEpweek = epiweek2
       callback1 = (epidata) =>
-        NonInfluenzaData = calculateNonInfluenzaData(epidata)
+        NonInfluenzaData = calculateNonInfluenzaData(epidata, @nonInfluenzaWeekSeason)
         callback2 = (epidata) =>
           @colors = {}
           @mapData = {}
@@ -470,7 +477,7 @@ window.App = class App
         handler = getEpidataHander(callback2)
         Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
       handler = getEpidataHander(callback1)
-      Epidata_nowcast_multi(handler, STATES, NON_INFLUENZA_WEEK_SEASON*100+40, (NON_INFLUENZA_WEEK_SEASON+1)*100+39)
+      Epidata_nowcast_multi(handler, STATES, @nonInfluenzaWeekSeason*100+40, (@nonInfluenzaWeekSeason+1)*100+39)
     else
       callback = (epidata) =>
         epiweek1 = epidata[epidata.length - 4].epiweek
@@ -482,7 +489,7 @@ window.App = class App
         @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
         @currentEpweek = epiweek2
         callback1 = (epidata) =>
-          NonInfluenzaData = calculateNonInfluenzaData(epidata)
+          NonInfluenzaData = calculateNonInfluenzaData(epidata, @nonInfluenzaWeekSeason)
           callback2 = (epidata) =>
             @colors = {}
             @mapData = {}
@@ -498,7 +505,7 @@ window.App = class App
           handler = getEpidataHander(callback2)
           Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
         handler = getEpidataHander(callback1)
-        Epidata_nowcast_multi(handler, STATES, NON_INFLUENZA_WEEK_SEASON*100+40, (NON_INFLUENZA_WEEK_SEASON+1)*100+39)
+        Epidata_nowcast_multi(handler, STATES, @nonInfluenzaWeekSeason*100+40, (@nonInfluenzaWeekSeason+1)*100+39)
       handler = getEpidataHander(callback)
       Epidata_nowcast_single(handler, 'nat')
 
