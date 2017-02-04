@@ -232,6 +232,16 @@ epiweek2date = (epiweek) ->
   stdDate.setDate(stdDate.getDate() + increment);
   return stdDate
 
+epiweekOffByOne = (epiweek) ->
+  wk = epiweek%100
+  yr = (Math.round(epiweek / 100))
+  previousWeek = epiweek-1
+  nextWeek = epiweek+1
+  if wk == 1
+    previousWeek = (yr-1)*100+52
+  if wk == 52
+    nextWeek = (yr+1)*100+1
+  return [previousWeek, nextWeek]
 
 getFakeRow = (location, i) ->
   'location': location
@@ -422,25 +432,27 @@ window.App = class App
     @resetView()
     @resizeCanvas()
     @loadEpidata()
+    $(document).keydown((e) =>
+      if e.keyCode == 37
+        [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
+        @loadEpidata(@currentEpweek)
+      if e.keyCode == 39
+        [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
+        @loadEpidata(@currentEpweek)
+      )
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
     
-  loadEpidata: () ->
-    callback = (epidata) =>
-      epiweek1 = epidata[epidata.length - 4].epiweek
-      epiweek2 = epidata[epidata.length - 1].epiweek
-      currentdate = new Date();
-      ind = 'PM'
-      if currentdate.getHours() < 12
-        ind = 'AM'
-      mins = currentdate.getMinutes()
-      if mins < 10
-        mins = "0" + mins
+  loadEpidata: (epweek=null) ->
+    if epweek?
+      epiweek2 = epweek
+      [epiweek1, _] = epiweekOffByOne(epiweek2)
       date = epiweek2date(epiweek2)
       datestr = "(" + date2String(date)
       date.setDate(date.getDate() + 6)
       datestr = datestr + "-" + date2String(date) + ")"
       @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
+      @currentEpweek = epiweek2
       callback1 = (epidata) =>
         NonInfluenzaData = calculateNonInfluenzaData(epidata)
         callback2 = (epidata) =>
@@ -452,15 +464,44 @@ window.App = class App
               ili = row.value
               v = colorData[row.location]
               c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
-              @colors[row.location] = '#990000' #'#' + c + '4040'
+              @colors[row.location] = '#' + c + '4040'
               @mapData[row.location] = row
           @renderMap()
         handler = getEpidataHander(callback2)
         Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
       handler = getEpidataHander(callback1)
       Epidata_nowcast_multi(handler, STATES, NON_INFLUENZA_WEEK_SEASON*100+40, (NON_INFLUENZA_WEEK_SEASON+1)*100+39)
-    handler = getEpidataHander(callback)
-    Epidata_nowcast_single(handler, 'nat')
+    else
+      callback = (epidata) =>
+        epiweek1 = epidata[epidata.length - 4].epiweek
+        epiweek2 = epidata[epidata.length - 1].epiweek
+        date = epiweek2date(epiweek2)
+        datestr = "(" + date2String(date)
+        date.setDate(date.getDate() + 6)
+        datestr = datestr + "-" + date2String(date) + ")"
+        @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
+        @currentEpweek = epiweek2
+        callback1 = (epidata) =>
+          NonInfluenzaData = calculateNonInfluenzaData(epidata)
+          callback2 = (epidata) =>
+            @colors = {}
+            @mapData = {}
+            colorData = calculateColor(NonInfluenzaData, epidata, epiweek2)
+            for row in epidata
+              if row.epiweek == epiweek2
+                ili = row.value
+                v = colorData[row.location]
+                c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
+                @colors[row.location] = '#' + c + '4040'
+                @mapData[row.location] = row
+            @renderMap()
+          handler = getEpidataHander(callback2)
+          Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
+        handler = getEpidataHander(callback1)
+        Epidata_nowcast_multi(handler, STATES, NON_INFLUENZA_WEEK_SEASON*100+40, (NON_INFLUENZA_WEEK_SEASON+1)*100+39)
+      handler = getEpidataHander(callback)
+      Epidata_nowcast_single(handler, 'nat')
+
 
   backToHome: () ->
     @currentPage = PAGE_MAP
