@@ -227,14 +227,14 @@ date2String = (date) ->
 epiweek2date = (epiweek) ->
   stdDate = new Date(2016, 0, 3)
   wk = epiweek%100
-  yr = (Math.round(epiweek / 100))
+  yr = (Math.floor(epiweek / 100))
   increment = ((yr - 2016) * 52 + wk - 1) * 7
   stdDate.setDate(stdDate.getDate() + increment);
   return stdDate
 
 epiweekOffByOne = (epiweek) ->
   wk = epiweek%100
-  yr = (Math.round(epiweek / 100))
+  yr = (Math.floor(epiweek / 100))
   previousWeek = epiweek-1
   nextWeek = epiweek+1
   if wk == 1
@@ -435,9 +435,11 @@ window.App = class App
     $(document).keydown((e) =>
       if e.keyCode == 37
         [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
+        alert(@currentEpweek)
         @loadEpidata(@currentEpweek)
       if e.keyCode == 39
         [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
+        alert(@currentEpweek)
         @loadEpidata(@currentEpweek)
       )
     window.onpopstate = (e) => @backToHome()
