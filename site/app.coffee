@@ -448,7 +448,8 @@ window.App = class App
             @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
           @loadEpidata(@currentEpweek)
         else
-          alert("This is the lastest data we had! Please check back next week!")
+          wk = @maxEpiweek % 100
+          alert("Week" + wk + " is the lastest data we had! Please check back next week!")
       )
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
