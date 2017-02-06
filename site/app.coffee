@@ -461,7 +461,7 @@ window.App = class App
       datestr = "(" + date2String(date)
       date.setDate(date.getDate() + 6)
       datestr = datestr + "-" + date2String(date) + ")"
-      @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
+      @dataTimeline.html("")
       @currentEpweek = epiweek2
       callback1 = (epidata) =>
         NonInfluenzaData = calculateNonInfluenzaData(epidata, @nonInfluenzaWeekSeason)
@@ -477,6 +477,7 @@ window.App = class App
               @colors[row.location] = '#' + c + '4040'
               @mapData[row.location] = row
           @renderMap()
+          @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
         handler = getEpidataHander(callback2)
         Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
       handler = getEpidataHander(callback1)
