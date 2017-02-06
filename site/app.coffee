@@ -441,11 +441,14 @@ window.App = class App
           @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason-1
         @loadEpidata(@currentEpweek)
       if e.keyCode == 39
-        [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
-        wk = @currentEpweek % 100
-        if wk == 40
-          @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
-        @loadEpidata(@currentEpweek)
+        if @currentEpweek < @maxEpiweek
+          [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
+          wk = @currentEpweek % 100
+          if wk == 40
+            @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
+          @loadEpidata(@currentEpweek)
+        else
+          alert("This is the lastest data we had! Please check back next week!")
       )
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
@@ -482,6 +485,7 @@ window.App = class App
       callback = (epidata) =>
         epiweek1 = epidata[epidata.length - 4].epiweek
         epiweek2 = epidata[epidata.length - 1].epiweek
+        @maxEpiweek = epiweek2
         date = epiweek2date(epiweek2)
         datestr = "(" + date2String(date)
         date.setDate(date.getDate() + 6)
