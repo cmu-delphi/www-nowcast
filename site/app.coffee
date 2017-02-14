@@ -433,6 +433,7 @@ window.App = class App
     @resetView()
     @resizeCanvas()
     @loadEpidata()
+    @currentDetailedLoc = null
     $(document).keydown((e) =>
       if e.keyCode == 37
         [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
@@ -440,6 +441,8 @@ window.App = class App
         if wk == 39
           @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason-1
         @loadEpidata(@currentEpweek)
+        if @currentDetailedLoc?
+          @fetchNowcast(@currentDetailedLoc, @currentEpweek)
       if e.keyCode == 39
         if @currentEpweek < @maxEpiweek
           [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
@@ -447,6 +450,8 @@ window.App = class App
           if wk == 40
             @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
           @loadEpidata(@currentEpweek)
+          if @currentDetailedLoc?
+            @fetchNowcast(@currentDetailedLoc, @currentEpweek)
         else
           wk = @maxEpiweek % 100
           alert("Week" + wk + " is the lastest data we had! Please check back next week!")
@@ -574,6 +579,7 @@ window.App = class App
     $('.location_right').css('display', 'none')
     $('#loading_icon').css('display', 'flex')
     $('.pages').animate({left: '-100%'}, 125)
+    @currentDetailedLoc = loc
     @fetchNowcast(loc, @currentEpweek)
 
   setLocations: (@locations) ->
