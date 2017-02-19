@@ -852,7 +852,7 @@ window.App = class App
     ctx.setLineDash([1, 0])
     ctx.strokeStyle = 'green'
     # credible interval
-    for i in [0..numWeeks]
+    for i in [0..numWeeks-1]
       if @chartData[i].epiweek == @currentEpweek
         current = @chartData[i]
         centerX = i2x(i)
@@ -863,12 +863,12 @@ window.App = class App
         ctx.lineTo(centerX, downY)
         ctx.stroke()
         ctx.beginPath()
-        ctx.moveTo(i2x(numWeeks-3), upY)
-        ctx.lineTo(2*centerX-i2x(numWeeks-3), upY)
+        ctx.moveTo(centerX-2*(i2x(2)-i2x(1)), upY)
+        ctx.lineTo(centerX+2*(i2x(2)-i2x(1)), upY)
         ctx.stroke()
         ctx.beginPath()
-        ctx.moveTo(i2x(numWeeks-3), downY)
-        ctx.lineTo(2*centerX-i2x(numWeeks-3), downY)
+        ctx.moveTo(centerX-2*(i2x(2)-i2x(1)), downY)
+        ctx.lineTo(centerX+2*(i2x(2)-i2x(1)), downY)
         ctx.stroke()
         ctx.beginPath()
         ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI, false)
