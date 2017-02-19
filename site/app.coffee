@@ -940,10 +940,11 @@ window.App = class App
         current = row
 
     start = epidata[0]
+    end = epidata[epidata.length-1]
     loc = current.location
     if loc in REGIONS or loc in NATIONAL
       callback = (ilidata) => @onFluviewReceived(ilidata)
-      Epidata_fluview_single(getEpidataHander(callback), loc, start.epiweek+ "-" + current.epiweek)
+      Epidata_fluview_single(getEpidataHander(callback), loc, start.epiweek+ "-" + end.epiweek)
     ili = '' + (Math.round(current.value * 100) / 100)
     if '.' in ili
       ili += '00'
