@@ -826,7 +826,7 @@ window.App = class App
     ctx.lineWidth = ctx.lineWidth/2
     iVals = (i for i in [0...numWeeks])
     if @truthData?
-      iliVals = (@truthData[i].wili for i in [0...(numWeeks-10)])
+      iliVals = (@truthData[i].wili for i in [0...@truthData.length])
       trace(iVals.map(i2x), iliVals.map(ili2y))
     ctx.strokeStyle = '#FF0000'
     iliVals = (@chartData[i].value for i in [0...numWeeks])
@@ -941,10 +941,17 @@ window.App = class App
 
     start = epidata[0]
     end = epidata[epidata.length-1]
+    wk = end.epiweek%100
+    yr = (Math.floor(end.epiweek / 100))
+    endepiweek = end.epiweek - 10
+    if wk > 40
+      endepiweek = yr * 100 + 39
+    if wk < 20
+      endepiweek = (yr-1) * 100 + 39
     loc = current.location
     if loc in REGIONS or loc in NATIONAL
       callback = (ilidata) => @onFluviewReceived(ilidata)
-      Epidata_fluview_single(getEpidataHander(callback), loc, start.epiweek+ "-" + end.epiweek)
+      Epidata_fluview_single(getEpidataHander(callback), loc, start.epiweek+ "-" + endepiweek)
     ili = '' + (Math.round(current.value * 100) / 100)
     if '.' in ili
       ili += '00'
