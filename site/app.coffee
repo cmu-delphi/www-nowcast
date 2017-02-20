@@ -434,27 +434,30 @@ window.App = class App
     @resizeCanvas()
     @loadEpidata()
     @currentDetailedLoc = null
+    @keyPressLock = 0
     $(document).keydown((e) =>
-      if e.keyCode == 37
-        [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
-        wk = @currentEpweek % 100
-        if wk == 39
-          @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason-1
-        @loadEpidata(@currentEpweek)
-        if @currentDetailedLoc?
-          @fetchNowcast(@currentDetailedLoc, @currentEpweek)
-      if e.keyCode == 39
-        if @currentEpweek < @maxEpiweek
-          [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
+      if @keyPressLock == 0
+        @keyPressLock = 1
+        if e.keyCode == 37
+          [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
           wk = @currentEpweek % 100
-          if wk == 40
-            @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
+          if wk == 39
+            @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason-1
           @loadEpidata(@currentEpweek)
           if @currentDetailedLoc?
             @fetchNowcast(@currentDetailedLoc, @currentEpweek)
-        else
-          wk = @maxEpiweek % 100
-          alert("Week" + wk + " is the lastest data we had! Please check back next week!")
+        if e.keyCode == 39
+          if @currentEpweek < @maxEpiweek
+            [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
+            wk = @currentEpweek % 100
+            if wk == 40
+              @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
+            @loadEpidata(@currentEpweek)
+            if @currentDetailedLoc?
+              @fetchNowcast(@currentDetailedLoc, @currentEpweek)
+          else
+            wk = @maxEpiweek % 100
+            alert("Week" + wk + " is the lastest data we had! Please check back next week!")
       )
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
@@ -484,6 +487,8 @@ window.App = class App
               @mapData[row.location] = row
           @renderMap()
           @dataTimeline.html("Nowcasting epi-week " + epiweek2%100 + " " + datestr)
+          if @keyPressLock == 1
+            @keyPressLock = 0
         handler = getEpidataHander(callback2)
         Epidata_nowcast_multi(handler, LOCATIONS, epiweek1, epiweek2)
       handler = getEpidataHander(callback1)
