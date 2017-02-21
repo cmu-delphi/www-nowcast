@@ -32,16 +32,28 @@ For an introduction to nowcasting and its application to flu biosurveillance, se
 <p class="text_content">
 We use sensor fusion theory to optimally combine, in real-time, diverse sources of information about the prevalence of Influenza-Like-Illness (ILI) in various geographic areas of the US.  These sources, enumerated below, vary in their geographic granularity (metro areas, U.S. states, multi-state regions, entire US), their temporal granularity (daily or weekly), their noise (error) characteristics, and their correlation with one another.
 </p>
-<p class="text_content">
+<p class="text_content" id="HOW_ACCURATE">
 We estimate a <i style="color:#87CEFA">geographically detailed joint distribution</i> of ILI prevalence over the entire US, which we then integrate over to derive real-time nowcasts for any desired geographic area.  This means that even an information source that is available only at a national or regional level contributes indirectly to the accuracy of nowcasting a state.  <i style="color:#87CEFA">All information sources benefit all of our estimates, but to different degrees in different circumstances</i> (to see how the information sources contribute to nowcasting for a particular geographic area, hover over the icons representing these sources.)  Our combined estimate is significantly more accurate than estimates based on any one of the sources alone.
 </p>
-<p class="text_content">
+<p class="text_content" >
 We continuously monitor the correlations of the information sources and use them to estimate (again in real-time) a covariance matrix.  This helps us avoid over- or under- estimation when the errors of two or more sources are correlated.
 </p>
-         <p class="text_header" id="HOW_ACCURATE"><i class="fa fa-dashboard"></i> How accurate is ILI-Nearby?</p>
+         <p class="text_header" ><i class="fa fa-dashboard"></i> How accurate is ILI-Nearby?</p>
 <p class="text_content">
 As Gold Standard for national and regional weighted ILI, we use the CDC-reported 'final' values, typically defined as the values available at epi-week 30 (late July – well after the end of the flu season!).  This is because updates continue to arrive many months after each initial report.  ILI-Nearby overlays the gold standard (black line) on its own historical nowcasts (which are done “out of sample”, without knowledge of anything that wasn’t known at nowcasting time), from which you can assess its historical accuracy.
 </p>
+
+<p class="text_content">
+In addition, the following visualizations summarize the historical out-of-sample Relative Absolute Error (RAE) of ILI-Nearby, alongside that of Delphi’s near-term forecasts (available a few weeks earlier) and CDC’s ILI-Net initial report and later reports (available a few weeks later).  RAE is the percentage error of an estimate.  For example, an estimate of 3.6 when the ground truth is 3.0 has a RAE of 20% (|3.0-3.6|/3.0 = 0.2).   From these visualizations you can see the tradeoff between accuracy and timeliness offered by Delphi’s nowcasts and forecasts:
+</p> 
+
+ <ul>
+<li>Historical out-of-sample cumulative RAE (“forecasting skill”), averaged over all HHS regions and National</li>
+<li>Historical out-of-sample cumulative RAE (“forecasting skill”), for each HHS region and National</li>
+<li>Historical out-of-sample mean RAE, for each HHS region and National</li>
+</ul>
+
+
 <p class="text_content">
 As Gold Standard for fitting the US states’ %ILI, we use the best stable estimate available from each state.  Twenty five states graciously agreed to share with us the %ILI data they sent to the CDC.  Forty three states post a version of their %ILI data online, which we scrape and combine with the CDC-provided data when both are available.  Only 5 states do not fall in either of these categories, and thus lack a gold standard.  However, their nowcasts still benefit from the data of their neighboring states and regions.
 </p>
