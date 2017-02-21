@@ -437,8 +437,8 @@ window.App = class App
     @keyPressLock = 0
     $(document).keydown((e) =>
       if @keyPressLock == 0
-        @keyPressLock = 1
         if e.keyCode == 37
+          @keyPressLock = 1
           [@currentEpweek, _] = epiweekOffByOne(@currentEpweek)
           wk = @currentEpweek % 100
           if wk == 39
@@ -448,6 +448,7 @@ window.App = class App
             @fetchNowcast(@currentDetailedLoc, @currentEpweek)
         if e.keyCode == 39
           if @currentEpweek < @maxEpiweek
+            @keyPressLock = 1
             [_, @currentEpweek] = epiweekOffByOne(@currentEpweek)
             wk = @currentEpweek % 100
             if wk == 40
