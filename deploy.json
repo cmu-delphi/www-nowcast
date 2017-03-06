@@ -59,7 +59,7 @@
     "// plots",
     {
       "type": "move",
-      "src": "site/images/",
+      "src": "site/plots/",
       "dst": "/var/www/html/nowcast/plots/",
       "match": "^.+\\.(svg|jpg|png|gif|pdf)$"
     }
