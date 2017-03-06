@@ -54,7 +54,7 @@
       "src": "site/images/",
       "dst": "/var/www/html/nowcast/images/",
       "match": "^.+\\.(svg|jpg|png|gif)$"
-    }
+    },
 
     "// plots",
     {
