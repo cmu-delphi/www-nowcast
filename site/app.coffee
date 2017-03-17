@@ -756,6 +756,26 @@ window.App = class App
       ctx.fillText('NOTE 1: %ILI is not meaningfully comparable between states,', wx, h-24-24 * Math.max(0.7, w / 1000))
       ctx.fillText('               due to differences in reporter types.', wx, h-24-12 * Math.max(0.7, w / 1000))
       ctx.fillText('NOTE 2: Color intensity is similar to, but not the same as, CDC’s Flu Activity Level.', wx, h-24)
+    # Draw legend
+    [lw, lh] = [w/25, h/2]
+    [x0, y0, x1, y1] = [w/7, h/10, w/7+lw, h/10+lh]
+    for i in [1..10]
+      ctx.beginPath()
+      ctx.moveTo(x0, y0+(i-1)*(lh/10))
+      ctx.lineTo(x0, y0+i*(lh/10))
+      ctx.lineTo(x1, y0+i*(lh/10))
+      ctx.lineTo(x1, y0+(i-1)*(lh/10))
+      ctx.lineTo(x0, y0+(i-1)*(lh/10))
+      ctx.closePath()
+      v = level2Color(11-i)
+      c = ('0' + Math.round(0x3f + v * 0xc0).toString(16)).slice(-2)
+      ctx.fillStyle = '#' + c + '4040'
+      ctx.fill()
+      ctx.stroke()
+    ctx.fillStyle = '#eee'
+    ctx.font = 12 + 'px sans-serif'
+    ctx.fillText('Highest', x0+lw/4, y0-Math.min(10, lh/10))
+    ctx.fillText('Lowest', x0+lw/4, y1+Math.min(16, lh/10))
     return 0
 
   renderChart: () ->
