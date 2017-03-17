@@ -759,6 +759,8 @@ window.App = class App
     # Draw legend
     [lw, lh] = [w/25, h/2]
     [x0, y0, x1, y1] = [w/7, h/10, w/7+lw, h/10+lh]
+    ctx.strokeStyle = '#000'
+    ctx.lineWidth = 0.5
     for i in [1..10]
       ctx.beginPath()
       ctx.moveTo(x0, y0+(i-1)*(lh/10))
