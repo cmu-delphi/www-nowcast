@@ -758,7 +758,7 @@ window.App = class App
       ctx.fillText('NOTE 2: Color intensity is similar to, but not the same as, CDC’s Flu Activity Level.', wx, h-24)
     # Draw legend
     [lw, lh] = [w/25, h/2]
-    [x0, y0, x1, y1] = [w/7, h/10, w/7+lw, h/10+lh]
+    [x0, y0, x1, y1] = [w/5, h/10, w/5+lw, h/10+lh]
     ctx.strokeStyle = '#000'
     ctx.lineWidth = 0.5
     for i in [1..10]
