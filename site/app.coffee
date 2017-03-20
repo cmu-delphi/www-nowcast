@@ -757,8 +757,10 @@ window.App = class App
       ctx.fillText('               due to differences in reporter types.', wx, h-24-12 * Math.max(0.7, w / 1000))
       ctx.fillText('NOTE 2: Color intensity is similar to, but not the same as, CDC’s Flu Activity Level.', wx, h-24)
     # Draw legend
+    x_offset = 32
     areas_box = $('#map_list')
-    x_offset = areas_box.position().left + areas_box.width() + 32
+    if areas_box.css('visibility') != 'hidden'
+      x_offset += areas_box.position().left + areas_box.width()
     [lw, lh] = [w/25, h/2]
     [x0, y0, x1, y1] = [x_offset, h / 10, x_offset + lw, h / 10 + lh]
     ctx.strokeStyle = '#000'
