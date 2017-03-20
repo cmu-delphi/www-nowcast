@@ -156,7 +156,7 @@ calculateNonInfluenzaData = (epidata, season) ->
       stdev = calculateStdev(values, mean)
       NonInfluenzaData[state] = [mean, stdev]
   return NonInfluenzaData
-  
+
 calculateColor = (NonInfluenzaData, epidata, ep) ->
   mappedData = {}
   levelData = {}
@@ -361,14 +361,14 @@ window.App = class App
         @zoomIn()
     pinchend = (e) =>
       if isPinching
-        if e.originalEvent.changedTouches.length == 2          
+        if e.originalEvent.changedTouches.length == 2
           xe2 = e.originalEvent.changedTouches[0].pageX
           xe3 = e.originalEvent.changedTouches[1].pageX
           ye2 = e.originalEvent.changedTouches[0].pageY
           ye3 = e.originalEvent.changedTouches[1].pageY
           isPinching = false
           pinchZoom()
-        if e.originalEvent.changedTouches.length == 1          
+        if e.originalEvent.changedTouches.length == 1
           if xe2 < 0
             xe2 = e.originalEvent.changedTouches[0].pageX
             ye2 = e.originalEvent.changedTouches[0].pageY
@@ -384,7 +384,7 @@ window.App = class App
         xs0 = e.originalEvent.targetTouches[0].pageX
         xs1 = e.originalEvent.targetTouches[1].pageX
         ys0 = e.originalEvent.targetTouches[0].pageY
-        ys1 = e.originalEvent.targetTouches[1].pageY 
+        ys1 = e.originalEvent.targetTouches[1].pageY
     $('#button_view_nat').click(clicker('nat', NATIONAL))
     $('#button_view_hhs').click(clicker('hhs', HHS_REGIONS))
     $('#button_view_cen').click(clicker('cen', CENSUS_REGIONS))
@@ -393,7 +393,7 @@ window.App = class App
     $('#button_zoom_out').click(() => @zoomOut())
     @dataTimeline = $("#dataTimeline")
     @canvasMap = $('#canvas_map')
-    @canvasMap.mousemove((e) => 
+    @canvasMap.mousemove((e) =>
       loc = @hitTest(e.offsetX, e.offsetY)
       if loc?
         $('#canvas_map').css('cursor','pointer')
@@ -462,7 +462,7 @@ window.App = class App
       )
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
-    
+
   loadEpidata: (epweek=null) ->
     if epweek?
       epiweek2 = epweek
@@ -643,7 +643,7 @@ window.App = class App
     for loc in @locations
       $('#map_list_element_'+loc).click(()->saveThis.showLocationDetails(loc))
       $('#map_list_element_'+loc).hover(
-        ((ev) -> 
+        ((ev) ->
           loc = this.id.substring(17)
           current = saveThis.mapData[loc]
           ili = '' + (Math.round(current.value * 100) / 100)
@@ -663,7 +663,7 @@ window.App = class App
           ili = '(' + ili + '±' + std + ')%'
           $('#map_list_element_text_'+loc).text(ili)
           saveThis.renderMap(loc))
-        ((ev) -> 
+        ((ev) ->
           loc = this.id.substring(17)
           $('#map_list_element_text_'+loc).text(NAMES[loc])
           saveThis.renderMap()))
@@ -757,8 +757,10 @@ window.App = class App
       ctx.fillText('               due to differences in reporter types.', wx, h-24-12 * Math.max(0.7, w / 1000))
       ctx.fillText('NOTE 2: Color intensity is similar to, but not the same as, CDC’s Flu Activity Level.', wx, h-24)
     # Draw legend
+    areas_box = $('#map_list')
+    x_offset = areas_box.position().left + areas_box.width() + 32
     [lw, lh] = [w/25, h/2]
-    [x0, y0, x1, y1] = [w/5, h/10, w/5+lw, h/10+lh]
+    [x0, y0, x1, y1] = [x_offset, h / 10, x_offset + lw, h / 10 + lh]
     ctx.strokeStyle = '#000'
     ctx.lineWidth = 0.5
     for i in [1..10]
@@ -1009,15 +1011,3 @@ window.App = class App
   onFluviewReceived: (ilidata) ->
     @truthData = ilidata
     @resizeCanvas()
-
-
-
-
-
-
-
-
-
-
-
-
