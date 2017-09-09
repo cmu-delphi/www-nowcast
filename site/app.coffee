@@ -232,6 +232,13 @@ epiweek2date = (epiweek) ->
   stdDate.setDate(stdDate.getDate() + increment);
   return stdDate
 
+epiweekOffByTen = (epiweek) ->
+  [previousWeek, nextWeek] = [epiweek, epiweek]
+  for i in [0...10]
+    [previousWeek, _] = epiweekOffByOne(previousWeek)
+    [_, nextWeek] = epiweekOffByOne(nextWeek)
+  return [previousWeek, nextWeek]
+
 epiweekOffByOne = (epiweek) ->
   wk = epiweek%100
   yr = (Math.floor(epiweek / 100))
@@ -446,6 +453,20 @@ window.App = class App
           @loadEpidata(@currentEpweek)
           if @currentDetailedLoc?
             @fetchNowcast(@currentDetailedLoc, @currentEpweek)
+        if e.keyCode == 38
+          if @currentEpweek < @maxEpiweek
+            @keyPressLock = 1
+            [_, @currentEpweek] = epiweekOffByTen(@currentEpweek)
+            @currentEpweek = Math.min(@currentEpweek, @maxEpiweek)
+            wk = @currentEpweek % 100
+            if 50 > wk >= 40
+              @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason+1
+            @loadEpidata(@currentEpweek)
+            if @currentDetailedLoc?
+              @fetchNowcast(@currentDetailedLoc, @currentEpweek)
+          else
+            wk = @maxEpiweek % 100
+            alert("Week" + wk + " is the lastest data we had! Please check back next week!")
         if e.keyCode == 39
           if @currentEpweek < @maxEpiweek
             @keyPressLock = 1
@@ -459,6 +480,15 @@ window.App = class App
           else
             wk = @maxEpiweek % 100
             alert("Week" + wk + " is the lastest data we had! Please check back next week!")
+        if e.keyCode == 40
+          @keyPressLock = 1
+          [@currentEpweek, _] = epiweekOffByTen(@currentEpweek)
+          wk = @currentEpweek % 100
+          if 40 > wk > 29
+            @nonInfluenzaWeekSeason = @nonInfluenzaWeekSeason-1
+          @loadEpidata(@currentEpweek)
+          if @currentDetailedLoc?
+            @fetchNowcast(@currentDetailedLoc, @currentEpweek)
       )
     window.onpopstate = (e) => @backToHome()
     $('#back_arrow').click((e) -> window.history.back())
