@@ -260,6 +260,15 @@ getFakeRow = (location, i) ->
 getEpidataHander = (callback) ->
   return (result, message, epidata) ->
     if result == 1
+      # normalize the case of locations
+      for row in epidata
+        if row.location.length() == 2
+          # states should be upper case
+          row.location = row.location.toUpperCase()
+        else
+          # regions should be lower case
+          row.location = row.location.toLowerCase()
+      # invoke the supplied callback
       callback(epidata)
     else
       msg = "The Epidata API says '#{message}'. (error ##{result})"
