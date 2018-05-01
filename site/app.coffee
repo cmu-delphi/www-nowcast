@@ -257,17 +257,21 @@ getFakeRow = (location, i) ->
   'std': 0.5 + Math.random() * 1
   'wili': 1 + Math.random() * 3
 
+normalizeCase = (loc) ->
+  # states should be upper case, regions should be lower case
+  return if loc.length() == 2 then loc.toUpperCase() else loc.toLowerCase()
+
 getEpidataHander = (callback) ->
   return (result, message, epidata) ->
     if result == 1
       # normalize the case of locations
       for row in epidata
-        if row.location.length() == 2
-          # states should be upper case
-          row.location = row.location.toUpperCase()
-        else
-          # regions should be lower case
-          row.location = row.location.toLowerCase()
+        if row.location?
+          # the nowcast response
+          row.location = normalizeCase(row.location)
+        if row.region?
+          # the fluview response
+          row.region = normalizeCase(row.region)
       # invoke the supplied callback
       callback(epidata)
     else
