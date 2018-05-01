@@ -259,7 +259,7 @@ getFakeRow = (location, i) ->
 
 normalizeCase = (loc) ->
   # states should be upper case, regions should be lower case
-  return if loc.length() == 2 then loc.toUpperCase() else loc.toLowerCase()
+  return if loc.length == 2 then loc.toUpperCase() else loc.toLowerCase()
 
 getEpidataHander = (callback) ->
   return (result, message, epidata) ->
