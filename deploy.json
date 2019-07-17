@@ -69,8 +69,8 @@
     "// images",
     {
       "type": "move",
-      "src": "site/images/",
-      "dst": "/var/www/html/nowcast/images/",
+      "src": "site/img/",
+      "dst": "/var/www/html/nowcast/img/",
       "match": "^.+\\.(svg|jpg|png|gif)$"
     },
   ]
