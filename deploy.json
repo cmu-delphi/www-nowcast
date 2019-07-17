@@ -80,6 +80,13 @@
       "add-header-comment": true
     },
 
+    "// mobile app resources",
+    {
+      "type": "move",
+      "src": "site/manifest.json",
+      "dst": "/var/www/html/nowcast/"
+    },
+
     "// images",
     {
       "type": "move",
