@@ -65,6 +65,20 @@
       "match": "^.*\\.(html|css|js)$",
       "add-header-comment": true
     },
+    {
+      "type": "move",
+      "src": "site/css/",
+      "dst": "/var/www/html/nowcast/css/",
+      "match": "^.*\\.css$",
+      "add-header-comment": true
+    },
+    {
+      "type": "move",
+      "src": "site/js/",
+      "dst": "/var/www/html/nowcast/js/",
+      "match": "^.*\\.js$",
+      "add-header-comment": true
+    },
 
     "// images",
     {
