@@ -1,0 +1,34 @@
+#robots.txt for https://delphi.midas.cs.cmu.edu/nowcast/
+
+User-agent: *
+Disallow: /
+Disallow: /backup
+Disallow: /css/
+Disallow: /js/
+Disallow: /img/
+Disallow: /archive/
+
+User-agent: AhrefsBot
+Disallow: /
+Crawl-Delay: 20
+
+User-agent: PhantomJS
+Disallow: /
+Crawl-Delay: 20
+
+User-agent: SeznamBot
+Disallow: /
+Crawl-Delay: 20
+
+User-agent: BLEXBot
+Disallow: /
+Crawl-Delay: 20
+
+User-agent: archive.org_bot
+Disallow: /
+Crawl-Delay: 20
+Crawl-Delay: 20
+
+User-agent: crawl
+Disallow: /
+Crawl-Delay: 20

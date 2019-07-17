@@ -1,0 +1,166 @@
+<!--
+ ____   ___    _   _  ___ _____   _____ ____ ___ _____
+|  _ \ / _ \  | \ | |/ _ \_   _| | ____|  _ \_ _|_   _|
+| | | | | | | |  \| | | | || |   |  _| | | | | |  | |
+| |_| | |_| | | |\  | |_| || |   | |___| |_| | |  | |
+|____/ \___/  |_| \_|\___/ |_|   |_____|____/___| |_|
+
+        Automatically generated from sources at:
+       https://github.com/cmu-delphi/www-nowcast
+
+ Commit hash: 1b575644f1a28da7378aad0e83bd41a7885295e2
+     Deployed at: 2018-05-01 18:40:03 (1525214403)
+-->
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>ILI Nearby</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="theme-color" content="#292929" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="about.css" />
+  </head>
+  <body>
+    <div class="pages">
+      <div class="page p3">
+        <div class="navbar">
+          <div id="back_arrow"><a href="index-2.html"  style="text-decoration: none"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;ILI&nbsp;Nearby</a></div>
+        </div>
+        <div class="box_main box_centered">
+         <!-- Content -->
+         <p class="text_header"><i class="fa fa-info-circle"></i> Background</p>
+         <p class="text_content">
+For an introduction to flu biosurveillance in the US, see:
+<ul>
+<li><a href="http://www.cdc.gov/flu/weekly/overview.htm">CDC’s Overview of Influenza Biosurveillance in the United States</a></li>
+<li><a href="http://www.cdc.gov/flu/weekly/">Weekly U.S. Influenza Surveillance Report</a></li>
+<li><a href="http://www.cdc.gov/flu/weekly/fluviewinteractive.htm">FluView Interactive</a></li>
+</ul>
+        </p>
+         <p class="text_content">
+For an introduction to nowcasting and its application to flu biosurveillance, see the <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=49">nowcasting chapter</a> in <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf">David Farrow’s PhD thesis</a>.
+        </p>
+        <p class="text_header"><i class="fa fa-gears"></i> How Does ILI-Nearby Work?</p>
+<p class="text_content">
+We use sensor fusion theory to optimally combine, in real-time, diverse sources of information about the prevalence of Influenza-Like-Illness (ILI) in various geographic areas of the US.  These sources, enumerated below, vary in their geographic granularity (metro areas, U.S. states, multi-state regions, entire US), their temporal granularity (daily or weekly), their noise (error) characteristics, and their correlation with one another.
+</p>
+<p class="text_content" id="HOW_ACCURATE">
+We estimate a <i style="color:#87CEFA">geographically detailed joint distribution</i> of ILI prevalence over the entire US, which we then integrate over to derive real-time nowcasts for any desired geographic area.  This means that even an information source that is available only at a national or regional level contributes indirectly to the accuracy of nowcasting a state.  <i style="color:#87CEFA">All information sources benefit all of our estimates, but to different degrees in different circumstances</i> (to see how the information sources contribute to nowcasting for a particular geographic area, hover over the icons representing these sources.)  Our combined estimate is significantly more accurate than estimates based on any one of the sources alone.
+</p>
+<p class="text_content" >
+We continuously monitor the correlations of the information sources and use them to estimate (again in real-time) a covariance matrix.  This helps us avoid over- or under- estimation when the errors of two or more sources are correlated.
+</p>
+         <p class="text_header" ><i class="fa fa-dashboard"></i> How accurate is ILI-Nearby?</p>
+<p class="text_content">
+As Gold Standard for national and regional weighted ILI, we use the CDC-reported 'final' values, typically defined as the values available at epi-week 30 (late July – well after the end of the flu season!).  This is because updates continue to arrive many months after each initial report.  ILI-Nearby overlays the gold standard (black line) on its own historical nowcasts (which are done “out of sample”, without knowledge of anything that wasn’t known at nowcasting time), from which you can assess its historical accuracy.
+</p>
+
+<p class="text_content">
+In addition, the following visualizations summarize the historical out-of-sample absolute error of ILI-Nearby, alongside that of Delphi’s near-term forecasts (available a few weeks earlier) and CDC’s ILI-Net initial report and later reports (available a few weeks later).  From these visualizations, you can see the tradeoff between accuracy and timeliness offered by Delphi’s nowcasts and forecasts:
+</p>
+ <ul>
+     <li><a href="plots/CMU_Delphi_Mean_Absolute_Error_of_wILI_Estimators_Averaged_across_Locations.pdf"
+         >Historical out-of-sample mean absolute error, averaged over all HHS regions and National</a>
+         (<a href="plots/CMU_Delphi_Mean_Percent_Error_of_wILI_Estimators_Averaged_across_Locations.pdf"
+          >same analysis, but with regard to <i>percent</i> error</a>)
+     </li>
+     <li><a href="plots/CMU_Delphi_ECDF_of_Absolute_Error_of_wILI_Estimators_Combined_across_Locations.pdf"
+         >Historical out-of-sample absolute error (“forecasting skill”), combined across all HHS regions and National</a>
+         (<a href="plots/CMU_Delphi_ECDF_of_Percent_Error_of_wILI_Estimators_Combined_across_Locations.pdf"
+          >same analysis, but with regard to <i>percent</i> error</a>)
+     </li>
+     <li><a href="plots/CMU_Delphi_Mean_Absolute_Error_of_wILI_Estimators_by_Location.pdf"
+         >Historical out-of-sample mean absolute error, for each HHS region and National</a>
+         (<a href="plots/CMU_Delphi_Mean_Percent_Error_of_wILI_Estimators_by_Location.pdf"
+          >same analysis, but with regard to <i>percent</i> error</a>)
+     </li>
+     <li><a href="plots/CMU_Delphi_ECDF_of_Absolute_Error_of_wILI_Estimators_by_Location.pdf"
+         >Historical out-of-sample absolute error (“forecasting skill”), for each HHS region and National</a>
+         (<a href="plots/CMU_Delphi_ECDF_of_Percent_Error_of_wILI_Estimators_by_Location.pdf"
+          >same analysis, but with regard to <i>percent</i> error</a>)
+     </li>
+</ul>
+
+
+<p class="text_content">
+As Gold Standard for fitting the US states’ %ILI, we use the best stable estimate available from each state.  Twenty five states graciously agreed to share with us the %ILI data they sent to the CDC.  Forty three states post a version of their %ILI data online, which we scrape and combine with the CDC-provided data when both are available.  Only 5 states do not fall in either of these categories, and thus lack a gold standard.  However, their nowcasts still benefit from the data of their neighboring states and regions.
+</p>
+<p class="text_content">
+<b style="color:#87CEFA">CAVEAT:  %ILI numbers are not meaningfully comparable across different states or regions.</b>  This is because each state's ILINet consists of a different mix of healthcare provider types (hospital emergency departments, pediatric clinics, family practices, student health centers, etc.), and different provider types have different typical rates of seeing ILI patients.  We are currently working to derive measures that will be more meaningfully comparable across states and regions.
+</p>
+         <p class="text_header"><i class="fa fa-list"></i> Information Sources Currently Used by ILI-Nearby</p>
+<p class="text_content">
+Our method can readily incorporate any additional information sources: Electronic Health Records, relevant retail sales (e.g. thermometers), crowdsourced reports, etc.  If you would like to contribute an information source or have an idea for a new potential source, please <a href="mailto:roni@cs.cmu.edu">contact us</a>!
+</P>
+         <p class="text_content">
+            <ul>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/google1.svg"> Google Search Query Signal (GHT)</p>
+                    <p class="text_content">
+The Google Trends team has graciously granted us access to its research-grade Google Health Trends interface.  This allows us to build a specialized query based signal optimized for ILI nowcasting.  GHT data is available from 2003 through the present, at daily (and even finer) temporal resolution, and at national, state and metro-area geographic resolution.
+                    </p>
+                </li>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/twitter1.svg">   HealthTweets (TWTR)</p>
+                    <p class="text_content">
+The Johns Hopkins Social Media and Health Research Group has graciously allowed us access to HealthTweets.org, an ongoing, real-time signal of flu activity based on Twitter content.  This signal is available from the end of 2011 through the present, at a daily resolution, and at the level of US states (and other locations).
+                    </p>
+                </li>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/wiki1.svg"> Wikipedia Article Access Counts (WIKI)</p>
+                    <p class="text_content">
+The Wikimedia Foundation makes available the number of visits (“hits”), per hour, to every Wikipedia article. There is a strong correlation between wILI in the US and the number of hits to English articles related to influenza.  This allowed us to develop an ILI-related signal.  We currently have no access to any geographic information associated with Wikipedia access.  This reduces the usefulness of the signal, but we are able to compensate somewhat by considering the time of day (or night) of access.
+                    </p>
+                </li>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/cdc1.svg"> CDC Page Visits (CDCP)</p>
+                    <p class="text_content">
+CDC has graciously been sharing with us some of their website page analytics, which allowed us to develop an ILI signal based on frequency of access to flu-related pages.  The signal is available since 2013, currently at weekly resolution and for each individual state.
+                    </p>
+                </li>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/epicast1.svg"> Epicast Prediction (EPIC)</p>
+                    <p class="text_content">
+<a href="http://epicast.org/">Epicast</a> is a ‘wisdom of crowds’ system that aggregates predictions from multiple lay human forecasters.  On any week, it allows anyone to predict the rest of the flu season given the ILINet estimates available to date.  Epicast was developed by David Farrow as part of his PhD thesis (ch. 5), and has performed at or near the top in CDC’s “Predict the Flu” challenges in 2014-2015 and 2015-2016.  It is available since 2014 at weekly temporal resolution and at the geographic resolution of HHS regions and US as a whole.
+                    </p>
+                </li>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/sar31.svg"> Seasonal Autoregression (SAR3)</p>
+                    <p class="text_content">
+ SAR3 is a seasonal auto-regressive model that estimates the final wILI value of the current week based on the current week number and preliminary (currently available) wILI values of the past three weeks.  SAR3 was developed by David Farrow as part of his PhD thesis.  SAR3 is available for the same time period and at the same temporal and geographic resolution as wILI — ongoing weekly for the US nationally and for all HHS and census regions.
+                    </p>
+                </li>
+                <li>
+                    <p class="sub_text_header"><img style="width: 15px; height: 15px;" src="images/arch1.svg"> The Archetype (ARCH)</p>
+                    <p class="text_content">
+The Archetype is a nonparametric Kalman Filter-based forecasting system built by David Farrow as part of his PhD thesis (Appendix B).  ARCH is available weekly from 2003w40–2016w20 for the US nationally and for all HHS and census regions. However, the ARCH system does not produce forecasts during the off-season, and so no values are reported between epiweeks 21 and 39, inclusive, on all years.
+                    </p>
+                </li>
+            </ul>
+         </p>
+         <p class="text_content">
+         For more details about any of these sources, see David Farrow's PhD thesis and subsequent publications.
+        </p>
+         <p class="text_header"><i class="fa fa-users"></i> Credits</p>
+         <p class="text_content">
+         ILI-Nearby is a project of the <a href="http://delphi.midas.cs.cmu.edu/">Delphi research group</a> at Carnegie Mellon University. We appreciate for your <a href="mailto:ILINearby-requests@lists.andrew.cmu.edu">feedback or request</a>.
+        </p>
+
+ <p class="text_content">
+The sensor-fusion approach to nowcasting was developed and implemented by <a href="mailto:dfarrow0@gmail.com">David Farrow</a> as part of his <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf">2016 PhD thesis</a>, under the supervision of <a href="http://www.cs.cmu.edu/~roni/">Roni Rosenfeld</a>.  It forms the backend of ILI-Nearby.
+ </p>
+ <p class="text_content">
+The graphic interface to ILI-Nearby was initially designed and implemented by <a href="mailto:dfarrow0@gmail.com">David Farrow</a> in October 2016.  It was further developed, and is currently maintained, by <a href="mailto:ziruiw@andrew.cmu.edu">Zirui (Edward) Wang</a>.
+ </p>
+ <p class="text_content">
+We are grateful to Google (Google Trends team), Johns Hopkins Social Media and Health Research Group, the Wikimedia Foundation, CDC Influenza Division (Epidemiology and Prevention Branch), and the Health Departments of many US states for giving us access to their data.
+</p>
+         </div>
+      </div>
+    </div>
+  </body> 
+</html>

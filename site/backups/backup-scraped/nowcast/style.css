@@ -1,0 +1,580 @@
+/*
+ ____   ___    _   _  ___ _____   _____ ____ ___ _____ 
+|  _ \ / _ \  | \ | |/ _ \_   _| | ____|  _ \_ _|_   _|
+| | | | | | | |  \| | | | || |   |  _| | | | | |  | |  
+| |_| | |_| | | |\  | |_| || |   | |___| |_| | |  | |  
+|____/ \___/  |_| \_|\___/ |_|   |_____|____/___| |_|  
+                                                       
+        Automatically generated from sources at:       
+       https://github.com/cmu-delphi/www-nowcast       
+                                                       
+ Commit hash: 1b575644f1a28da7378aad0e83bd41a7885295e2 
+     Deployed at: 2018-05-01 18:40:03 (1525214403)     
+*/
+
+
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body {
+  font-family: Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: 100%;
+  overflow: hidden;
+}
+a:link {
+    color: #fff;
+}
+a:visited {
+    color: #fff;
+}
+a:hover {
+    color: #fff;
+}
+a:active {
+    color: #fff;
+}
+.pages {
+  position: absolute;
+  top: 0%;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.page {
+  width: 100%;
+  height: 100%;
+  background-color: #444;
+  background-image: radial-gradient(#555 0%, #222 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.p1 {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+.p2 {
+  position: absolute;
+  top: 0%;
+  left: 100%;
+}
+.shadow {
+  text-shadow: 0px 0px 0.1em #000;
+}
+.emph {
+  text-decoration: underline;
+}
+.splash {
+  width: 100%;
+  height: 33%;
+  background-color: #222;
+  box-shadow: 0px 0px 1em #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+.title_infolink {
+  display: flex;
+  flex-direction: row;
+}
+#top_info_icon {
+  padding-top: 1vh;
+  position: absolute;
+  right: 1%;
+  font-size: 8vh;
+}
+
+#map_container {
+  width: 100%;
+  height: 67%;
+  position: relative;
+}
+#canvas_map {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: block;
+}
+#canvas_chart {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: block;
+  box-shadow: 0px 0px 1em #000;
+}
+#map_list {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.5);
+}
+#map_list_lists {
+  list-style-type: none;
+  height: 400px;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+.map_list_element {
+  border-bottom: 1px solid #ccc;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+.map_list_element:last-child {
+  border: none;
+}
+ 
+.map_list_element a {
+  text-align: center;
+  text-decoration: none;
+  color: #eee;
+  display: block;
+  width: 200px;
+ 
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+ 
+.map_list_element a:hover {
+  font-size: 20px;
+  cursor: pointer;
+  color: #000;
+  background: #f6f6f6;
+}
+
+#map_list_header {
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 3px;
+}
+#accurate_not {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 1em;
+  right: 11em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.5);
+}
+#map_controls {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.5);
+}
+.map_control_item {
+  margin: 0.25em;
+  cursor: pointer;
+}
+.map_control_divider {
+  margin: 0.5em;
+}
+.title_big {
+  font-size: 12vh;
+  text-align: center;
+}
+.subtitle {
+  text-align: center;
+  font-size: 3.5vh;
+  font-style: italic;
+  color: #ddd;
+  padding: 1em 2em 0em 2em;
+}
+
+.subtitle_second {
+  text-align: center;
+  font-size: 3vh;
+  color: #ddd;
+  padding: 0.7em 2em 0em 2em;
+}
+
+p.text_footer {
+   color: #a0a0a0;
+   text-align: center;
+   font-size: 0.75em;
+   padding-top: 8px;
+   padding-bottom: 8px;
+   transition: color 1s ease 0.0s;
+}
+p.text_footer:hover {
+   color: #000000;
+   transition: color 1s ease 0.0s;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-image: radial-gradient(circle, #ddd 0%, #444 33%, rgba(0, 0, 0, 0) 100%);
+}
+.navigation {
+  width: 100%;
+  height: 67%;
+  padding: 3vh;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+.navigation3 {
+  width: 100%;
+  height: 67%;
+  padding: 1%;
+}
+.location {
+  font-size: 1.5em;
+  padding: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+#back_arrow {
+  cursor: pointer;
+  font-weight: bold;
+}
+.icon {
+  width: 33vh;
+  height: 33vh;
+  fill: rgba(255, 255, 255, 0.95);
+  stroke: #000;
+  stroke-width: 1%;
+}
+#map_abs, .icon3 {
+  width: 100%;
+  height: 100%;
+  fill: rgba(255, 255, 255, 0.95);
+  stroke: #000;
+  stroke-width: 0.5%;
+}
+#map_rel, .big_icon {
+  width: 90%;
+  height: 90%;
+  fill: rgba(255, 255, 255, 0.95);
+  stroke: #000;
+  stroke-width: 0.5%;
+}
+.svg_abs, .svg_rel {
+  display: none;
+}
+.navbar {
+  width: 100%;
+  height: 10vh;
+  padding: 2vh;
+  font-size: 6vh;
+  font-weight: bold;
+  background-color: #222;
+  box-shadow: 0px 0px 1em #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.location_content {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.location_left {
+  padding: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.location_icons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.location_icons p{
+  text-align: center;
+}
+.location_left_top {
+  width: 100%;
+}
+
+.location_left_bottom {
+  width: 100%;
+  height: 10vh;
+  padding: 2vh;
+}
+.location_right_top {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.location_right_bottom {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.location_left_bottom {
+  display: none;
+}
+.location_name_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+#location_name {
+  padding-bottom: 2vh;
+  text-align: center;
+  font-size: 10vh;
+}
+#location_status {
+}
+.ili_note {
+  font-style: italic;
+  font-size: 2.5vh;
+  text-align: center;
+}
+.status_small {
+  font-style: normal;
+  font-size: 2.5vh;
+  text-align: center;
+}
+.status_large {
+  font-size: 6vh;
+  text-align: center;
+}
+.sources {
+  font-size: 2.5vh;
+}
+.achievement_holder {
+  text-align: center;
+  padding-left: 0.5em;
+}
+.achievement_holder img {
+  width: 20px;
+  height: 20px;
+}
+.achievement_holder_top {
+  padding-bottom: 3em;
+  padding-left: 0.5em;
+}
+.achievement_holder_top img {
+  width: 13px;
+  height: 13px;
+}
+#location_cdc1 img {
+  width: 30px;
+  height: 20px;
+}
+#location_cdc0 img {
+  width: 30px;
+  height: 20px;
+}
+.achievement {
+  font-size: 1.5em;
+  text-shadow: 0 0 0.5em #000;
+  color: #888;
+}
+.achievement_desc {
+  font-style: italic;
+}
+.gold {
+  color: #ffe22b;
+}
+.pink {
+  color: #ff2b63;
+}
+.green {
+  color: #8f8;
+}
+#location_chart {
+}
+#loading_icon {
+  font-size: 6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+@media screen and (min-aspect-ratio: 1/1) and (orientation: portrait) {
+  .location_content {
+    flex-direction: column;
+  }
+  .location_left {
+    width: 100%;
+    height: 50%;
+  }
+  .location_right {
+    width: 100%;
+    height: 50%;
+  }
+  .location_left_top {
+    height: 30vh;
+  }
+  #loading_icon {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+@media screen and (min-aspect-ratio: 1/1) and (max-height: 450px) {
+  .location_right_top {
+    display: none;
+  }
+  .location_right_bottom {
+    height: 90%;
+    padding-top: 10%;
+  }
+  .location_left_bottom {
+    width: 100%;
+    height: 40%;
+    padding-top: 10vh;
+    visibility: visible;
+    text-align: center;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  #map_list {
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-aspect-ratio: 1/1) and (orientation: portrait) {
+  .title_big {
+    font-size: 14vw;
+  }
+  .subtitle {
+    font-size: 4vw;
+  }
+  .subtitle_second {
+    font-size: 3vw;
+  }
+  .location_content {
+    flex-direction: column;
+  }
+  .location_icons{
+    padding-top: 5vh;
+  }
+  .location_left {
+    width: 100%;
+    height: 30%;
+    flex-direction: column;
+  }
+  #location_name {
+    font-size: 10vw;
+  }
+  .location_name_info {
+    padding-top: 8vh;
+  }
+  .location_right {
+    width: 100%;
+    height: 70%;
+  }
+  .location_left_top {
+    height: 30vh;
+  }
+  .location_right_top {
+    height: 40%;
+  }
+
+  .location_right_bottom {
+    height: 60%;
+  }
+
+  #3 {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+/* iPhone 6 in portrait */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
+  .location_content {
+    flex-direction: column;
+  }
+  .location_left {
+    width: 100%;
+    height: 30%;
+    flex-direction: column;
+  }
+  .location_right {
+    width: 100%;
+    height: 70%;
+  }
+  .location_left_top {
+    height: 30vh;
+  }
+  .location_right_top {
+    height: 30%;
+  }
+
+  .location_right_bottom {
+    height: 70%;
+    padding-bottom: 10vh;
+  }
+
+  #loading_icon {
+    width: 80%;
+    height: 40%;
+  }
+}
+
+@media (orientation: landscape) {
+  .location_content {
+    flex-direction: row;
+  }
+  .location_left {
+    width: 50%;
+    height: 100%;
+  }
+  .location_right {
+    width: 50%;
+    height: 100%;
+  }
+  .location_left_top {
+    height: 80vh;
+  }
+  #loading_icon {
+    width: 50%;
+    height: 100%;
+  }
+}

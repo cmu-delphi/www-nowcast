@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{STRING_TITLE_TEXT}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="theme-color" content="{COLOR_THEME}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Robots -->
+    <meta name="robots" content="noarchive noindex nofollow"/>
+    <meta name="googlebot" content="noarchive noindex nofollow"/>
+    <!-- /Robots -->
+  </head>
+  <body>
+    <div class="pages">
+      <div class="page p1">
+        <div class="splash">
+          <div class="title_infolink">
+            <div class="title_big shadow">
+              {STRING_TITLE_HTML}
+            </div>
+            <div id="top_info_icon"><a href="about.html"><i class="fa fa-info-circle" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="divider"></div>
+          <div class="subtitle shadow">
+             {STRING_SUBTITLE_HTML}
+          </div>
+          <div id="dataTimeline" class="subtitle_second shadow"></div>
+        </div>
+        <div id="map_container">
+          <div id="map_list">
+            <h2 id="map_list_header">Areas</h2>
+            <div class="divider"></div>
+            <ul id="map_list_lists"></ul>
+          </div>
+          <canvas id="canvas_map"></canvas>
+          <div id="accurate_not">
+            <a href="about.html#HOW_ACCURATE" style="text-decoration: none"><i class=" fa fa-question-circle"></i> How accurate is this</a>
+          </div>
+          <div id="map_controls">
+            <div id="button_view_nat" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;US National</div>
+            <div id="button_view_hhs" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;HHS Regions</div>
+            <div id="button_view_cen" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;Census Regions</div>
+            <div id="button_view_sta" class="map_control_item button_group0"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;States</div>
+            <div class="map_control_divider divider"></div>
+            <div id="button_zoom_in" class="map_control_item"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Zoom In</div>
+            <div id="button_zoom_out" class="map_control_item"><i class="fa fa-search-minus" aria-hidden="true"></i>&nbsp;Zoom Out</div>
+          </div>
+         </div>
+      </div>
+      <div class="page p2">
+        <div class="navbar">
+          <div id="back_arrow"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{STRING_TITLE_HTML}</div>
+          <div><a href="about.html"><i class="fa fa-info-circle" aria-hidden="true"></i></a></div>
+        </div>
+        <div class="location_content">
+          <div class="location_left">
+            <div class="location_name_info">
+              <div id="location_name"></div>
+              <div id="location_heart0" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/heart0.svg"  alt="{HEART_DES_N}" title="{HEART_DES_N}"></a>
+              </div>
+              <div id="location_heart1" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/heart1.svg"  alt="{HEART_DES_Y}" title="{HEART_DES_Y}"></a>
+              </div>
+              <div id="location_star0" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/star0.svg"  alt="{STAR_DES_N}" title="{STAR_DES_N}"></a>
+              </div>
+              <div id="location_star1" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/star1.svg"  alt="{STAR_DES_Y}" title="{STAR_DES_Y}"></a>
+              </div>
+            </div>
+            <div class="location_icons">
+              <p class="sources">{SOURCES}</p>
+              <div id="location_google0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/google0.svg"  alt="{GOOGLE_DES_N}" title="{GOOGLE_DES_N}"></a>
+              </div>
+              <div id="location_google1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/google1.svg"  alt="{GOOGLE_DES_Y}" title="{GOOGLE_DES_Y}"></a>
+              </div>
+              <div id="location_twitter0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/twitter0.svg"  alt="{TWITTER_DES_N}" title="{TWITTER_DES_N}"></a>
+              </div>
+              <div id="location_twitter1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/twitter1.svg"  alt="{TWITTER_DES_Y}" title="{TWITTER_DES_Y}"></a>
+              </div>
+              <div id="location_wiki0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/wiki0.svg"  alt="{WIKI_DES_N}" title="{WIKI_DES_N}"></a>
+              </div>
+              <div id="location_wiki1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/wiki1.svg"  alt="{WIKI_DES_Y}" title="{WIKI_DES_Y}"></a>
+              </div>
+              <div id="location_cdc0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/cdc0.svg"  alt="{CDC_DES_N}" title="{CDC_DES_N}"></a>
+              </div>
+              <div id="location_cdc1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/cdc1.svg"  alt="{CDC_DES_Y}" title="{CDC_DES_Y}"></a>
+              </div>
+              <div id="location_epicast0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/epicast0.svg"  alt="{EPICAST_DES_N}" title="{EPICAST_DES_N}"></a>
+              </div>
+              <div id="location_epicast1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/epicast1.svg"  alt="{EPICAST_DES_Y}" title="{EPICAST_DES_Y}"></a>
+              </div>
+              <div id="location_arch0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/arch0.svg"  alt="{ARCH_DES_N}" title="{ARCH_DES_N}"></a>
+              </div>
+              <div id="location_arch1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/arch1.svg"  alt="{ARCH_DES_Y}" title="{ARCH_DES_Y}"></a>
+              </div>
+              <div id="location_sar30" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/sar30.svg"  alt="{SAR3_DES_N}" title="{SAR3_DES_N}"></a>
+              </div>
+              <div id="location_sar31" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/sar31.svg"  alt="{SAR3_DES_Y}" title="{SAR3_DES_Y}"></a>
+              </div>
+            </div>
+            <div class="location_left_bottom">
+              <div id="location_status">
+                <div id="nowcast_label_left" class="status_small"></div>
+                <div id="nowcast_value_left" class="status_large"></div>
+                <div id="state_note_left" class="ili_note">{STATES_NOTE}</div>
+                <div id="hhs_note_left" class="ili_note">{NATIONAL_REGIONS_NOTES}</div>
+              </div>
+            </div>
+          </div>
+          <div class="location_right">
+            <div class="location_right_top">
+              <div id="location_status">
+                <div id="nowcast_label" class="status_small"></div>
+                <div id="nowcast_value" class="status_large"></div>
+                <div id="state_note" class="ili_note">{STATES_NOTE}</div>
+                <div id="hhs_note" class="ili_note">{NATIONAL_REGIONS_NOTES}</div>
+              </div>
+            </div>
+            <div class="location_right_bottom">
+              <canvas id="canvas_chart"></canvas>
+            </div>
+          </div>
+          <div id="loading_icon"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/epidata/lib/delphi_epidata.min.js"></script>
+    <script type="text/javascript" src="geodata.js"></script>
+    <script type="text/javascript" src="baselinedata.js"></script>
+    <script type="text/javascript" src="nonInfluenzaWeekData.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+      $(document).ready(function() { window.app = new App(); });
+    </script>
+  </body>
+</html>

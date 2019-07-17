@@ -1,0 +1,678 @@
+/*!
+* ILY Nearby | Influenza-like Illness Nearby
+* @authors:
+    David Farrow, PhD | Computational Biology Department | Carnegie Mellon University
+    Roberto Iriondo | Machine Learning Department, Carnegie Mellon University
+    Bryan Learn | Pittsburgh Supercomputing Center | Computer Science Department, Carnegie Mellon University
+    Delphi Research Group | Carnegie Mellon University
+* @author-url: https://delphi.midas.cs.cmu.edu/
+* @copyright: Delphi Research Group | Carnegie Mellon University | All Rights Reserved
+* @description: Data visualization web application which provides geographically detailed
+*               real-time estimates (nowcasts) of influenza-like-illness in the United States.
+* @acknowledgements:
+*               Map application powered by Leaflet - a library for interactive maps.
+*               https://leafletjs.com - (c) Vladimir Agafonkin | http://agafonkin.com/en
+*
+*               Data visualization powered by D3.JS - a library for data visualization in javascript.
+*               https://d3js.org/ - (c) Mike Bostock | https://bost.ocks.org/mike/
+*
+*               Map custom tiles provided by Thundersforest API
+*               Thunderforest is a project by Gravitystorm Limited | https://www.thunderforest.com/contact/
+*
+*               ILI Nearby uses jQuery, jQuery v3.1.1 | (c) jQuery Foundation | jquery.org/license
+*
+*               Icons use: Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
+*               License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+*/
+html,body {
+    max-width: 100%;
+    padding: 0;
+    margin: 0
+}
+
+body {
+    font-family: Google Sans,Roboto,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #333;
+    background: #fff;
+    position: relative;
+    overflow-x: hidden;
+    letter-spacing: .025em;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.web-app {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.center {
+  text-align: center !important;
+}
+
+a,a:visited {
+    color: #2d2d2d;
+    text-decoration: none;
+}
+
+a:hover,a:focus {
+    color: #7fb5ff;
+    text-decoration: none;
+}
+
+a.color-links {
+  color: #2974db;
+}
+
+.hidden {
+    display: none!important;
+}
+
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #fff no-repeat center center;
+    text-align: center;
+    margin-top: 40vh;
+    margin-bottom: 40vh;
+    font-size: 3em;
+    z-index: 9999
+}
+
+svg#location-details-icon {
+    width: 24px;
+    height: 24px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+a.details {
+    color: #589eff;
+}
+
+
+.subtitle {
+    position: absolute;
+    bottom: 0;
+    right: 5vh;
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 1;
+    text-align: right;
+}
+
+#map {
+    max-width: 100%;
+    height: 100vh;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin: auto;
+    opacity: .7;
+}
+
+.legend h5 {
+    margin: .5em;
+}
+
+.info {
+    display: inline-grid;
+    padding: 6px 8px;
+    font: inherit;
+    font-size: 1em;
+    background: #fff;
+    background: transparent;
+    /* box-shadow:0 0 15px rgba(0,0,0,.2); */
+    /* border-radius:5px; */
+    border: 0;
+}
+
+.info-toggle a {
+    z-index: 999999;
+}
+
+.info-toggle i {
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    padding: 6px 8px;
+    border-radius: 5px;
+    background: rgba(239, 246, 255, .8);
+    margin-bottom: 15px;
+}
+
+.info-toggle i:hover, .info-toggle i:focus, .info-toggle a:hover, .info-toggle a:focus, .tips-close a:hover, .tips-close a:focus, .tips-close i:hover, .tips-close i:focus {
+    opacity: 0.8;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #525252;
+}
+
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
+
+.info.legend.leaflet-control {
+    margin-bottom: 90px;
+    border-radius: 5px;
+    padding: 1em;
+    background: rgba(239, 246, 255, .8);
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+}
+
+.leaflet-right .leaflet-control {
+  margin-right: 20px;
+}
+
+.leaflet-top.leaflet-right .info {
+    position: fixed;
+    right: 25vh;
+    border-radius: 5px;
+    padding: 1em;
+    background: rgba(239, 246, 255, .8);
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+}
+
+.info.leaflet-control {
+}
+
+.leaflet-control-layers {
+    background: rgba(239,246,255,.8);
+}
+
+.leaflet-control-layers.leaflet-control {
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    border: 0;
+}
+
+#info_control_title {
+    font-family: inherit;
+}
+
+#info_control_tip {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    color: #2d2d2d;
+    font-family: inherit;
+}
+
+#nowcast_value_map {
+    font-size: 1.2em;
+    margin-top: 5px
+}
+
+.info,.leaflet-control,.leaflet-control-layers-overlays {
+    font-family: Google Sans,Roboto,Arial,Helvetica,sans-serif;
+}
+
+header {
+    height: 60px;
+    bottom: 0;
+    position: fixed;
+    z-index: 99999;
+    background: rgba(239,246,255,.75);
+    width: 100%;
+    line-height: 1;
+}
+
+#logo {
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.logo h1 {
+    font-weight: 800;
+    color: #234c87;
+    display: inline-block;
+    font-size: 24px;
+    padding-left: 15px;
+    margin: 0;
+    vertical-align: top;
+    margin-top: 15px;
+    opacity: 1;
+}
+
+.info.app-info {
+    position: fixed;
+    bottom: 85px;
+    left: 15px;
+    z-index: 999;
+    font: unset;
+    font-size: 28px;
+    border: 0;
+    padding: 6px 8px;
+}
+
+.details {
+    display: inline;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 1em;
+}
+
+.info.app-info i {
+    color: #589eff;
+}
+
+.hr-spacer {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100px;
+    border: 1px solid #000;
+}
+
+.about-page {
+    margin-top: 20px;
+    margin-bottom: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10%;
+    padding-right: 10%;
+    max-width: 768px;
+    text-align: justify;
+}
+
+.about-page #delphi-logo {
+    text-align: center;
+}
+
+#delphi-logo img {
+    width: 250px;
+    height: auto;
+}
+
+.about-page h2,.about-page a {
+    text-align: left;
+    flex-wrap: wrap;
+    line-height: 1.2;
+}
+
+.text-header {
+    color: #202124;
+    font-size: 30px;
+    font-weight: 300;
+}
+
+.text_content ul {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.heading {
+    font-size: 26px;
+}
+
+.sub_text_header img {
+    padding-right: 20px;
+}
+
+.content-logo-div {
+    display: inline-flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.content-logo {
+    padding-right: 1em;
+    margin-top: 1.5em;
+}
+
+.content-logo-div h2 {
+}
+
+.small-icon-svg {
+    width: 15px;
+    height: 15px;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    background: #52fdd9;
+    background: -moz-linear-gradient(-45deg,rgb(35,128,255) 0%,rgb(82,253,217) 50%);
+    background: -webkit-linear-gradient(-45deg,rgb(35,128,255) 0%,rgb(82,253,217) 50%);
+    background: linear-gradient(135deg,rgb(35,128,255) 0%,rgb(82,253,217) 50%);
+    color: #fff;
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 24px;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 85px;
+    transition: background .5s;
+    z-index: 9999;
+    border: 0!important;
+}
+
+.back-to-top i,.back-to-top span {
+    padding-top: 7px;
+    color: #fff;
+}
+
+.back-to-top a:visited {
+    color: #fff;
+}
+
+#api-details-data {
+    display: none;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    z-index: 9999;
+}
+
+#api-details-data:target {
+    display: block
+}
+
+.leaflet-top, .leaflet-bottom {
+  z-index: unset;
+}
+
+#tips-display {
+    display: none;
+    padding: 1em;
+    position: fixed;
+    background: rgba(239, 246, 255, .9);
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    font-size: 16px;
+    border-radius: 5px;
+    width: 350px;
+    margin-top: 33vh;
+    margin-bottom: 33vh;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    top: 0;
+    left: 0;
+}
+
+#tips-display:target {
+    display: block;
+}
+
+a.details-tips {
+    color: #589eff;
+}
+
+.details-tips svg {
+    width: 1em;
+}
+
+.tips-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    font-size: 2em;
+    color: #000;
+}
+
+.info-toggle .fa-question {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#back_arrow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    font-size: 1.5em;
+    padding: .5em;
+    text-align: left;
+}
+
+.container {
+    padding: 1em;
+    margin-top: 40px;
+}
+
+.details-about {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: .5em;
+    font-size: 1.5em;
+}
+
+.sources {
+    font-size: .8em;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.achievement_holder_top img {
+    width: 13px;
+    height: 13px;
+}
+
+.achievement_holder img {
+    width: 20px;
+    height: 20px;
+}
+
+.achievement_holder_top {
+    padding-left: .5em;
+}
+
+.achievement_holder {
+    text-align: center;
+    padding-left: .5em;
+}
+
+#location_details {
+    display: inline-flex;
+}
+
+#location_name {
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.location_icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.location_name_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.status_small {
+    font-style: normal;
+    font-size: 1em;
+    text-align: center;
+    padding: 5px;
+}
+
+.status_large {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 5px;
+}
+
+.ili_note {
+    font-style: italic;
+    font-size: .8em;
+    text-align: center;
+}
+
+#hhs_note {
+    display: none;
+}
+
+#canvas_chart {
+    width: 100%;
+    height: 100%;
+    margin-top: 1em;
+    margin-bottom: 60px;
+    display: block;
+    box-shadow: 0 0 .1em #000;
+}
+
+.chart {
+    margin-top: 1em;
+    text-align: center;
+}
+
+#chart svg {
+    /* max-width: 100%; */
+}
+
+#chart, #chart svg, #chart rect #chart g {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.sources {
+    text-align: justify;
+}
+
+.pr-10 {
+    padding-right: 10px;
+}
+
+.pl-10 {
+    padding-left: 10px;
+}
+
+.pr-20 {
+    padding-right: 20px;
+}
+
+.pl-20 {
+    padding-left: 20px;
+}
+
+@media screen and (min-width: 200px) and (max-width: 376px) {
+    #tips-display {
+        font-size: 12px !important;
+        width: 55vw;
+    }
+    .leaflet-top.leaflet-right .info {
+      top: 16vh !important;
+      right: 44vw !important;
+    }
+}
+
+@media screen and (max-width: 710px) {
+    .subtitle {
+        font-size:80%;
+        width: 50%;
+        height: 60px;
+        top: 1vh;
+        right: 1vh;
+        bottom: 1vh;
+    }
+
+    .subtitle p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .logo h1 {
+        font-size: 1em;
+        line-height: 2;
+        left: 0;
+        margin-left: 0;
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .info.legend.leaflet-control {
+      margin-bottom: 80px;
+    }
+
+    .info.app-info {
+        font-size: 24px;
+    }
+
+    .about-page {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    #tips-display {
+        left: 0;
+        margin-left: 5vw;
+        margin-right: 5vw;
+        margin-top: 20vh;
+        font-size: 1rem;
+        max-width: 85vw !important;
+        width: unset;
+    }
+    .leaflet-top.leaflet-right .info {
+      top: unset;
+      right: 39vw;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    header {
+        height:70px;
+    }
+
+    #back_arrow {
+        padding: 20px!important;
+    }
+
+    .logo {
+        padding-top: .5em;
+    }
+
+    .container {
+        margin: auto;
+        max-width: 996px;
+    }
+
+    .location_content {
+        font-size: large;
+    }
+    .container .location_content {
+      margin-top: 15vh;
+    }
+    .leaflet-top.leaflet-right .info {
+      top: 25vh;
+      right: 25vw;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .container .location_content {
+      margin-top: 25vh;
+    }
+    .leaflet-top.leaflet-right .info {
+      top: 33vh;
+    }
+}
