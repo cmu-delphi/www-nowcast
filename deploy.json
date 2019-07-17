@@ -79,6 +79,12 @@
       "match": "^.*\\.js$",
       "add-header-comment": true
     },
+    {
+      "type": "move",
+      "src": "site/vendor/",
+      "dst": "/var/www/html/nowcast/vendor/",
+      "match": "^.*\\.js$",
+    },
 
     "// mobile app resources",
     {
