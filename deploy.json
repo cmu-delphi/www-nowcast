@@ -1,0 +1,77 @@
+{
+  "type": "delphi deploy config",
+  "version": 1,
+  "actions": [
+
+    "// access control",
+    {
+      "type": "move",
+      "src": "site/.htaccess",
+      "dst": "/var/www/html/nowcast/.htaccess",
+      "add-header-comment": true
+    },
+
+    "// minimization",
+    {
+      "type": "minimize-js",
+      "src": "site/js/fetchData.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/delphi_epidata.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/map-app.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/pseudocode.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-census-regions.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-cities-up.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-counties-up.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-hhs-regions.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-national.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-states.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-states-up.js"
+    },
+
+    "// web sources",
+    {
+      "type": "move",
+      "src": "site/",
+      "dst": "/var/www/html/nowcast/",
+      "match": "^.*\\.(html|css|js)$",
+      "add-header-comment": true
+    },
+
+    "// images",
+    {
+      "type": "move",
+      "src": "site/images/",
+      "dst": "/var/www/html/nowcast/images/",
+      "match": "^.+\\.(svg|jpg|png|gif)$"
+    },
+  ]
+}
