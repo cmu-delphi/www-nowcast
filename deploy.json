@@ -19,11 +19,7 @@
     {
       "type": "minimize-js",
       "src": "site/js/delphi_epidata.js"
-    },
-    {
-      "type": "minimize-js",
-      "src": "site/js/map-app.js"
-    },
+    }, 
     {
       "type": "minimize-js",
       "src": "site/js/pseudocode.js"
