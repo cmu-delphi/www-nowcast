@@ -87,11 +87,25 @@
       "match": "^.*\\.js$",
       "add-header-comment": true
     },
+
+    "// vendor files",
     {
       "type": "move",
-      "src": "site/vendor/",
-      "dst": "/var/www/html/nowcast/vendor/",
-      "match": "^.*\\.js$"
+      "src": "site/vendor/d3/",
+      "dst": "/var/www/html/nowcast/vendor/d3",
+      "match": "^.+\\.(css|js)$"
+    },
+    {
+      "type": "move",
+      "src": "site/vendor/jquery/",
+      "dst": "/var/www/html/nowcast/vendor/jquery",
+      "match": "^.+\\.(js)$"
+    },
+    {
+      "type": "move",
+      "src": "site/vendor/leaflet/",
+      "dst": "/var/www/html/nowcast/vendor/leaflet",
+      "match": "^.+\\.(css|js)$"
     },
 
     "// mobile app resources",
