@@ -8,7 +8,7 @@
       "type": "move",
       "src": "site/.htaccess",
       "dst": "/var/www/html/nowcast/.htaccess",
-      "add-header-comment": false
+      "add-header-comment": true
     },
 
     "// minimization",
@@ -90,7 +90,7 @@
     {
       "type": "move",
       "src": "site/manifest.json",
-      "dst": "/var/www/html/nowcast/"
+      "dst": "/var/www/html/nowcast/manifest.json"
     },
 
     "// images",
