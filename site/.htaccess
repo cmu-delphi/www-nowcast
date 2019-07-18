@@ -4,7 +4,9 @@ AuthBasicProvider file
 AuthUserFile /var/www/passwords
 #Require valid-user
 
-AllowOverride Options=Indexes
+<Directory "/var/www/html/nowcast/">
+  AllowOverride Options=Indexes
+</Directory>
 
 RewriteEngine On
 ### HTTPS
