@@ -549,11 +549,6 @@ a.details-tips {
     /* max-width: 100%; */
 }
 
-#chart, #chart svg, #chart rect #chart g {
-    overflow-x: scroll;
-    overflow-y: hidden;
-}
-
 .sources {
     text-align: justify;
 }
@@ -635,6 +630,10 @@ a.details-tips {
     .leaflet-top.leaflet-right .info {
       top: unset;
       right: 39vw;
+    }
+    #chart, #chart svg, #chart rect #chart g {
+        overflow-x: scroll;
+        overflow-y: hidden;
     }
 }
 
