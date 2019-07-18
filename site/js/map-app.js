@@ -26,7 +26,7 @@
 *               License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
 */
 
-"use strict";
+//"use strict";
 
 // States as ordered in us-states-up, as used by map
 var STATESUP = ["AZ", "AR", "CA", "CO", "CT", "DC", "GA", "HI",
