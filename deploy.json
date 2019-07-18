@@ -34,7 +34,15 @@
     },
     {
       "type": "minimize-js",
+      "src": "site/js/geodata/us-cities-test.js"
+    },
+    {
+      "type": "minimize-js",
       "src": "site/js/geodata/us-cities-up.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/js/geodata/us-cities.js"
     },
     {
       "type": "minimize-js",
@@ -91,6 +99,13 @@
       "type": "move",
       "src": "site/manifest.json",
       "dst": "/var/www/html/nowcast/manifest.json"
+    },
+
+    "// robots",
+    {
+      "type": "move",
+      "src": "site/robots.txt",
+      "dst": "/var/www/html/nowcast/robots.txt"
     },
 
     "// images",
