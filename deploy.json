@@ -19,7 +19,7 @@
     {
       "type": "minimize-js",
       "src": "site/js/delphi_epidata.js"
-    }, 
+    },
     {
       "type": "minimize-js",
       "src": "site/js/pseudocode.js"
@@ -80,6 +80,13 @@
       "type": "move",
       "src": "site/js/",
       "dst": "/var/www/html/nowcast/js/",
+      "match": "^.*\\.js$",
+      "add-header-comment": true
+    },
+    {
+      "type": "move",
+      "src": "site/js/",
+      "dst": "/var/www/html/nowcast/js/geodata/",
       "match": "^.*\\.js$",
       "add-header-comment": true
     },
