@@ -4,10 +4,6 @@ AuthBasicProvider file
 AuthUserFile /var/www/passwords
 #Require valid-user
 
-<Directory "/var/www/html/nowcast/">
-  AllowOverride Options=Indexes
-</Directory>
-
 RewriteEngine On
 ### HTTPS
 
@@ -19,24 +15,23 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 #Error Handling - 404 page for all error pages:
 ErrorDocument 404 https://delphi.midas.cs.cmu.edu/nowcast/
 
-## EXPIRES CACHING ##
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/jpg "access plus 1 year"
-ExpiresByType image/jpg "access plus 1 year"
-ExpiresByType image/jpeg "access plus 1 year"
-ExpiresByType image/gif "access plus 1 year"
-ExpiresByType image/png "access plus 1 year"
-ExpiresByType image/x-icon "access plus 1 year"
-ExpiresByType text/css "access plus 1 month"
-ExpiresByType text/javascript "access plus 1 month"
-ExpiresByType text/x-javascript "access plus 1 month"
-ExpiresByType text/html "access plus 1 day"
-ExpiresByType application/pdf "access plus 1 year"
-ExpiresByType application/x-shockwave-flash "access plus 1 year"
-ExpiresDefault "access plus 1 month"
-</IfModule>
-## EXPIRES CACHING ##
+
+## Expires Caching ##
+# match all these file types, regardless of upper/lowercase
+<FilesMatch "\.(?i:jpg|png|gif|js|css)$">
+    # 60 seconds * 60 minutes * 24 hours * 7 days
+    Header set Cache-Control "max-age=604800, public, must-revalidate"
+
+    # alternative: never expire headers (do look up the caveats)
+    # Header set Expires "Thu, 01 Jan 2030 08:08:00 GMT"
+    # Header set Cache-Control "public, no-transform"
+
+    # further (debatable) optimizations
+    # FileETag None
+    # Header unset ETag
+    # Header unset Last-Modified
+</FilesMatch>
+## Expires Caching ## 
 
 # Disable Etags
 Header unset ETag
