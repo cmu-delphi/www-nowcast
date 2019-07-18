@@ -26,6 +26,14 @@
     },
     {
       "type": "minimize-js",
+      "src": "site/vendor/d3/d3-timeseries.js"
+    },
+    {
+      "type": "minimize-js",
+      "src": "site/vendor/leaflet/leaflet.js"
+    },
+    {
+      "type": "minimize-js",
       "src": "site/js/geodata/us-census-regions.js"
     },
     {
@@ -109,6 +117,12 @@
       "src": "site/vendor/leaflet/",
       "dst": "/var/www/html/nowcast/vendor/leaflet",
       "match": "^.+\\.(css|js)$"
+    },
+    {
+      "type": "move",
+      "src": "site/vendor/leaflet/images/",
+      "dst": "/var/www/html/nowcast/vendor/leaflet/images",
+      "match": "^.+\\.(svg|jpg|png|gif)$"
     },
 
     "// mobile app resources",
