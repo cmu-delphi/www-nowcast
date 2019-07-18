@@ -1,3 +1,9 @@
+AuthType Basic
+AuthName "Restricted Site"
+AuthBasicProvider file
+AuthUserFile /var/www/passwords
+#Require valid-user
+
 RewriteEngine On
 ### HTTPS
 
@@ -30,7 +36,7 @@ ExpiresDefault "access plus 1 month"
 
 # Disable Etags
 Header unset ETag
-FileETag None 
+FileETag None
 
 <IfModule mod_deflate.c>
     <filesMatch "\.(js|css|html|php|svg|htm|xml|json)$">
