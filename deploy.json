@@ -85,7 +85,7 @@
     },
     {
       "type": "move",
-      "src": "site/js/",
+      "src": "site/js/geodata/",
       "dst": "/var/www/html/nowcast/js/geodata/",
       "match": "^.*\\.js$",
       "add-header-comment": true
