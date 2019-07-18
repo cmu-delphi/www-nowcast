@@ -3,3 +3,51 @@ AuthName "Restricted Site"
 AuthBasicProvider file
 AuthUserFile /var/www/passwords
 #Require valid-user
+
+RewriteEngine On
+### HTTPS
+
+# Ensure https
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#Error Handling - 404 page for all error pages:
+ErrorDocument 404 https://delphi.midas.cs.cmu.edu/nowcast/
+
+
+## Expires Caching ##
+# match all these file types, regardless of upper/lowercase
+<FilesMatch "\.(?i:jpg|png|gif|js|css)$">
+    # 60 seconds * 60 minutes * 24 hours * 7 days
+    Header set Cache-Control "max-age=604800, public, must-revalidate"
+
+    # alternative: never expire headers (do look up the caveats)
+    # Header set Expires "Thu, 01 Jan 2030 08:08:00 GMT"
+    # Header set Cache-Control "public, no-transform"
+
+    # further (debatable) optimizations
+    # FileETag None
+    # Header unset ETag
+    # Header unset Last-Modified
+</FilesMatch>
+## Expires Caching ##
+
+# Disable Etags
+Header unset ETag
+FileETag None
+
+<IfModule mod_deflate.c>
+    <filesMatch "\.(js|css|html|php|svg|htm|xml|json)$">
+        SetOutputFilter DEFLATE
+    </filesMatch>
+</IfModule>
+
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} ^.*(AhrefsBot|PhantomJS|SeznamBot|BLEXBot|archive.org_bot|crawl|SeznamBot).*$ [NC]
+RewriteRule .* - [F,L]
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
