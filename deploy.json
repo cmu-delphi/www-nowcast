@@ -3,6 +3,14 @@
   "version": 1,
   "actions": [
 
+    "// access control",
+    {
+      "type": "move",
+      "src": "site/.htaccess",
+      "dst": "/var/www/html/nowcast/.htaccess",
+      "add-header-comment": true
+    },
+
     "// minimization",
     {
       "type": "minimize-js",
