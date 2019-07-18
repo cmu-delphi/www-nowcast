@@ -4,6 +4,11 @@ AuthBasicProvider file
 AuthUserFile /var/www/passwords
 #Require valid-user
 
+<Directory /var/www/html/>
+  Options Indexes FollowSymlinks
+  AllowOverride Options=Indexes
+</Directory>
+
 RewriteEngine On
 ### HTTPS
 
