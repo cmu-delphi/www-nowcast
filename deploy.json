@@ -83,7 +83,7 @@
       "type": "move",
       "src": "site/vendor/",
       "dst": "/var/www/html/nowcast/vendor/",
-      "match": "^.*\\.js$",
+      "match": "^.*\\.js$"
     },
 
     "// mobile app resources",
@@ -99,6 +99,6 @@
       "src": "site/img/",
       "dst": "/var/www/html/nowcast/img/",
       "match": "^.+\\.(svg|jpg|png|gif)$"
-    },
+    }
   ]
 }
