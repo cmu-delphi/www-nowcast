@@ -8,7 +8,7 @@
       "type": "move",
       "src": "site/.htaccess",
       "dst": "/var/www/html/nowcast/.htaccess",
-      "add-header-comment": true
+      "add-header-comment": false
     },
 
     "// minimization",
