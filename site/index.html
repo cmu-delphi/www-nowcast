@@ -1,325 +1,151 @@
-<!DOCTYPE html>
-<!-- [if startif]
-/*!
-* ILY Nearby | Influenza-like Illness Nearby
-* @authors:
-    David Farrow, PhD | Computational Biology Department | Carnegie Mellon University
-    Roberto Iriondo | Machine Learning Department, Carnegie Mellon University
-    Bryan Learn | Pittsburgh Supercomputing Center | Computer Science Department, Carnegie Mellon University
-    Delphi Research Group | Carnegie Mellon University
-* @author-url: https://delphi.midas.cs.cmu.edu/
-* @copyright: Delphi Research Group | Carnegie Mellon University | All Rights Reserved
-* @description: Data visualization web application that uses machine learning, data analytics,
-*               and crowd-sourcing methods to generate geographically detailed real-time
-*               estimates (nowcasts) of influenza-like-illness in the United States.
-* @acknowledgements:
-*               Map application powered by Leaflet - a library for interactive maps.
-*               https://leafletjs.com - (c) Vladimir Agafonkin | http://agafonkin.com/en
-*
-*               Data visualization powered by D3.JS - a library for data visualization in javascript.
-*               https://d3js.org/ - (c) Mike Bostock | https://bost.ocks.org/mike/
-*
-*               Map custom tiles provided by Thundersforest API
-*               Thunderforest is a project by Gravitystorm Limited | https://www.thunderforest.com/contact/
-*
-*               ILI Nearby uses jQuery, jQuery v3.1.1 | (c) jQuery Foundation | jquery.org/license
-*
-*               Icons use: Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
-*               License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
-*/
-[endif] -->
-<html lang="en-us">
-<head>
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114918459-3"></script>
-  <script>'use strict';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-114918459-3');</script>
-  <!-- Leaflet -->
-  <!-- <script id="leaflet" type="text/javascript" src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" rel="preload" crossorigin="anonymous"></script> -->
-  <script id="leaflet" type="text/javascript" src="vendor/leaflet/leaflet.js" rel="preload"></script>
-  <!-- Viewport -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <!-- /Viewport -->
-  <!-- Header SEO -->
-  <title>ILI Nearby|Nowcast Influenza-like Illness in the United States</title>
-  <!-- <link rel="canonical" href="https://delphi.midas.cs.cmu.edu/nowcast/"/> -->
-  <meta name="description" content="ILI Nearby provides geographically detailed real-time estimates (“nowcasts”) of Influenza-Like-Illness in the United States. It fuses estimates from a variety of information sources, both digital and traditional, as well as from computational and crowdsourced models of epidemic dynamics. ILI Nearby has been operational continuously since October 2016 and reflects ongoing advances being made by the Delphi epidemic forecasting research group at Carnegie Mellon University. It has a historical track record of high accuracy as measured against CDC’s “finalized” estimates available after the end of each season."/>
-  <meta name="author" content="Delphi Research Group | Carnegie Mellon University"/>
-  <meta name="keywords" content="influenza right now, flu near you, flu right now, flu near me, influenza near me, influenza today, influenza like illness, influenza summary update, influenza surevillance report, FluView, weekly influenza activity estimates, state epidemiologists, territorial epidemiologists, county epidemiologists, metropolitan epidemiologists, weekly US map of influenza activity"/>
-  <!-- /Header SEO -->
-  <!-- OG:Graph -->
-  <meta property="og:title" content="ILI Nearby|Nowcast Influenza-like Illness in the United States"/>
-  <meta property="og:site_name" content="ILI Nearby|Nowcast Influenza-like Illness in the United States"/>
-  <meta property="og:description" content="ILI Nearby provides geographically detailed real-time estimates (“nowcasts”) of Influenza-Like-Illness in the United States. It fuses estimates from a variety of information sources, both digital and traditional, as well as from computational and crowdsourced models of epidemic dynamics. ILI Nearby has been operational continuously since October 2016 and reflects ongoing advances being made by the Delphi epidemic forecasting research group at Carnegie Mellon University. It has a historical track record of high accuracy as measured against CDC’s “finalized” estimates available after the end of each season."/>
-  <meta property="og:image" name="image" content="https://mldcmu.ai/research/delphi/images/ili-nearby-og-image.jpg"/>
-  <meta property="og:image:alt" content="ILI Nearby | Delphi Research Group | Carnegie Mellon University"/>
-  <meta property="og:image:type" content="image/jpeg"/>
-  <!-- <meta property="og:url" content="https://delphi.midas.cs.cmu.edu/nowcast/"/> -->
-  <meta property="og:type" content="website"/>
-  <!-- FB:OG -->
-  <meta property="fb:app_id" content="514708449041796"/>
-  <meta property="fb:pages" content="1950839991861836"/>
-  <meta property="fb:admins" content="654417927"/>
-  <meta property="fb:profile_id" content="654417927"/>
-  <!-- Twitter Summary -->
-  <meta name="twitter:site" content="@mldcmu"/>
-  <meta name="twitter:creator" concent="@mldcmu"/>
-  <meta name="twitter:title" content="ILI Nearby|Nowcast Influenza-like Illness in the United States"/>
-  <meta name="twitter:description" content="ILI Nearby provides geographically detailed real-time estimates (“nowcasts”) of Influenza-Like-Illness in the United States. It fuses estimates from a variety of information sources, both digital and traditional, as well as from computational and crowdsourced models of epidemic dynamics. ILI Nearby has been operational continuously since October 2016 and reflects ongoing advances being made by the Delphi epidemic forecasting research group at Carnegie Mellon University. It has a historical track record of high accuracy as measured against CDC’s “finalized” estimates available after the end of each season."/>
-  <meta name="twitter:image" content="https://mldcmu.ai/research/delphi/images/ili-nearby-og-image.jpg"/>
-  <meta name="twitter:image:alt" content="ILI Nearby | Delphi Research Group | Carnegie Mellon University"/>
-  <meta name="twitter:card" content="summary"/>
-  <!-- Schema.org for Google -->
-  <meta itemprop="name" content="ILI Nearby|Nowcast Influenza-like Illness in the United States"/>
-  <meta itemprop="description" content="ILI Nearby provides geographically detailed real-time estimates (“nowcasts”) of Influenza-Like-Illness in the United States. It fuses estimates from a variety of information sources, both digital and traditional, as well as from computational and crowdsourced models of epidemic dynamics. ILI Nearby has been operational continuously since October 2016 and reflects ongoing advances being made by the Delphi epidemic forecasting research group at Carnegie Mellon University. It has a historical track record of high accuracy as measured against CDC’s “finalized” estimates available after the end of each season."/>
-  <meta itemprop="image" content="https://mldcmu.ai/research/delphi/images/ili-nearby-og-image.jpg"/>
-  <!-- /OG:Graph -->
-  <!-- Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "Website",
-    "name": "ILI Nearby",
-    "alternateName": "ILI Nearby | Influenza-like Illness Near You | Nowcast Influenza-like Illness in the United States",
-    "url": "https://delphi.midas.cs.cmu.edu/nowcast/"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "Product",
-    "name": "ILI Nearby | Influenza Like Illness Near You",
-    "image": "https://mldcmu.ai/research/delphi/images/ili-nearby-og-image.jpg",
-    "description": "ILI Nearby provides geographically detailed real-time estimates (“nowcasts”) of Influenza-Like-Illness in the United States. It fuses estimates from a variety of information sources, both digital and traditional, as well as from computational and crowdsourced models of epidemic dynamics. ILI Nearby has been operational continuously since October 2016 and reflects ongoing advances being made by the Delphi epidemic forecasting research group at Carnegie Mellon University. It has a historical track record of high accuracy as measured against CDC’s “finalized” estimates available after the end of each season.",
-    "brand": "Delphi Research Group | Carnegie Mellon University",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.99",
-      "bestRating": "5",
-      "worstRating": "4",
-      "ratingCount": "137"
-    }
-  }
-  </script>
-  <!-- /Schema -->
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="vendor/leaflet/leaflet.css"  media="none" onload="if(media!='all')media='all'" />
-  <noscript>
-  			<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-  </noscript>
-  <link rel="stylesheet" href="css/main.css" media="none" onload="if(media!='all')media='all'" />
-  <noscript>
-  			<link rel="stylesheet" href="css/main.css" />
-  </noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en" media="all" onload="if(media!='all')media='all'">
-  <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en"/>
-  </noscript>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" media="none" onload="if(media!='all')media='all'">
-  <noscript>
-	      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
-  </noscript>
-  <!-- D3 Stylesheets -->
-  <link rel="stylesheet" href="vendor/d3/d3-timeseries.css" media="none" onload="if(media!='all')media='all'" />
-  <noscript>
-        <link rel="stylesheet" href="js/d3/d3-timeseries.css">
-  </noscript>
-  <!-- /D3 Stylesheets -->
-  <!-- /Stylesheets -->
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json"/>
-  <meta name="theme-color" content="#def0ff"/>
-  <meta name="msapplication-TileColor" content="#def0ff" />
-  <meta name="msapplication-TileImage" content="img/icon-128.png"/>
-  <link href="img/icon-128.png" rel="icon"/>
-  <link href="img/icon-128.png" rel="apple-touch-icon-precomposed"/>
-  <!-- /PWA -->
-  <!-- Robots -->
-  <meta name="robots" content="noarchive"/>
-  <meta name="googlebot" content="noarchive"/>
-  <!-- /Robots -->
-</head>
-<body class="web-app">
-  <div id="loading"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>
-<header>
-    <div class="logo">
-        <a title="ILI Nearby|Geographical detailed real-time estimates (nowcasts) of influenza-like ilness in the US." href="#" target="_self">
-        <svg id="logo" data-name="logo-layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 260.03 271.41" width="48" height="48"><defs><style>.cls-1{fill:url(#linear-gradient);}.cls-2{fill:none;stroke:#076596;stroke-miterlimit:10;stroke-width:4px;}</style><linearGradient id="linear-gradient" x1="12.53" y1="134.38" x2="248.53" y2="134.38" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#38e0c4"/><stop offset="1" stop-color="#619df2"/></linearGradient></defs><title>logo</title><circle class="cls-1" cx="130.53" cy="134.38" r="118"/><polygon class="cls-2" points="109.25 170.83 171.01 98.14 60.61 88.78 109.25 170.83"/><polygon class="cls-2" points="133.04 2.1 53.93 25.84 3.88 91.54 2.01 174.11 49.03 242.01 126.99 269.31 206.1 245.57 256.14 179.87 258.01 97.3 210.99 29.4 133.04 2.1"/><line class="cls-2" x1="121.43" y1="21.58" x2="60.61" y2="88.78"/><line class="cls-2" x1="171.01" y1="98.14" x2="121.43" y2="21.58"/><line class="cls-2" x1="53.93" y1="25.84" x2="121.53" y2="21.14"/><line class="cls-2" x1="210.99" y1="29.4" x2="121.53" y2="21.14"/><line class="cls-2" x1="133.04" y1="2.1" x2="121.53" y2="21.14"/><line class="cls-2" x1="53.93" y1="25.84" x2="60.61" y2="88.78"/><line class="cls-2" x1="3.88" y1="91.54" x2="60.61" y2="88.78"/><line class="cls-2" x1="210.99" y1="29.4" x2="171.01" y2="98.14"/><line class="cls-2" x1="257.98" y1="98.79" x2="240.07" y2="112.43"/><line class="cls-2" x1="210.99" y1="29.4" x2="240.07" y2="112.43"/><line class="cls-2" x1="171.01" y1="98.14" x2="240.07" y2="112.43"/><line class="cls-2" x1="256.14" y1="179.87" x2="240.07" y2="112.43"/><line class="cls-2" x1="171.01" y1="98.14" x2="191" y2="183.31"/><line class="cls-2" x1="256.14" y1="179.87" x2="191" y2="183.31"/><line class="cls-2" x1="240.07" y1="112.43" x2="191" y2="183.31"/><line class="cls-2" x1="109.25" y1="170.83" x2="191" y2="183.31"/><line class="cls-2" x1="60.61" y1="88.78" x2="27.19" y2="174.21"/><line class="cls-2" x1="109.25" y1="170.83" x2="27.19" y2="174.21"/><line class="cls-2" x1="3.88" y1="91.54" x2="27.19" y2="174.21"/><line class="cls-2" x1="2.01" y1="174.11" x2="27.19" y2="174.21"/><line class="cls-2" x1="49.04" y1="242.01" x2="27.19" y2="174.21"/><line class="cls-2" x1="206.1" y1="245.57" x2="191" y2="183.31"/><line class="cls-2" x1="126.99" y1="269.31" x2="113.63" y2="249.4"/><line class="cls-2" x1="49.04" y1="242.01" x2="113.63" y2="249.4"/><line class="cls-2" x1="206.1" y1="245.57" x2="113.63" y2="249.4"/><line class="cls-2" x1="28.38" y1="174.16" x2="113.63" y2="249.4"/><line class="cls-2" x1="191" y1="183.31" x2="113.63" y2="249.4"/><line class="cls-2" x1="109.25" y1="170.83" x2="113.63" y2="249.4"/>
-        </svg>
-        <h1>ILI Nearby</h1>
-        </a>
-    </div>
-    <nav>
-    </nav>
-    <div class="subtitle">
-      <p>Influenza-like illness. &nbsp;&nbsp;Near you. &nbsp;&nbsp;Presently.</p>
-      <p id="dataTimeline">Nowcasting epi-week [##] ([Month] [Day], [Year]-[Month] [Day], [Year])</p><!-- Pull date from API dataTimeline -->
-    </div>
-</header>
-<div class="info app-info">
-    <!-- About page button -->
-    <a class="info-toggle" title ="About ILI Nearby" href="about.html" role="button" aria-label="button">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-    </a>
-    <!-- Refresh button | Full reload -->
-    <a class="info-toggle" href="" title="Refresh Web App" role="button" aria-label="button" value="Refresh Web App" onClick="window.location.reload(true)">
-        <i class="fa fa-refresh" aria-hidden="true"></i>
-    </a>
-    <!-- Tooltip Tips -->
-    <a class="info-toggle show" href="#tips-display" title="Help and Tips" role="button" aria-label="button" value="Tooltip">
-        <i class="fa fa-question" aria-hidden="true"></i>
-    </a>
-    <div id="tips-display">
-      <div class="tips-content">
-        <h3>How to interact with ILI Nearby?</h3>
-        <p>Clicking on the information button <i class="fa fa-info-circle" style="font-size: 22px;"></i> will show useful information regarding ILI Nearby.</p>
-        <p>Clicking on the refresh button <i class="fa fa-refresh" style="font-size: 22px;"></i> will refresh ILI Nearby's web application.</p>
-        <p>Clicking on the question button <i class="fa fa-question" style="font-size: 22px;"></i> will show useful help and tips regarding ILI Nearby.</p>
-        <p>Clicking on the layer's button <i class="leaflet-control-layers-toggle" style="display: inline-block; height: 22px; width: 22px;"></i> will show ILI Nearby's map layers.</p>
-        <p>After clicking on a map area, click on show details → <a class="details-tips"><svg id="details-icon" aria-hidden="true" data-prefix="fas" data-icon="analytics" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-analytics fa-w-18 fa-fw fa-lg"><path fill="currentColor" d="M510.62 92.63C516.03 94.74 521.85 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 2.43.37 4.76.71 7.09l-95.34 76.27c-5.4-2.11-11.23-3.37-17.38-3.37s-11.97 1.26-17.38 3.37L255.29 55.1c.35-2.33.71-4.67.71-7.1 0-26.51-21.49-48-48-48s-48 21.49-48 48c0 4.27.74 8.34 1.78 12.28l-101.5 101.5C56.34 160.74 52.27 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-4.27-.74-8.34-1.78-12.28l101.5-101.5C199.66 95.26 203.73 96 208 96c6.15 0 11.97-1.26 17.38-3.37l95.34 76.27c-.35 2.33-.71 4.67-.71 7.1 0 26.51 21.49 48 48 48s48-21.49 48-48c0-2.43-.37-4.76-.71-7.09l95.32-76.28zM400 320h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm160-128h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-320 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zM80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16z" class=""></path></svg></a> to view the region's detailed values.</p>
-        <a title="Close tips section." class="tips-close close"><i class="fa fa-close"></i></a>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{STRING_TITLE_TEXT}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="theme-color" content="{COLOR_THEME}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="pages">
+      <div class="page p1">
+        <div class="splash">
+          <div class="title_infolink">
+            <div class="title_big shadow">
+              {STRING_TITLE_HTML}
+            </div>
+            <div id="top_info_icon"><a href="about.html"><i class="fa fa-info-circle" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="divider"></div>
+          <div class="subtitle shadow">
+             {STRING_SUBTITLE_HTML}
+          </div>
+          <div id="dataTimeline" class="subtitle_second shadow"></div>
+        </div>
+        <div id="map_container">
+          <div id="map_list">
+            <h2 id="map_list_header">Areas</h2>
+            <div class="divider"></div>
+            <ul id="map_list_lists"></ul>
+          </div>
+          <canvas id="canvas_map"></canvas>
+          <div id="accurate_not">
+            <a href="about.html#HOW_ACCURATE" style="text-decoration: none"><i class=" fa fa-question-circle"></i> How accurate is this</a>
+          </div>
+          <div id="map_controls">
+            <div id="button_view_nat" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;US National</div>
+            <div id="button_view_hhs" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;HHS Regions</div>
+            <div id="button_view_cen" class="map_control_item button_group0"><i class="fa fa-circle-o" aria-hidden="true"></i>&nbsp;Census Regions</div>
+            <div id="button_view_sta" class="map_control_item button_group0"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;States</div>
+            <div class="map_control_divider divider"></div>
+            <div id="button_zoom_in" class="map_control_item"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Zoom In</div>
+            <div id="button_zoom_out" class="map_control_item"><i class="fa fa-search-minus" aria-hidden="true"></i>&nbsp;Zoom Out</div>
+          </div>
+         </div>
+      </div>
+      <div class="page p2">
+        <div class="navbar">
+          <div id="back_arrow"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{STRING_TITLE_HTML}</div>
+          <div><a href="about.html"><i class="fa fa-info-circle" aria-hidden="true"></i></a></div>
+        </div>
+        <div class="location_content">
+          <div class="location_left">
+            <div class="location_name_info">
+              <div id="location_name"></div>
+              <div id="location_heart0" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/heart0.svg"  alt="{HEART_DES_N}" title="{HEART_DES_N}"></a>
+              </div>
+              <div id="location_heart1" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/heart1.svg"  alt="{HEART_DES_Y}" title="{HEART_DES_Y}"></a>
+              </div>
+              <div id="location_star0" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/star0.svg"  alt="{STAR_DES_N}" title="{STAR_DES_N}"></a>
+              </div>
+              <div id="location_star1" class="achievement_holder_top">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/star1.svg"  alt="{STAR_DES_Y}" title="{STAR_DES_Y}"></a>
+              </div>
+            </div>
+            <div class="location_icons">
+              <p class="sources">{SOURCES}</p>
+              <div id="location_google0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/google0.svg"  alt="{GOOGLE_DES_N}" title="{GOOGLE_DES_N}"></a>
+              </div>
+              <div id="location_google1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/google1.svg"  alt="{GOOGLE_DES_Y}" title="{GOOGLE_DES_Y}"></a>
+              </div>
+              <div id="location_twitter0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/twitter0.svg"  alt="{TWITTER_DES_N}" title="{TWITTER_DES_N}"></a>
+              </div>
+              <div id="location_twitter1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/twitter1.svg"  alt="{TWITTER_DES_Y}" title="{TWITTER_DES_Y}"></a>
+              </div>
+              <div id="location_wiki0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/wiki0.svg"  alt="{WIKI_DES_N}" title="{WIKI_DES_N}"></a>
+              </div>
+              <div id="location_wiki1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/wiki1.svg"  alt="{WIKI_DES_Y}" title="{WIKI_DES_Y}"></a>
+              </div>
+              <div id="location_cdc0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/cdc0.svg"  alt="{CDC_DES_N}" title="{CDC_DES_N}"></a>
+              </div>
+              <div id="location_cdc1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/cdc1.svg"  alt="{CDC_DES_Y}" title="{CDC_DES_Y}"></a>
+              </div>
+              <div id="location_epicast0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/epicast0.svg"  alt="{EPICAST_DES_N}" title="{EPICAST_DES_N}"></a>
+              </div>
+              <div id="location_epicast1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/epicast1.svg"  alt="{EPICAST_DES_Y}" title="{EPICAST_DES_Y}"></a>
+              </div>
+              <div id="location_arch0" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/arch0.svg"  alt="{ARCH_DES_N}" title="{ARCH_DES_N}"></a>
+              </div>
+              <div id="location_arch1" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/arch1.svg"  alt="{ARCH_DES_Y}" title="{ARCH_DES_Y}"></a>
+              </div>
+              <div id="location_sar30" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/sar30.svg"  alt="{SAR3_DES_N}" title="{SAR3_DES_N}"></a>
+              </div>
+              <div id="location_sar31" class="achievement_holder">
+                <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57"><img src="images/sar31.svg"  alt="{SAR3_DES_Y}" title="{SAR3_DES_Y}"></a>
+              </div>
+            </div>
+            <div class="location_left_bottom">
+              <div id="location_status">
+                <div id="nowcast_label_left" class="status_small"></div>
+                <div id="nowcast_value_left" class="status_large"></div>
+                <div id="state_note_left" class="ili_note">{STATES_NOTE}</div>
+                <div id="hhs_note_left" class="ili_note">{NATIONAL_REGIONS_NOTES}</div>
+              </div>
+            </div>
+          </div>
+          <div class="location_right">
+            <div class="location_right_top">
+              <div id="location_status">
+                <div id="nowcast_label" class="status_small"></div>
+                <div id="nowcast_value" class="status_large"></div>
+                <div id="state_note" class="ili_note">{STATES_NOTE}</div>
+                <div id="hhs_note" class="ili_note">{NATIONAL_REGIONS_NOTES}</div>
+              </div>
+            </div>
+            <div class="location_right_bottom">
+              <canvas id="canvas_chart"></canvas>
+            </div>
+          </div>
+          <div id="loading_icon"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>
+        </div>
       </div>
     </div>
-    <p class="about hidden">ILI Nearby provides geographically detailed real-time estimates (“nowcasts”) of Influenza-Like-Illness in the United States. It fuses estimates from a variety of information sources, both digital and traditional, as well as from computational and crowdsourced models of epidemic dynamics. ILI Nearby has been operational continuously since October 2016 and reflects ongoing advances being made by the Delphi epidemic forecasting research group at Carnegie Mellon University. It has a historical track record of high accuracy as measured against CDC’s “finalized” estimates available after the end of each season.</p>
-</div>
-<!-- Map Application -->
-<div title="Select an area on the map by clicking on it in order to show geographical detailed real-time estimates (nowcasts) of influenza-like illness." id="map"></div>
-<!-- /Map Application -->
-
-<!-- Location Data Page -->
-<div id="api-details-data" class="location-data"><!-- Place into content.html once dynamic URL rewriting has been handled. -->
-  <div id="back_arrow"><a class="color-links" title="Return to web application" href="#" aria-label="button" role="button">
-    <i class="fa fa-arrow-circle-left pr-10"></i>Return to ILI Nearby</a></div>
-  <div class="container">
-    <!--
-    <div class="details-about">
-      <div><a title="Information on ILI Nearby" href="about.html" aria-label="button" role="button"><i class="fa fa-info-circle" aria-hidden="true"></i></a></div>
-    </div>
-    -->
-    <div class="location_content">
-      <div class="location_left">
-        <div class="location_name_info">
-          <div id="location_details">
-            <svg id="location-details-icon" aria-hidden="true" data-prefix="fas" data-icon="analytics" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-analytics fa-w-18 fa-fw fa-lg"><path fill="currentColor" d="M510.62 92.63C516.03 94.74 521.85 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 2.43.37 4.76.71 7.09l-95.34 76.27c-5.4-2.11-11.23-3.37-17.38-3.37s-11.97 1.26-17.38 3.37L255.29 55.1c.35-2.33.71-4.67.71-7.1 0-26.51-21.49-48-48-48s-48 21.49-48 48c0 4.27.74 8.34 1.78 12.28l-101.5 101.5C56.34 160.74 52.27 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-4.27-.74-8.34-1.78-12.28l101.5-101.5C199.66 95.26 203.73 96 208 96c6.15 0 11.97-1.26 17.38-3.37l95.34 76.27c-.35 2.33-.71 4.67-.71 7.1 0 26.51 21.49 48 48 48s48-21.49 48-48c0-2.43-.37-4.76-.71-7.09l95.32-76.28zM400 320h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm160-128h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-320 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zM80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16z" class=""></path></svg>
-            <div id="location_name">[Location]</div>
-          </div>
-          <!-- Location name gets populated here. -->
-          <div id="location_heart0" class="achievement_holder_top">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/heart0.svg"  alt="This state hasn't yet permitted us to use its CDC-reported ILI data." title="This state hasn't yet permitted us to use its CDC-reported ILI data."></a>
-          </div>
-          <div id="location_heart1" class="achievement_holder_top">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/heart1.svg"  alt="This state's DoH permitted us to use its CDC-reported ILI data, which leads to much more accurate nowcasting. We love you!" title="This state's DoH permitted us to use its CDC-reported ILI data, which leads to much more accurate nowcasting. We love you!"></a>
-          </div>
-          <div id="location_star0" class="achievement_holder_top">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/star0.svg"  alt="This state's DoH doesn't yet post its ILI data online." title="This state's DoH doesn't yet post its ILI data online."></a>
-          </div>
-          <div id="location_star1" class="achievement_holder_top">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/star1.svg"  alt="This state's DoH posts its ILI data online, which leads to more accurate nowcasting.  Thank you!" title="This state's DoH posts its ILI data online, which leads to more accurate nowcasting.  Thank you!"></a>
-          </div>
-        </div>
-        <div class="location_icons">
-          <p class="sources pr-20">Sources combined<br>to produce this<br>nowcast:</p>
-          <div id="location_google1" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/google1.svg"  alt="ILI-related Google search query data for this area. Thank you Google!" title="ILI-related Google search query data for this area. Thank you Google!"></a>
-          </div>
-          <div id="location_twitter1" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/twitter1.svg"  alt="Twitter-based ILI-related signal for this area. Thank you HealthTweets.org!" title="Twitter-based ILI-related signal for this area. Thank you HealthTweets.org!"></a>
-          </div>
-          <div id="location_wiki1" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/wiki1.svg"  alt="ILI-related Wikipedia access data, but without any geo-tags. Thank you Wikipedia!" title="ILI-related Wikipedia access data, but without any geo-tags. Thank you Wikipedia!"></a>
-          </div>
-          <div id="location_cdc1" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/cdc1.svg"  alt="ILI-related CDC web access data for this area. Thank you CDC!" title="ILI-related CDC web access data for this area. Thank you CDC!"></a>
-          </div>
-          <div id="location_epicast1" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/epicast1.svg"  alt="'wisdom-of-crowds' (Epicast) nowcast for this area. Thank you Epicasters!" title="'wisdom-of-crowds' (Epicast) nowcast for this area. Thank you Epicasters!"></a>
-          </div>
-          <div id="location_arch1" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/arch1.svg"  alt="Kalman Filter based prediction for this area, by the Delphi group." title="Kalman Filter based prediction for this area, by the Delphi group."></a>
-          </div>
-          <div id="location_sar31" class="achievement_holder">
-            <a href="http://delphi.midas.cs.cmu.edu/~dfarrow/thesis.pdf#page=57" target="_blank" rel="noopener"><img src="img/sar31.svg"  alt="Auto-regressive based prediction for this area, by the Delphi group." title="Auto-regressive based prediction for this area, by the Delphi group."></a>
-          </div>
-        </div>
-      </div>
-      <div class="location_right">
-        <div class="location_right_top">
-          <div id="location_status">
-            <div id="nowcast_label" class="status_small">ILI nowcast for [location] for epi-week [week-number]</div><!-- ILI nowcast for [location] for epi-week [week-number] -->
-            <div id="nowcast_value" class="status_large">(value ± std)%</div><!-- (value ± standard-deviation)% -->
-            <!-- <div id="state_note" class="ili_note">(Use the left/right arrows to navigate to other weeks)</div> -->
-            <div id="hhs_note" class="ili_note">NOTE: final wILI values are not known to CDC until July, due to lagging reports ('backfill').</div><!-- display:none -->
-          </div>
-        </div>
-        <div class="location_right_bottom">
-          <div id="chart"></div>
-          <!-- <canvas id="canvas_chart"></canvas> --> <!-- Draw Generated data for specific [location] -->
-        </div>
-      </div>
-      <!-- <div id="loading_icon"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div> -->
-      <!-- Once data is generated add css: display:none to #loading_icon -->
-    </div>
-  </div>
-</div>
-<!-- /Location Data Page -->
-
-<!-- Scripts -->
-  <!-- Moved Leaflet script to head due to issues with re-loading in order once cached -->
-  <script id="jquery" type="text/javascript" src="vendor/jquery/jquery-3.3.1.min.js"></script>
-  <script id="data-api" type="text/javascript" src="js/delphi_epidata.js"></script>
-  <!-- GeoJson Data -->
-  <script id="us-states" src="js/geodata/us-states-up.js" defer></script>
-  <script id="us-cities" src="js/geodata/us-cities.js" defer></script>
-  <script id="us-counties" src="js/geodata/us-counties-up.js" defer></script>
-  <script id="us-national" src="js/geodata/us-national.js" defer></script>
-  <script id="us-hhs-regions" src="js/geodata/us-hhs-regions.js" defer></script>
-  <script id="us-census-regions" src="js/geodata/us-census-regions.js" defer></script>
-  <!-- /GeoJson Data -->
-  <!-- Map Application -->
-  <script id="map-application" type="text/javascript" src="js/map-app.js" defer></script>
-  <!--  /Map Application -->
-  <!-- d3 -->
-  <script id="d3-script" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js" defer></script>
-  <script id="d3-timeseries" type="text/javascript" src="vendor/d3/d3-timeseries.js" defer></script>
-  <script id="fetch-d3-timeseries" type="text/javascript" src="js/fetchData.js" defer></script>
-  <!-- Experimental -->
-  <!-- <script id="experimental" type="text/javascript" src="js/pseudocode.js" defer></script> -->
-  <!-- /Experimental -->
-  <!-- /d3 -->
-  <!-- Call App & API -->
-  <script>
-  var $ = jQuery;
-  $(document).ready(function() {
-    //Call Application
-    $(function() { window.app = new App(); });
-    // Help & tips toggler
-    $(function() {
-      $('.close').click(function(){
-          $('#tips-display').hide();
-          setDisplayValue();
-      });
-      $('.show').click(function(){
-          $('#tips-display').show();
-          setDisplayValue();
-      });
-    });
-    function setDisplayValue() {
-      var display = $('#tips-display')[0].style.display;
-      $('.displayvalue').text(display);
-    }
-    //Loading icon
-    $('#loading').fadeOut(1000);
-    setTimeout(function(){
-       $('#tips-display').show();// or fade, css display however you'd like.
-    }, 5000);
-  });
-  </script>
-  <!-- /Call APP & API -->
-  <!-- FB App -->
-  <script async id="facebook-jssdk" src="https://mldcmu.ai/js/fb_sdk.js"></script>
-  <script>'use strict';window.fbAsyncInit=function(){FB.init({appId:'514708449041796',xfbml:!0,version:'v3.0'}),FB.AppEvents.logPageView()},function(a,b,c){var e,f=a.getElementsByTagName(b)[0];a.getElementById(c)||(e=a.createElement(b),e.id=c,e.src='https://mldcmu.ai/js/fb_sdk.js',f.parentNode.insertBefore(e,f))}(document,'script','facebook-jssdk');</script>
-  <!-- /FB App -->
-<!-- /Scripts -->
-</body>
-<script>'use strict';'serviceWorker'in navigator&&navigator.serviceWorker.register('sw.js').then(function(){console.log('ServiceWorker registered sucessfully.')}).catch(function(a){console.log('Registration was not successful, further details:',a)});</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/epidata/lib/delphi_epidata.min.js"></script>
+    <script type="text/javascript" src="geodata.js"></script>
+    <script type="text/javascript" src="baselinedata.js"></script>
+    <script type="text/javascript" src="nonInfluenzaWeekData.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+      $(document).ready(function() { window.app = new App(); });
+    </script>
+  </body>
 </html>
