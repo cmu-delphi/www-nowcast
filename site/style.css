@@ -122,27 +122,27 @@ a:active {
 .map_list_element {
   border-bottom: 1px solid #ccc;
 }
-::-webkit-scrollbar { 
-    display: none; 
+::-webkit-scrollbar {
+    display: none;
 }
 .map_list_element:last-child {
   border: none;
 }
- 
+
 .map_list_element a {
   text-align: center;
   text-decoration: none;
   color: #eee;
   display: block;
   width: 200px;
- 
+
   -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
   -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
   -o-transition: font-size 0.3s ease, background-color 0.3s ease;
   -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
   transition: font-size 0.3s ease, background-color 0.3s ease;
 }
- 
+
 .map_list_element a:hover {
   font-size: 20px;
   cursor: pointer;
@@ -351,6 +351,7 @@ p.text_footer:hover {
 #location_status {
 }
 .ili_note {
+  display: none;
   font-style: italic;
   font-size: 2.5vh;
   text-align: center;
