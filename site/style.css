@@ -418,6 +418,27 @@ p.text_footer:hover {
   align-items: center;
   flex-direction: column;
 }
+
+/* Additions */
+.announcement {
+    background: #a60;
+    padding: 10px 20px;
+}
+
+.announcement h2 {
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-align: justify;
+}
+
+.fa-warning {
+  padding-right: 10px;
+}
+
+/* /Additions */
+
 @media screen and (min-aspect-ratio: 1/1) and (orientation: portrait) {
   .location_content {
     flex-direction: column;
