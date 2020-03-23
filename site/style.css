@@ -437,6 +437,14 @@ p.text_footer:hover {
   padding-right: 10px;
 }
 
+a.close {
+    float: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 24px;
+    text-decoration: none;
+} 
+
 /* /Additions */
 
 @media screen and (min-aspect-ratio: 1/1) and (orientation: portrait) {
