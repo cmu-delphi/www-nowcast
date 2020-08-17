@@ -290,7 +290,7 @@ Epidata_fluview_single = (handler, location, epiweeks) ->
 
 Epidata_nowcast_single = (handler, location) ->
   if Epidata?.nowcast?
-    Epidata.nowcast(handler, location, '201130-202030')
+    Epidata.nowcast(handler, location, '201130-202430')
   else
     fakeData = (getFakeRow(location, i) for i in [0...280])
     callback = () -> handler(1, 'debug', fakeData)
