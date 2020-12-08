@@ -1,0 +1,13 @@
+{
+    "name": "www-nowcast",
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "coffeescript": "^2.5.1",
+        "glob": "^7.1.6",
+        "terser": "^5.5.1"
+    },
+    "scripts": {
+        "build": "node build.js"
+    }
+}

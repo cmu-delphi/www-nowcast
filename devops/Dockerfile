@@ -1,0 +1,8 @@
+FROM node:lts-buster AS builder
+WORKDIR /src
+COPY . /src
+RUN npm ci && npm run build
+
+FROM httpd:alpine
+COPY --from=builder /src/build /usr/local/apache2/htdocs/
+COPY ./devops/.htaccess /usr/local/apache2/htdocs/
