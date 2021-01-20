@@ -1,0 +1,12 @@
+{
+    "name": "www-nowcast",
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "delphi-cmu-buildtools": "github:sgratzl/delphi-cmu-buildtools"
+    },
+    "scripts": {
+        "build": "node build.js",
+        "image": "docker build -t www-nowcast:latest --file ./devops/Dockerfile ."
+    }
+}
